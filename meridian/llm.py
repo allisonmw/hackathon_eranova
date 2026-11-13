@@ -97,6 +97,7 @@ AUDIENCE_BY_KIND = {
     "HOLD_RECONFIRM": "customer",
     "QUOTE_EXPIRING": "customer",
     "LOW_MARGIN": "internal",
+    "LATE_ETA": "carrier",
 }
 
 RISK_SYSTEM = """You help a busy freight broker act on flagged loads.

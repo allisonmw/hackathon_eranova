@@ -10,7 +10,7 @@ from datetime import date
 from typing import Callable, Literal
 
 from . import client, llm, risk_rules
-from .models import RiskItem
+from .models import RiskItem, TrackingStatus
 from .risk_rules import RiskContext
 
 StepFn = Callable[[str], None]
@@ -20,7 +20,9 @@ def _noop(_: str) -> None:
     pass
 
 
-def gather(today: date | None = None, on_step: StepFn = _noop) -> RiskContext:
+def gather(today: date | None = None, on_step: StepFn = _noop,
+           tracking: dict[str, TrackingStatus] | None = None) -> RiskContext:
+    """`tracking`: statuses from meridian.tracking (the simulated feed today), for the LATE_ETA rule."""
     def data(name: str, res: dict) -> list:
         """A failed read becomes an empty list, but is reported, so a partial scan never looks clean."""
         if res["ok"]:
@@ -39,6 +41,7 @@ def gather(today: date | None = None, on_step: StepFn = _noop) -> RiskContext:
         facilities={f["facility_id"]: f for f in data("facilities", client.list_facilities())},
         customers={c["customer_id"]: c for c in data("customers", client.list_customers())},
         quotes=data("quoted quotes", client.list_quotes("QUOTED")) + data("sent quotes", client.list_quotes("SENT")),
+        tracking=tracking or {},
     )
 
 
@@ -46,8 +49,11 @@ def rank(items: list[RiskItem]) -> list[RiskItem]:
     return sorted(items, key=lambda it: it.score, reverse=True)
 
 
-def scan(top_n: int = 10, today: date | None = None, on_step: StepFn = _noop) -> list[RiskItem]:
-    ctx = gather(today, on_step)
+def scan(top_n: int = 10, today: date | None = None, on_step: StepFn = _noop,
+         tracking: dict[str, TrackingStatus] | None = None) -> list[RiskItem]:
+    ctx = gather(today, on_step, tracking)
+    if tracking:
+        on_step(f"Using tracking for {len(tracking)} trucks")
     on_step("Running risk rules")
     items = rank(risk_rules.run_all(ctx))
     on_step(f"Writing explanations for the top {min(top_n, len(items))}")

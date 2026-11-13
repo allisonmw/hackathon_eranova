@@ -13,7 +13,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import date
 
-from .models import RiskItem, Severity
+from .geo import fmt_local
+from .models import RiskItem, Severity, TrackingStatus
 
 DEFAULT_MARGIN_FLOOR = 18.0   # API default when a customer has no margin_floor_pct (same as pricing.py)
 PRE_PICKUP = {"BOOKED", "COVERED", "DISPATCHED", "AT_PICKUP"}
@@ -29,6 +30,7 @@ class RiskContext:
     facilities: dict[str, dict] = field(default_factory=dict)   # by facility_id
     customers: dict[str, dict] = field(default_factory=dict)    # by customer_id
     quotes: list[dict] = field(default_factory=list)            # QUOTED + SENT
+    tracking: dict[str, TrackingStatus] = field(default_factory=dict)   # by shipment_id (meridian.tracking)
 
 
 # --------------------------------------------------------------------------- helpers
@@ -405,6 +407,53 @@ def low_margin(ctx: RiskContext) -> list[RiskItem]:
     return items
 
 
+def late_eta(ctx: RiskContext) -> list[RiskItem]:
+    """Tracking says the truck will miss its delivery deadline.
+    LATE and either misses the MABD or is >2 h past the window -> HIGH; other LATE or AT_RISK -> MEDIUM."""
+    by_id = {str(s["shipment_id"]): s for s in ctx.shipments}
+    items = []
+    for sid, st in ctx.tracking.items():
+        if st.status not in ("LATE", "AT_RISK") or st.eta is None:
+            continue
+        misses_mabd = (st.minutes_late_mabd or 0) > 0
+        arrived_late = st.status == "LATE" and st.state == "AT_DELIVERY"
+        severity: Severity = "HIGH" if st.status == "LATE" and (
+            arrived_late or misses_mabd or (st.minutes_late or 0) > 120) else "MEDIUM"
+        s = by_id.get(sid, {"shipment_id": sid})
+        late = st.minutes_late or 0
+        if arrived_late:
+            title = f"Arrived {late / 60:.1f} h after the delivery window closed"
+        elif st.status == "LATE":
+            title = f"ETA {late / 60:.1f} h past the delivery window" + (", misses MABD" if misses_mabd else "")
+        elif st.state == "STOPPED" and st.stopped_minutes >= 60 and late <= -120:
+            title = f"Truck stopped {st.stopped_minutes} min"
+        elif late > 0:
+            title = f"ETA {late} min past the window end"
+        else:
+            title = f"Only {-late} min of slack before the window closes"
+        tz_name = st.delivery_tz
+        d = days_until(st.window_end.date().isoformat() if st.window_end else None, ctx.today)
+        items.append(_shipment_item(
+            s,
+            kind="LATE_ETA",
+            severity=severity,
+            score=score(severity, d, s.get("sell_total") or 0),
+            title=title,
+            evidence={"tracking_status": st.status, "truck_state": st.state, "position": st.near,
+                      "as_of": fmt_local(st.at, tz_name), "projected_arrival": fmt_local(st.eta, tz_name),
+                      "window_end": fmt_local(st.window_end, tz_name), "mabd_end": fmt_local(st.mabd_end, tz_name),
+                      "minutes_late": st.minutes_late, "minutes_late_mabd": st.minutes_late_mabd,
+                      "miles_remaining": st.miles_remaining, "stopped_minutes": st.stopped_minutes,
+                      "driver_reported_code": st.event_code, "driving_hours_left": st.hos_drive_hours_left,
+                      "eta_assumptions": st.assumptions, "carrier_id": s.get("carrier_id"),
+                      "data_source": "simulated GPS/ELD feed" if st.simulated else "telematics", "lane": _lane(s)},
+            suggested_action="Rebook the delivery appointment with the receiver and tell the customer" if arrived_late
+                             else "Confirm the ETA and cause with the carrier, then warn the receiver and customer"
+                             if st.status == "LATE" else "Check in with the driver and confirm the ETA",
+        ))
+    return items
+
+
 ALL_RULES = [
     carrier_compliance,
     missing_rate_con,
@@ -415,6 +464,7 @@ ALL_RULES = [
     hold_reconfirm,
     quote_expiring,
     low_margin,
+    late_eta,
 ]
 
 

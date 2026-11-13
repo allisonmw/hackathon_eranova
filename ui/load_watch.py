@@ -6,10 +6,11 @@ import time
 
 import streamlit as st
 
-from meridian import client, risk_playbook
+from meridian import client, geo, risk_playbook
 from meridian.models import RiskItem
 
 from . import state
+from . import tracking as tracking_ui
 from .fake_data import fake_dashboard_tiles, fake_risk_items
 
 SEVERITY_STYLE = {"HIGH": ":red-background[**HIGH**]", "MEDIUM": ":orange-background[**MEDIUM**]", "LOW": ":gray-background[**LOW**]"}
@@ -32,8 +33,14 @@ def _scan() -> None:
                 time.sleep(0.3)
             items, loads = fake_risk_items(), 47
         else:
-            items = risk_playbook.scan(on_step=status.write)
+            # LATE_ETA uses the simulated feed at the sim clock's time. Every other rule reads TMS data as
+            # loaded, so it is judged on the date that data was taken, not the (possibly advanced) sim date.
+            tracked = tracking_ui.current_statuses()
+            statuses, at, data_at = tracked if tracked else ({}, None, None)
+            today = data_at.astimezone(geo.tz(tracking_ui.CLOCK_TZ)).date() if data_at else None
+            items = risk_playbook.scan(on_step=status.write, tracking=statuses, today=today)
             loads = len({it.record_id for it in items})
+            st.session_state.scan_sim_time = at
         secs = time.perf_counter() - t0
         status.update(label=f"Copilot found {len(items)} issues across {loads} loads in {secs:.1f} s", state="complete", expanded=False)
     ss = st.session_state
@@ -104,6 +111,9 @@ def render() -> None:
         _scan()
     if ss.scan_seconds is not None:
         right.markdown(f"**Copilot found {len(ss.risk_items)} issues across {ss.loads_scanned} loads in {ss.scan_seconds:.1f} s.**")
+        if ss.get("scan_sim_time"):
+            right.caption(f"Late-ETA items use the simulated GPS feed as of the sim clock "
+                          f"({geo.fmt_local(ss.scan_sim_time, tracking_ui.CLOCK_TZ)}); other items use the TMS data as loaded.")
 
     if not ss.risk_items:
         st.caption("Click **Scan my loads** to find what needs attention.")

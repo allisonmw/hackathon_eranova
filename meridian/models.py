@@ -4,7 +4,7 @@ Everyone codes against these, so all three can work in parallel.
 Change them only after telling the team.
 """
 
-from datetime import date
+from datetime import date, datetime
 from typing import Literal
 
 from pydantic import BaseModel, Field
@@ -66,7 +66,7 @@ class QuoteProposal(BaseModel):
 
 RiskKind = Literal["CARRIER_COMPLIANCE", "MISSING_RATE_CON", "UNCOVERED_SOON",
                    "TRACKING_OVERDUE", "MABD_RISK", "APPOINTMENT_NEEDED",
-                   "HOLD_RECONFIRM", "QUOTE_EXPIRING", "LOW_MARGIN"]
+                   "HOLD_RECONFIRM", "QUOTE_EXPIRING", "LOW_MARGIN", "LATE_ETA"]
 Severity = Literal["HIGH", "MEDIUM", "LOW"]
 
 
@@ -82,3 +82,55 @@ class RiskItem(BaseModel):
     explanation: str = ""             # filled by the LLM: one plain-English sentence
     draft_message: str = ""           # filled by the LLM: to customer / carrier / internal
     draft_audience: Literal["customer", "carrier", "internal", ""] = ""
+
+
+# --------------------------------------------------------------------------- tracking
+
+TruckState = Literal["NOT_TRACKED", "AT_PICKUP", "MOVING", "STOPPED", "AT_DELIVERY", "DELIVERED"]
+TrackStatus = Literal["ON_TIME", "AT_RISK", "LATE", "DELIVERED", "NOT_TRACKED"]
+
+
+class Ping(BaseModel):
+    """One position report, shaped like a telematics/ELD feed. Today these come from meridian.sim."""
+    shipment_id: str
+    at: datetime                      # UTC
+    lat: float
+    lon: float
+    speed_mph: float = 0.0
+    state: TruckState
+    hos_drive_hours_left: float | None = None   # ELD: driving hours left before a 10 h break
+    hos_available_at: datetime | None = None    # ELD: when an off-duty driver can drive again (UTC)
+    event_code: str | None = None     # driver-reported reason while stopped: late reason code (AI, AO, ...) or HOS
+    simulated: bool = True
+
+
+class TrackingStatus(BaseModel):
+    """Where a load is and whether it will make its deadline, as of `at`."""
+    shipment_id: str
+    at: datetime                      # UTC, the time this status describes
+    state: TruckState
+    status: TrackStatus
+    lat: float | None = None
+    lon: float | None = None
+    near: str = ""                    # e.g. "near Joplin, MO"
+    speed_mph: float = 0.0
+    miles_remaining: float | None = None
+    stopped_minutes: int = 0
+    event_code: str | None = None
+    hos_drive_hours_left: float | None = None
+    eta: datetime | None = None       # projected arrival at the delivery stop (UTC), or actual once there
+    window_end: datetime | None = None  # delivery window end (UTC)
+    mabd_end: datetime | None = None  # end of the must-arrive-by day (UTC)
+    minutes_late: int | None = None   # vs window end; negative = minutes of slack
+    minutes_late_mabd: int | None = None
+    delivery_tz: str | None = None    # facility time zone, for display
+    assumptions: list[str] = []       # what the ETA assumed, shown next to it
+    simulated: bool = True
+
+
+class FeedEvent(BaseModel):
+    at: datetime                      # UTC
+    shipment_id: str
+    source: Literal["telematics", "driver", "copilot"]
+    level: Literal["info", "warning", "alert"] = "info"
+    text: str
