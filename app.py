@@ -1,25 +1,25 @@
-"""Broker Desk Copilot: Streamlit entry point. Owner: UI lead.
+"""Freight Rewind + the existing Broker Desk Copilot workspace. Owner: UI lead.
 
-Run:  streamlit run app.py
+Run: streamlit run app.py. This UI branch keeps all writes in dry-run.
 """
+import os
 
 import streamlit as st
+from ui import crisis_room, email_quote, load_watch, manual_vs_copilot, rewind_style, sidebar, state
 
-from ui import email_quote, load_watch, manual_vs_copilot, sidebar, state
-
-st.set_page_config(page_title="Broker Desk Copilot", page_icon="🚚", layout="wide")
+# client.py checks this on every write. Keep the legacy views dry-run too.
+os.environ['DRY_RUN'] = '1'
+st.set_page_config(page_title='Freight Rewind | Crisis Room', page_icon='↶', layout='wide')
+rewind_style.apply()
 state.init()
 sidebar.render_data_source()
-
-st.title("Broker Desk Copilot")
-
-tab_watch, tab_quote, tab_numbers = st.tabs(["Load watch", "Email-to-quote", "Manual vs copilot"])
-with tab_watch:
-    load_watch.render()
-with tab_quote:
-    email_quote.render()
-with tab_numbers:
-    manual_vs_copilot.render()
-
-# Last, so the scoreboard reflects what the tabs just did in this run.
+view = st.radio('Workspace', ['Crisis Room', 'Load watch', 'Email-to-quote', 'Manual vs copilot'],
+                horizontal=True, label_visibility='collapsed', key='workspace_view')
+# Render only the selected view: opening Crisis Room never starts legacy API scans.
+if view == 'Crisis Room':
+    crisis_room.render()
+else:
+    st.title('Broker Desk Copilot')
+    {'Load watch': load_watch.render, 'Email-to-quote': email_quote.render,
+     'Manual vs copilot': manual_vs_copilot.render}[view]()
 sidebar.render_scoreboard()
