@@ -1,0 +1,1207 @@
+[
+  {
+    "equipment_types": [
+      "V",
+      "HS",
+      "SB"
+    ],
+    "created_by": "JOHNDOE",
+    "status": "ACTIVE",
+    "on_time_delivery_pct": 94,
+    "loads_completed": 412,
+    "safety_rating": "SATISFACTORY",
+    "documents": [],
+    "dot_number": "2214587",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "last_used_date": "2026-11-16",
+    "insurance": [
+      {
+        "expiration_date": "2027-05-12",
+        "insurer": "Great Plains Mutual",
+        "limit": 100000,
+        "policy_number": "GPM-CG-55821",
+        "policy_type": "CARGO",
+        "source": "AGENT_DIRECT",
+        "insurance_status": "GREEN"
+      },
+      {
+        "expiration_date": "2027-06-01",
+        "insurer": "Great Plains Mutual",
+        "limit": 1000000,
+        "policy_number": "GPM-AL-55822",
+        "policy_type": "AUTO_LIABILITY",
+        "source": "AGENT_DIRECT",
+        "insurance_status": "GREEN"
+      },
+      {
+        "expiration_date": "2027-06-01",
+        "insurer": "Great Plains Mutual",
+        "limit": 1000000,
+        "policy_number": "GPM-GL-55823",
+        "policy_type": "GENERAL_LIABILITY",
+        "source": "AGENT_DIRECT",
+        "insurance_status": "GREEN"
+      }
+    ],
+    "on_time_pickup_pct": 95,
+    "vendor_id": "ACMECARR",
+    "created_at": "2025-10-09T13:20:36Z",
+    "contacts": [
+      {
+        "email": "dispatch@acmecarrier.example.com",
+        "favorite": true,
+        "name": "Acme Dispatch",
+        "phone": "312-555-0100",
+        "role": "DISPATCH"
+      },
+      {
+        "email": "dispatch@acmecarrier.example.com",
+        "favorite": false,
+        "name": "Lou Ferraro",
+        "phone": "312-555-0101",
+        "role": "ACCOUNTING_AR"
+      }
+    ],
+    "ein": "47-2810093",
+    "claims_count": 1,
+    "scac": "ACME",
+    "vendor_type": "TRUCKLOAD_CARRIER",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "hazmat_certified": false,
+    "lanes": [
+      {
+        "destination": "TX",
+        "note": "Daily Chicago-Dallas capacity",
+        "origin": "IL"
+      }
+    ],
+    "authority_status": "ACTIVE",
+    "mc_number": "MC-784512",
+    "vendor_no": "V1001",
+    "service_types": [
+      "TL",
+      "EXPEDITE"
+    ],
+    "physical_address": {
+      "address1": "1900 Industrial Loop",
+      "address_type": "MAIN",
+      "city": "Joliet",
+      "state": "IL",
+      "zip": "60436"
+    },
+    "legal_name": "Acme Carrier Inc.",
+    "compliance_light": "GREEN"
+  },
+  {
+    "equipment_types": [
+      "V"
+    ],
+    "status": "DO_NOT_USE",
+    "created_by": "JOHNDOE",
+    "on_time_delivery_pct": 68,
+    "loads_completed": 37,
+    "documents": [],
+    "safety_rating": "CONDITIONAL",
+    "dot_number": "3310921",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "last_used_date": "2026-07-01",
+    "status_reason": "FreightGuard report 08/2026 \u2014 double-brokered load 7300038; do not tender",
+    "insurance": [
+      {
+        "expiration_date": "2027-03-13",
+        "insurer": "Lone Star Underwriters",
+        "limit": 100000,
+        "policy_number": "LSU-CG-11873",
+        "policy_type": "CARGO",
+        "source": "CARRIER_PROVIDED",
+        "insurance_status": "GREEN"
+      },
+      {
+        "expiration_date": "2027-03-13",
+        "insurer": "Lone Star Underwriters",
+        "limit": 1000000,
+        "policy_number": "LSU-AL-11874",
+        "policy_type": "AUTO_LIABILITY",
+        "source": "CARRIER_PROVIDED",
+        "insurance_status": "GREEN"
+      }
+    ],
+    "on_time_pickup_pct": 71,
+    "vendor_id": "BADWOLF",
+    "created_at": "2025-10-09T13:20:36Z",
+    "contacts": [
+      {
+        "email": "ops@badwolflogistics.example.com",
+        "favorite": false,
+        "name": "Dispatch Desk",
+        "phone": "469-555-0177",
+        "role": "DISPATCH"
+      }
+    ],
+    "claims_count": 2,
+    "vendor_type": "TRUCKLOAD_CARRIER",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "scac": "BDWF",
+    "hazmat_certified": false,
+    "lanes": [],
+    "authority_status": "ACTIVE",
+    "mc_number": "MC-991204",
+    "vendor_no": "V1002",
+    "service_types": [
+      "TL"
+    ],
+    "physical_address": {
+      "address1": "501 Commerce Row",
+      "address_type": "MAIN",
+      "city": "Irving",
+      "state": "TX",
+      "zip": "75061"
+    },
+    "legal_name": "Bad Wolf Logistics LLC",
+    "compliance_light": "RED"
+  },
+  {
+    "equipment_types": [
+      "V"
+    ],
+    "created_by": "JOHNDOE",
+    "status": "ACTIVE",
+    "on_time_delivery_pct": 89,
+    "loads_completed": 157,
+    "safety_rating": "SATISFACTORY",
+    "documents": [],
+    "dot_number": "2109983",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "last_used_date": "2026-11-11",
+    "on_time_pickup_pct": 90,
+    "insurance": [
+      {
+        "expiration_date": "2027-07-11",
+        "insurer": "Cornerstone National",
+        "limit": 100000,
+        "policy_number": "CN-CG-66218",
+        "policy_type": "CARGO",
+        "source": "AGENT_DIRECT",
+        "insurance_status": "GREEN"
+      },
+      {
+        "expiration_date": "2027-07-11",
+        "insurer": "Cornerstone National",
+        "limit": 1000000,
+        "policy_number": "CN-AL-66219",
+        "policy_type": "AUTO_LIABILITY",
+        "source": "AGENT_DIRECT",
+        "insurance_status": "GREEN"
+      }
+    ],
+    "vendor_id": "BLUERIDGE",
+    "created_at": "2025-10-09T13:20:36Z",
+    "contacts": [
+      {
+        "email": "dispatch@blueridgetrans.example.com",
+        "favorite": true,
+        "name": "BRT Dispatch",
+        "phone": "540-555-0117",
+        "role": "DISPATCH"
+      }
+    ],
+    "claims_count": 0,
+    "scac": "BRTN",
+    "vendor_type": "TRUCKLOAD_CARRIER",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "hazmat_certified": false,
+    "lanes": [],
+    "authority_status": "ACTIVE",
+    "mc_number": "MC-489223",
+    "vendor_no": "V1007",
+    "service_types": [
+      "TL"
+    ],
+    "physical_address": {
+      "address1": "77 Valley Pike",
+      "address_type": "MAIN",
+      "city": "Roanoke",
+      "state": "VA",
+      "zip": "24012"
+    },
+    "legal_name": "Blue Ridge Transport",
+    "compliance_light": "GREEN"
+  },
+  {
+    "equipment_types": [
+      "V",
+      "R"
+    ],
+    "created_by": "JOHNDOE",
+    "status": "ACTIVE",
+    "on_time_delivery_pct": 91,
+    "loads_completed": 121,
+    "safety_rating": "SATISFACTORY",
+    "documents": [],
+    "dot_number": "2874102",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "last_used_date": "2026-11-14",
+    "on_time_pickup_pct": 92,
+    "insurance": [
+      {
+        "expiration_date": "2027-04-12",
+        "insurer": "Beacon Underwriters",
+        "limit": 100000,
+        "policy_number": "BU-CG-44561",
+        "policy_type": "CARGO",
+        "source": "AGENT_DIRECT",
+        "insurance_status": "GREEN"
+      },
+      {
+        "expiration_date": "2027-04-12",
+        "insurer": "Beacon Underwriters",
+        "limit": 1000000,
+        "policy_number": "BU-AL-44562",
+        "policy_type": "AUTO_LIABILITY",
+        "source": "AGENT_DIRECT",
+        "insurance_status": "GREEN"
+      }
+    ],
+    "vendor_id": "CANYONFRT",
+    "created_at": "2025-10-09T13:20:36Z",
+    "contacts": [
+      {
+        "email": "dispatch@canyonfreight.example.com",
+        "favorite": true,
+        "name": "Canyon Dispatch",
+        "phone": "505-555-0134",
+        "role": "DISPATCH"
+      }
+    ],
+    "claims_count": 0,
+    "updated_at": "2025-10-09T13:20:36Z",
+    "vendor_type": "TRUCKLOAD_CARRIER",
+    "scac": "CYFS",
+    "lanes": [],
+    "hazmat_certified": false,
+    "authority_status": "ACTIVE",
+    "mc_number": "MC-712064",
+    "vendor_no": "V1009",
+    "service_types": [
+      "TL"
+    ],
+    "physical_address": {
+      "address1": "1651 W Desert Gateway",
+      "address_type": "MAIN",
+      "city": "Albuquerque",
+      "state": "NM",
+      "zip": "87121"
+    },
+    "legal_name": "Canyon Freight Systems",
+    "compliance_light": "GREEN"
+  },
+  {
+    "equipment_types": [
+      "V"
+    ],
+    "created_by": "JOHNDOE",
+    "status": "ACTIVE",
+    "on_time_delivery_pct": 90,
+    "loads_completed": 387,
+    "safety_rating": "SATISFACTORY",
+    "documents": [],
+    "dot_number": "890114",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "last_used_date": "2026-11-13",
+    "insurance": [
+      {
+        "expiration_date": "2027-06-21",
+        "insurer": "Great Plains Mutual",
+        "limit": 100000,
+        "policy_number": "GPM-CG-20915",
+        "policy_type": "CARGO",
+        "source": "AGENT_DIRECT",
+        "insurance_status": "GREEN"
+      },
+      {
+        "expiration_date": "2027-06-21",
+        "insurer": "Great Plains Mutual",
+        "limit": 1000000,
+        "policy_number": "GPM-AL-20916",
+        "policy_type": "AUTO_LIABILITY",
+        "source": "AGENT_DIRECT",
+        "insurance_status": "GREEN"
+      }
+    ],
+    "on_time_pickup_pct": 94,
+    "vendor_id": "COASTLTL",
+    "created_at": "2025-10-09T13:20:36Z",
+    "contacts": [
+      {
+        "email": "dispatch@coastltl.example.com",
+        "favorite": true,
+        "name": "Coastline Dispatch",
+        "phone": "717-555-0103",
+        "role": "DISPATCH"
+      }
+    ],
+    "claims_count": 3,
+    "scac": "CLSY",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "vendor_type": "LTL_CARRIER",
+    "lanes": [],
+    "hazmat_certified": false,
+    "authority_status": "ACTIVE",
+    "mc_number": "MC-227410",
+    "vendor_no": "V1015",
+    "service_types": [
+      "LTL"
+    ],
+    "physical_address": {
+      "address1": "300 Terminal Way",
+      "address_type": "MAIN",
+      "city": "Harrisburg",
+      "state": "PA",
+      "zip": "17111"
+    },
+    "legal_name": "Coastline LTL Systems",
+    "compliance_light": "GREEN"
+  },
+  {
+    "equipment_types": [],
+    "created_at": "2025-10-09T13:20:36Z",
+    "contacts": [
+      {
+        "email": "office@dockhands.example.com",
+        "favorite": false,
+        "name": "DockHands Desk",
+        "phone": "972-555-0105",
+        "role": "ACCOUNTING_AR"
+      }
+    ],
+    "created_by": "JOHNDOE",
+    "status": "ACTIVE",
+    "loads_completed": 0,
+    "claims_count": 0,
+    "vendor_type": "LUMPER",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "safety_rating": "UNRATED",
+    "documents": [],
+    "hazmat_certified": false,
+    "lanes": [],
+    "authority_status": "NONE",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "vendor_no": "V1017",
+    "service_types": [],
+    "physical_address": {
+      "address1": "9800 Commerce Pkwy, Dock Services Office",
+      "address_type": "MAIN",
+      "city": "Dallas",
+      "state": "TX",
+      "zip": "75237"
+    },
+    "insurance": [],
+    "legal_name": "DockHands Unloading Services",
+    "vendor_id": "DOCKHANDS",
+    "compliance_light": "GREEN"
+  },
+  {
+    "equipment_types": [
+      "R",
+      "V"
+    ],
+    "created_by": "JOHNDOE",
+    "status": "ACTIVE",
+    "on_time_delivery_pct": 93,
+    "loads_completed": 176,
+    "safety_rating": "SATISFACTORY",
+    "documents": [],
+    "dot_number": "2981145",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "last_used_date": "2026-11-12",
+    "on_time_pickup_pct": 92,
+    "insurance": [
+      {
+        "expiration_date": "2027-04-22",
+        "insurer": "Redwood Specialty Insurance",
+        "limit": 250000,
+        "policy_number": "RS-CG-80917",
+        "policy_type": "CARGO",
+        "source": "AGENT_DIRECT",
+        "insurance_status": "GREEN"
+      },
+      {
+        "expiration_date": "2027-04-22",
+        "insurer": "Redwood Specialty Insurance",
+        "limit": 1000000,
+        "policy_number": "RS-AL-80918",
+        "policy_type": "AUTO_LIABILITY",
+        "source": "AGENT_DIRECT",
+        "insurance_status": "GREEN"
+      }
+    ],
+    "vendor_id": "GULFSTRMX",
+    "created_at": "2025-10-09T13:20:36Z",
+    "contacts": [
+      {
+        "email": "reefer@gulfstreamx.example.com",
+        "favorite": true,
+        "name": "Reefer Desk",
+        "phone": "813-555-0128",
+        "role": "DISPATCH"
+      }
+    ],
+    "claims_count": 0,
+    "scac": "GSXC",
+    "vendor_type": "TRUCKLOAD_CARRIER",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "hazmat_certified": false,
+    "lanes": [],
+    "authority_status": "ACTIVE",
+    "mc_number": "MC-733901",
+    "vendor_no": "V1006",
+    "service_types": [
+      "TL"
+    ],
+    "physical_address": {
+      "address1": "9151 Port Ridge Dr",
+      "address_type": "MAIN",
+      "city": "Tampa",
+      "state": "FL",
+      "zip": "33619"
+    },
+    "legal_name": "Gulfstream Express Carriers",
+    "compliance_light": "GREEN"
+  },
+  {
+    "equipment_types": [
+      "F",
+      "SD"
+    ],
+    "status": "ACTIVE",
+    "created_by": "JOHNDOE",
+    "on_time_delivery_pct": 88,
+    "loads_completed": 96,
+    "documents": [],
+    "safety_rating": "SATISFACTORY",
+    "dot_number": "2537719",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "last_used_date": "2026-11-14",
+    "insurance": [
+      {
+        "expiration_date": "2027-05-22",
+        "insurer": "Ironclad Assurance",
+        "limit": 100000,
+        "policy_number": "ICA-CG-51230",
+        "policy_type": "CARGO",
+        "source": "AGENT_DIRECT",
+        "insurance_status": "GREEN"
+      },
+      {
+        "expiration_date": "2027-05-22",
+        "insurer": "Ironclad Assurance",
+        "limit": 1000000,
+        "policy_number": "ICA-AL-51231",
+        "policy_type": "AUTO_LIABILITY",
+        "source": "AGENT_DIRECT",
+        "insurance_status": "GREEN"
+      }
+    ],
+    "on_time_pickup_pct": 89,
+    "vendor_id": "HIGHPLAIN",
+    "created_at": "2025-10-09T13:20:36Z",
+    "contacts": [
+      {
+        "email": "flatbed@highplainsfw.example.com",
+        "favorite": true,
+        "name": "Flatbed Desk",
+        "phone": "806-555-0119",
+        "role": "DISPATCH"
+      }
+    ],
+    "claims_count": 0,
+    "updated_at": "2025-10-09T13:20:36Z",
+    "vendor_type": "TRUCKLOAD_CARRIER",
+    "scac": "HPFW",
+    "lanes": [],
+    "hazmat_certified": false,
+    "authority_status": "ACTIVE",
+    "mc_number": "MC-602841",
+    "vendor_no": "V1008",
+    "service_types": [
+      "TL"
+    ],
+    "physical_address": {
+      "address1": "4400 Stockyard Rd",
+      "address_type": "MAIN",
+      "city": "Amarillo",
+      "state": "TX",
+      "zip": "79104"
+    },
+    "legal_name": "High Plains Freightways",
+    "compliance_light": "GREEN"
+  },
+  {
+    "equipment_types": [
+      "V"
+    ],
+    "status": "ACTIVE",
+    "created_by": "JOHNDOE",
+    "on_time_delivery_pct": 93,
+    "loads_completed": 188,
+    "safety_rating": "SATISFACTORY",
+    "documents": [],
+    "dot_number": "2318876",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "last_used_date": "2026-11-13",
+    "on_time_pickup_pct": 94,
+    "insurance": [
+      {
+        "expiration_date": "2027-08-15",
+        "insurer": "Great Plains Mutual",
+        "limit": 100000,
+        "policy_number": "GPM-CG-61277",
+        "policy_type": "CARGO",
+        "source": "AGENT_DIRECT",
+        "insurance_status": "GREEN"
+      },
+      {
+        "expiration_date": "2027-08-15",
+        "insurer": "Great Plains Mutual",
+        "limit": 1000000,
+        "policy_number": "GPM-AL-61278",
+        "policy_type": "AUTO_LIABILITY",
+        "source": "AGENT_DIRECT",
+        "insurance_status": "GREEN"
+      }
+    ],
+    "vendor_id": "LAKESHORE",
+    "created_at": "2025-10-09T13:20:36Z",
+    "contacts": [
+      {
+        "email": "dispatch@lakeshorecarriers.example.com",
+        "favorite": true,
+        "name": "Lakeshore Dispatch",
+        "phone": "920-555-0107",
+        "role": "DISPATCH"
+      }
+    ],
+    "claims_count": 0,
+    "scac": "LKSC",
+    "vendor_type": "TRUCKLOAD_CARRIER",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "lanes": [],
+    "hazmat_certified": false,
+    "authority_status": "ACTIVE",
+    "mc_number": "MC-556019",
+    "vendor_no": "V1010",
+    "service_types": [
+      "TL"
+    ],
+    "physical_address": {
+      "address1": "2380 Harbor View Dr",
+      "address_type": "MAIN",
+      "city": "Green Bay",
+      "state": "WI",
+      "zip": "54302"
+    },
+    "legal_name": "Lakeshore Carriers Inc.",
+    "compliance_light": "GREEN"
+  },
+  {
+    "equipment_types": [
+      "SV",
+      "SB"
+    ],
+    "status": "ACTIVE",
+    "created_by": "JOHNDOE",
+    "on_time_delivery_pct": 96,
+    "loads_completed": 167,
+    "safety_rating": "SATISFACTORY",
+    "documents": [],
+    "dot_number": "3302981",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "last_used_date": "2026-11-12",
+    "insurance": [
+      {
+        "expiration_date": "2027-03-23",
+        "insurer": "Beacon Underwriters",
+        "limit": 100000,
+        "policy_number": "BU-CG-77120",
+        "policy_type": "CARGO",
+        "source": "AGENT_DIRECT",
+        "insurance_status": "GREEN"
+      },
+      {
+        "expiration_date": "2027-03-23",
+        "insurer": "Beacon Underwriters",
+        "limit": 1000000,
+        "policy_number": "BU-AL-77121",
+        "policy_type": "AUTO_LIABILITY",
+        "source": "AGENT_DIRECT",
+        "insurance_status": "GREEN"
+      }
+    ],
+    "on_time_pickup_pct": 97,
+    "vendor_id": "METRODASH",
+    "created_at": "2025-10-09T13:20:36Z",
+    "contacts": [
+      {
+        "email": "dispatch@metrodash.example.com",
+        "favorite": true,
+        "name": "MetroDash Dispatch",
+        "phone": "602-555-0109",
+        "role": "DISPATCH"
+      }
+    ],
+    "claims_count": 0,
+    "scac": "MDCX",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "vendor_type": "EXPEDITE_CARRIER",
+    "lanes": [],
+    "hazmat_certified": false,
+    "authority_status": "ACTIVE",
+    "mc_number": "MC-845112",
+    "vendor_no": "V1012",
+    "service_types": [
+      "EXPEDITE"
+    ],
+    "physical_address": {
+      "address1": "1215 Cargo Center Dr",
+      "address_type": "MAIN",
+      "city": "Phoenix",
+      "state": "AZ",
+      "zip": "85034"
+    },
+    "legal_name": "MetroDash Couriers",
+    "compliance_light": "GREEN"
+  },
+  {
+    "equipment_types": [
+      "V",
+      "PO"
+    ],
+    "created_by": "JOHNDOE",
+    "status": "ACTIVE",
+    "on_time_delivery_pct": 91,
+    "loads_completed": 534,
+    "safety_rating": "SATISFACTORY",
+    "documents": [],
+    "dot_number": "512230",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "last_used_date": "2026-11-13",
+    "insurance": [
+      {
+        "expiration_date": "2027-09-09",
+        "insurer": "Cornerstone National",
+        "limit": 250000,
+        "policy_number": "CN-CG-10221",
+        "policy_type": "CARGO",
+        "source": "AGENT_DIRECT",
+        "insurance_status": "GREEN"
+      },
+      {
+        "expiration_date": "2027-09-09",
+        "insurer": "Cornerstone National",
+        "limit": 1000000,
+        "policy_number": "CN-AL-10222",
+        "policy_type": "AUTO_LIABILITY",
+        "source": "AGENT_DIRECT",
+        "insurance_status": "GREEN"
+      }
+    ],
+    "on_time_pickup_pct": 95,
+    "vendor_id": "NATLTLFW",
+    "created_at": "2025-10-09T13:20:36Z",
+    "contacts": [
+      {
+        "email": "dispatch@natltl.example.com",
+        "favorite": true,
+        "name": "National LTL Central Dispatch",
+        "phone": "913-555-0102",
+        "role": "DISPATCH"
+      }
+    ],
+    "claims_count": 4,
+    "updated_at": "2025-10-09T13:20:36Z",
+    "vendor_type": "LTL_CARRIER",
+    "scac": "NLFW",
+    "hazmat_certified": false,
+    "lanes": [],
+    "authority_status": "ACTIVE",
+    "mc_number": "MC-118834",
+    "vendor_no": "V1014",
+    "service_types": [
+      "LTL"
+    ],
+    "physical_address": {
+      "address1": "1 Linehaul Plaza",
+      "address_type": "MAIN",
+      "city": "Overland Park",
+      "state": "KS",
+      "zip": "66210"
+    },
+    "legal_name": "National LTL Freightways",
+    "compliance_light": "GREEN"
+  },
+  {
+    "equipment_types": [
+      "V"
+    ],
+    "created_by": "JOHNDOE",
+    "status": "ACTIVE",
+    "on_time_delivery_pct": 92,
+    "loads_completed": 203,
+    "documents": [],
+    "safety_rating": "SATISFACTORY",
+    "dot_number": "2244810",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "last_used_date": "2026-11-14",
+    "on_time_pickup_pct": 93,
+    "insurance": [
+      {
+        "expiration_date": "2027-06-11",
+        "insurer": "Cornerstone National",
+        "limit": 100000,
+        "policy_number": "CN-CG-71180",
+        "policy_type": "CARGO",
+        "source": "AGENT_DIRECT",
+        "insurance_status": "GREEN"
+      },
+      {
+        "expiration_date": "2027-06-11",
+        "insurer": "Cornerstone National",
+        "limit": 1000000,
+        "policy_number": "CN-AL-71181",
+        "policy_type": "AUTO_LIABILITY",
+        "source": "AGENT_DIRECT",
+        "insurance_status": "GREEN"
+      }
+    ],
+    "vendor_id": "PRAIRIEHL",
+    "created_at": "2025-10-09T13:20:36Z",
+    "contacts": [
+      {
+        "email": "dispatch@prairiehaul.example.com",
+        "favorite": true,
+        "name": "Prairie Dispatch",
+        "phone": "402-555-0114",
+        "role": "DISPATCH"
+      }
+    ],
+    "claims_count": 0,
+    "updated_at": "2025-10-09T13:20:36Z",
+    "vendor_type": "TRUCKLOAD_CARRIER",
+    "scac": "PRHL",
+    "hazmat_certified": false,
+    "lanes": [],
+    "authority_status": "ACTIVE",
+    "mc_number": "MC-518772",
+    "vendor_no": "V1005",
+    "service_types": [
+      "TL"
+    ],
+    "physical_address": {
+      "address1": "880 Grain Belt Pkwy",
+      "address_type": "MAIN",
+      "city": "Omaha",
+      "state": "NE",
+      "zip": "68110"
+    },
+    "legal_name": "Prairie Haul Lines",
+    "compliance_light": "GREEN"
+  },
+  {
+    "equipment_types": [
+      "HS",
+      "PO"
+    ],
+    "status": "ACTIVE",
+    "created_by": "JOHNDOE",
+    "on_time_delivery_pct": 92,
+    "loads_completed": 74,
+    "documents": [],
+    "safety_rating": "SATISFACTORY",
+    "dot_number": "3401156",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "last_used_date": "2026-09-12",
+    "on_time_pickup_pct": 93,
+    "insurance": [
+      {
+        "expiration_date": "2027-03-03",
+        "insurer": "Ironclad Assurance",
+        "limit": 100000,
+        "policy_number": "ICA-CG-63118",
+        "policy_type": "CARGO",
+        "source": "CARRIER_PROVIDED",
+        "insurance_status": "GREEN"
+      },
+      {
+        "expiration_date": "2027-03-03",
+        "insurer": "Ironclad Assurance",
+        "limit": 1000000,
+        "policy_number": "ICA-AL-63119",
+        "policy_type": "AUTO_LIABILITY",
+        "source": "CARRIER_PROVIDED",
+        "insurance_status": "GREEN"
+      }
+    ],
+    "vendor_id": "RAPIDLINE",
+    "created_at": "2025-10-09T13:20:36Z",
+    "contacts": [
+      {
+        "email": "dispatch@rapidlinehotshot.example.com",
+        "favorite": true,
+        "name": "RapidLine Dispatch",
+        "phone": "432-555-0148",
+        "role": "DISPATCH"
+      }
+    ],
+    "claims_count": 0,
+    "updated_at": "2025-10-09T13:20:36Z",
+    "scac": "RPLH",
+    "vendor_type": "EXPEDITE_CARRIER",
+    "hazmat_certified": false,
+    "lanes": [],
+    "authority_status": "ACTIVE",
+    "mc_number": "MC-871209",
+    "vendor_no": "V1013",
+    "service_types": [
+      "EXPEDITE"
+    ],
+    "physical_address": {
+      "address1": "560 Oilfield Access Rd",
+      "address_type": "MAIN",
+      "city": "Odessa",
+      "state": "TX",
+      "zip": "79766"
+    },
+    "legal_name": "RapidLine Hotshot LLC",
+    "compliance_light": "GREEN"
+  },
+  {
+    "equipment_types": [
+      "V",
+      "F"
+    ],
+    "status": "ACTIVE",
+    "created_by": "JOHNDOE",
+    "on_time_delivery_pct": 84,
+    "loads_completed": 88,
+    "safety_rating": "UNRATED",
+    "documents": [],
+    "dot_number": "1785530",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "on_time_pickup_pct": 87,
+    "insurance": [
+      {
+        "expiration_date": "2026-09-29",
+        "insurer": "Ironclad Assurance",
+        "limit": 100000,
+        "policy_number": "ICA-CG-90335",
+        "policy_type": "CARGO",
+        "source": "CARRIER_PROVIDED",
+        "insurance_status": "RED"
+      },
+      {
+        "expiration_date": "2027-02-11",
+        "insurer": "Ironclad Assurance",
+        "limit": 1000000,
+        "policy_number": "ICA-AL-90336",
+        "policy_type": "AUTO_LIABILITY",
+        "source": "CARRIER_PROVIDED",
+        "insurance_status": "GREEN"
+      }
+    ],
+    "vendor_id": "RUSTYRIG",
+    "created_at": "2025-10-09T13:20:36Z",
+    "contacts": [
+      {
+        "email": "ray@rustyrig.example.com",
+        "favorite": false,
+        "name": "Ray Duffy",
+        "phone": "217-555-0155",
+        "role": "DISPATCH"
+      }
+    ],
+    "claims_count": 1,
+    "vendor_type": "TRUCKLOAD_CARRIER",
+    "scac": "RSTY",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "lanes": [],
+    "hazmat_certified": false,
+    "authority_status": "ACTIVE",
+    "mc_number": "MC-402118",
+    "vendor_no": "V1003",
+    "service_types": [
+      "TL"
+    ],
+    "physical_address": {
+      "address1": "40 Switchyard Rd",
+      "address_type": "MAIN",
+      "city": "Decatur",
+      "state": "IL",
+      "zip": "62521"
+    },
+    "legal_name": "Rusty Rig Transport Co.",
+    "compliance_light": "RED"
+  },
+  {
+    "equipment_types": [],
+    "created_at": "2025-10-09T13:20:36Z",
+    "contacts": [
+      {
+        "email": "quotes@shieldcargo.example.com",
+        "favorite": false,
+        "name": "Shield Policy Desk",
+        "phone": "860-555-0106",
+        "role": "QUOTING"
+      }
+    ],
+    "created_by": "JOHNDOE",
+    "status": "ACTIVE",
+    "loads_completed": 0,
+    "claims_count": 0,
+    "vendor_type": "INSURANCE_VENDOR",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "safety_rating": "UNRATED",
+    "documents": [],
+    "lanes": [],
+    "hazmat_certified": false,
+    "authority_status": "NONE",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "vendor_no": "V1018",
+    "service_types": [],
+    "physical_address": {
+      "address1": "120 Underwriter Sq, Suite 900",
+      "address_type": "MAIN",
+      "city": "Hartford",
+      "state": "CT",
+      "zip": "06103"
+    },
+    "legal_name": "Shield Cargo Insurance Group",
+    "insurance": [],
+    "vendor_id": "SHIELDINS",
+    "compliance_light": "GREEN"
+  },
+  {
+    "equipment_types": [
+      "V",
+      "R"
+    ],
+    "created_by": "JOHNDOE",
+    "status": "ACTIVE",
+    "on_time_delivery_pct": 90,
+    "loads_completed": 134,
+    "documents": [],
+    "safety_rating": "SATISFACTORY",
+    "dot_number": "2650014",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "last_used_date": "2026-11-15",
+    "insurance": [
+      {
+        "expiration_date": "2026-11-25",
+        "insurer": "Beacon Underwriters",
+        "limit": 100000,
+        "policy_number": "BU-CG-30412",
+        "policy_type": "CARGO",
+        "source": "AGENT_DIRECT",
+        "insurance_status": "YELLOW"
+      },
+      {
+        "expiration_date": "2027-04-02",
+        "insurer": "Beacon Underwriters",
+        "limit": 1000000,
+        "policy_number": "BU-AL-30413",
+        "policy_type": "AUTO_LIABILITY",
+        "source": "AGENT_DIRECT",
+        "insurance_status": "GREEN"
+      }
+    ],
+    "on_time_pickup_pct": 91,
+    "vendor_id": "SUNRIDGE",
+    "created_at": "2025-10-09T13:20:36Z",
+    "contacts": [
+      {
+        "email": "dispatch@sunridgetrucking.example.com",
+        "favorite": true,
+        "name": "Sunridge Dispatch",
+        "phone": "520-555-0166",
+        "role": "DISPATCH"
+      }
+    ],
+    "claims_count": 0,
+    "scac": "SNRT",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "vendor_type": "TRUCKLOAD_CARRIER",
+    "lanes": [],
+    "hazmat_certified": false,
+    "authority_status": "ACTIVE",
+    "mc_number": "MC-655430",
+    "vendor_no": "V1004",
+    "service_types": [
+      "TL"
+    ],
+    "physical_address": {
+      "address1": "2210 E Frontage Rd",
+      "address_type": "MAIN",
+      "city": "Tucson",
+      "state": "AZ",
+      "zip": "85713"
+    },
+    "legal_name": "Sunridge Trucking LLC",
+    "compliance_light": "YELLOW"
+  },
+  {
+    "equipment_types": [
+      "SB",
+      "SV",
+      "HS"
+    ],
+    "created_by": "JOHNDOE",
+    "status": "ACTIVE",
+    "on_time_delivery_pct": 95,
+    "loads_completed": 241,
+    "safety_rating": "SATISFACTORY",
+    "documents": [],
+    "dot_number": "3187720",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "last_used_date": "2026-07-11",
+    "insurance": [
+      {
+        "expiration_date": "2027-05-02",
+        "insurer": "Redwood Specialty Insurance",
+        "limit": 100000,
+        "policy_number": "RS-CG-92214",
+        "policy_type": "CARGO",
+        "source": "AGENT_DIRECT",
+        "insurance_status": "GREEN"
+      },
+      {
+        "expiration_date": "2027-05-02",
+        "insurer": "Redwood Specialty Insurance",
+        "limit": 1000000,
+        "policy_number": "RS-AL-92215",
+        "policy_type": "AUTO_LIABILITY",
+        "source": "AGENT_DIRECT",
+        "insurance_status": "GREEN"
+      }
+    ],
+    "on_time_pickup_pct": 96,
+    "vendor_id": "SWIFTARRW",
+    "created_at": "2025-10-09T13:20:36Z",
+    "contacts": [
+      {
+        "email": "ops@swiftarrowexp.example.com",
+        "favorite": true,
+        "name": "Swift Arrow Ops (24/7)",
+        "phone": "734-555-0108",
+        "role": "DISPATCH"
+      }
+    ],
+    "claims_count": 0,
+    "updated_at": "2025-10-09T13:20:36Z",
+    "scac": "SWAE",
+    "vendor_type": "EXPEDITE_CARRIER",
+    "lanes": [],
+    "hazmat_certified": false,
+    "authority_status": "ACTIVE",
+    "mc_number": "MC-807455",
+    "vendor_no": "V1011",
+    "service_types": [
+      "EXPEDITE"
+    ],
+    "physical_address": {
+      "address1": "310 Airfreight Rd",
+      "address_type": "MAIN",
+      "city": "Romulus",
+      "state": "MI",
+      "zip": "48174"
+    },
+    "legal_name": "Swift Arrow Expedite",
+    "compliance_light": "GREEN"
+  },
+  {
+    "equipment_types": [
+      "SV",
+      "SB",
+      "VC"
+    ],
+    "created_by": "JOHNDOE",
+    "status": "ACTIVE",
+    "on_time_delivery_pct": 94,
+    "loads_completed": 98,
+    "safety_rating": "SATISFACTORY",
+    "documents": [],
+    "dot_number": "3550218",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "last_used_date": "2026-10-31",
+    "on_time_pickup_pct": 95,
+    "insurance": [
+      {
+        "expiration_date": "2027-04-02",
+        "insurer": "Great Plains Mutual",
+        "limit": 100000,
+        "policy_number": "GPM-CG-83321",
+        "policy_type": "CARGO",
+        "source": "AGENT_DIRECT",
+        "insurance_status": "GREEN"
+      },
+      {
+        "expiration_date": "2027-04-02",
+        "insurer": "Great Plains Mutual",
+        "limit": 1000000,
+        "policy_number": "GPM-AL-83322",
+        "policy_type": "AUTO_LIABILITY",
+        "source": "AGENT_DIRECT",
+        "insurance_status": "GREEN"
+      }
+    ],
+    "vendor_id": "WINDYCART",
+    "created_at": "2025-10-09T13:20:36Z",
+    "contacts": [
+      {
+        "email": "ops@windycitycartage.example.com",
+        "favorite": true,
+        "name": "Windy City Ops",
+        "phone": "708-555-0104",
+        "role": "DISPATCH"
+      }
+    ],
+    "claims_count": 0,
+    "updated_at": "2025-10-09T13:20:36Z",
+    "vendor_type": "CARTAGE_AGENT",
+    "scac": "WCCG",
+    "lanes": [],
+    "hazmat_certified": false,
+    "authority_status": "ACTIVE",
+    "mc_number": "MC-935501",
+    "vendor_no": "V1016",
+    "service_types": [
+      "EXPEDITE",
+      "LTL"
+    ],
+    "physical_address": {
+      "address1": "4850 W 41st St",
+      "address_type": "MAIN",
+      "city": "Cicero",
+      "state": "IL",
+      "zip": "60804"
+    },
+    "legal_name": "Windy City Cartage",
+    "compliance_light": "GREEN"
+  }
+]

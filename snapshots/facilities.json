@@ -1,0 +1,2219 @@
+[
+  {
+    "address1": "125 Distribution Dr",
+    "appointment_lead_time_hours": 48,
+    "appointment_required": true,
+    "avg_unload_minutes": 130,
+    "city": "McDonough",
+    "code": "BBR-DC072",
+    "compliance_flags": [
+      "SEAL_REQUIRED",
+      "ID_REQUIRED"
+    ],
+    "contacts": [
+      {
+        "email": "dc072.appointments@bbretail.example.com",
+        "hours": "06:00-14:00 ET",
+        "name": "Appointment Desk",
+        "phone": "678-555-0174",
+        "role": "SCHEDULING"
+      }
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "created_by": "JOHNDOE",
+    "dock_count": 40,
+    "driver_assist": "LUMPER",
+    "external_codes": {
+      "BBR": "DC072"
+    },
+    "facility_id": "BBR-DC072",
+    "facility_type": "DC",
+    "first_come_first_served": false,
+    "last_used_at": "2026-11-11T15:30:00Z",
+    "lumper_fee_max": 300,
+    "lumper_fee_min": 150,
+    "lumper_policy": "REQUIRED",
+    "mabd_program": true,
+    "mabd_program_note": "Same OTIF program as all BBR DCs (3% of PO value).",
+    "name": "Big-Box Retailer DC072",
+    "notes": [],
+    "operating_hours": {
+      "fri": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "mon": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "thu": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "tue": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "wed": {
+        "close": "17:00",
+        "open": "07:00"
+      }
+    },
+    "pallet_exchange": "CHEP",
+    "parent_company": "Big-Box Retailer",
+    "receiving_hours": {
+      "fri": {
+        "close": "14:00",
+        "open": "06:00"
+      },
+      "mon": {
+        "close": "14:00",
+        "open": "06:00"
+      },
+      "thu": {
+        "close": "14:00",
+        "open": "06:00"
+      },
+      "tue": {
+        "close": "14:00",
+        "open": "06:00"
+      },
+      "wed": {
+        "close": "14:00",
+        "open": "06:00"
+      }
+    },
+    "roles": "CONSIGNEE",
+    "scheduling_email": "dc072.appointments@bbretail.example.com",
+    "scheduling_method": "EMAIL",
+    "shipment_count": 6,
+    "state": "GA",
+    "status": "ACTIVE",
+    "timezone": "America/New_York",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "updated_by": "JOHNDOE",
+    "zip": "30253"
+  },
+  {
+    "address1": "9800 Commerce Pkwy",
+    "appointment_grace_minutes": 30,
+    "appointment_lead_time_hours": 48,
+    "appointment_required": true,
+    "avg_unload_minutes": 150,
+    "city": "Dallas",
+    "code": "BBR-DC135",
+    "compliance_flags": [
+      "SEAL_REQUIRED",
+      "ID_REQUIRED"
+    ],
+    "contacts": [
+      {
+        "hours": "06:00-14:00 CT",
+        "name": "Receiving Office",
+        "phone": "972-555-0135",
+        "role": "RECEIVING"
+      },
+      {
+        "hours": "24/7",
+        "name": "Gate Security",
+        "phone": "972-555-0136",
+        "role": "SECURITY"
+      }
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "created_by": "JOHNDOE",
+    "dock_count": 42,
+    "driver_assist": "LUMPER",
+    "external_codes": {
+      "BBR": "DC135"
+    },
+    "facility_id": "BBR-DC135",
+    "facility_type": "DC",
+    "first_come_first_served": false,
+    "last_used_at": "2026-11-13T11:20:36Z",
+    "lumper_fee_max": 300,
+    "lumper_fee_min": 150,
+    "lumper_policy": "REQUIRED",
+    "mabd_program": true,
+    "mabd_program_note": "OTIF program \u2014 chargeback 3% of PO value for arrivals after MABD; early delivery also non-compliant.",
+    "name": "Big-Box Retailer DC135",
+    "notes": [
+      {
+        "author": "JOHNDOE",
+        "text": "Portal slots for 06:00-08:00 go 3+ days out \u2014 book early in the week.",
+        "timestamp": "2026-03-18T15:40:00Z"
+      },
+      {
+        "author": "JANEDOE",
+        "text": "Driver turned away 05/2026 for missing seal \u2014 gate enforces SEAL_REQUIRED hard.",
+        "timestamp": "2026-07-16T15:40:00Z"
+      },
+      {
+        "author": "JOHNDOE",
+        "text": "Lumper receipts now itemized per trailer \u2014 collect the itemized copy before the driver leaves.",
+        "timestamp": "2026-10-09T15:40:00Z"
+      },
+      {
+        "author": "JANEDOE",
+        "text": "Door 17-22 under repair; expect 30-45 min extra dwell at busy slots.",
+        "timestamp": "2026-11-04T15:40:00Z"
+      }
+    ],
+    "operating_hours": {
+      "fri": {
+        "close": "22:00",
+        "open": "05:00"
+      },
+      "mon": {
+        "close": "22:00",
+        "open": "05:00"
+      },
+      "sat": {
+        "close": "22:00",
+        "open": "05:00"
+      },
+      "thu": {
+        "close": "22:00",
+        "open": "05:00"
+      },
+      "tue": {
+        "close": "22:00",
+        "open": "05:00"
+      },
+      "wed": {
+        "close": "22:00",
+        "open": "05:00"
+      }
+    },
+    "pallet_exchange": "CHEP",
+    "parent_company": "Big-Box Retailer",
+    "portal_credentials_note": "Login in ops vault under 'BBR DC portals' \u2014 never store in TMS.",
+    "portal_url": "https://dock.meridianlogistics.example/portal",
+    "portal_vendor": "MERIDIAN_DOCK",
+    "receiving_hours": {
+      "fri": {
+        "close": "14:00",
+        "open": "06:00"
+      },
+      "mon": {
+        "close": "14:00",
+        "open": "06:00"
+      },
+      "thu": {
+        "close": "14:00",
+        "open": "06:00"
+      },
+      "tue": {
+        "close": "14:00",
+        "open": "06:00"
+      },
+      "wed": {
+        "close": "14:00",
+        "open": "06:00"
+      }
+    },
+    "reschedule_policy_note": "Reschedules < 24h before slot forfeit the slot; rebook via portal only.",
+    "roles": "CONSIGNEE",
+    "scheduling_method": "PORTAL",
+    "shipment_count": 37,
+    "special_instructions": "All trailers sealed; driver photo ID at gate. Lumper paid at receiving office (receipt required).",
+    "state": "TX",
+    "status": "ACTIVE",
+    "timezone": "America/Chicago",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "updated_by": "JOHNDOE",
+    "zip": "75237"
+  },
+  {
+    "address1": "12 Fish Pier Rd",
+    "appointment_required": false,
+    "avg_unload_minutes": 50,
+    "city": "Boston",
+    "code": "BLUEHARBOR-BOS",
+    "compliance_flags": [],
+    "contacts": [
+      {
+        "hours": "03:00-13:00 ET",
+        "name": "Cold Store Office",
+        "phone": "617-555-0193",
+        "role": "SHIPPING"
+      }
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "created_by": "JOHNDOE",
+    "dock_count": 6,
+    "driver_assist": "DRIVER_ASSIST",
+    "external_codes": {},
+    "facility_id": "BLUEHARBOR-BOS",
+    "facility_type": "WAREHOUSE",
+    "first_come_first_served": true,
+    "last_used_at": "2026-11-12T13:37:00Z",
+    "lumper_policy": "NONE",
+    "mabd_program": false,
+    "name": "Blue Harbor - Fish Pier Cold Store",
+    "notes": [],
+    "operating_hours": {
+      "fri": {
+        "close": "13:00",
+        "open": "03:00"
+      },
+      "mon": {
+        "close": "13:00",
+        "open": "03:00"
+      },
+      "sat": {
+        "close": "13:00",
+        "open": "03:00"
+      },
+      "thu": {
+        "close": "13:00",
+        "open": "03:00"
+      },
+      "tue": {
+        "close": "13:00",
+        "open": "03:00"
+      },
+      "wed": {
+        "close": "13:00",
+        "open": "03:00"
+      }
+    },
+    "pallet_exchange": "NONE",
+    "parent_company": "Blue Harbor Seafood",
+    "roles": "SHIPPER",
+    "scheduling_method": "NONE_FCFS",
+    "shipment_count": 9,
+    "special_instructions": "Pre-cool to -10F before arrival; pulp check at loading.",
+    "state": "MA",
+    "status": "ACTIVE",
+    "timezone": "America/New_York",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "updated_by": "JOHNDOE",
+    "zip": "02210"
+  },
+  {
+    "address1": "18010 80th Pl S",
+    "appointment_required": false,
+    "avg_unload_minutes": 90,
+    "city": "Kent",
+    "code": "CASCADE-SEA",
+    "compliance_flags": [],
+    "contacts": [
+      {
+        "hours": "07:00-17:00 PT",
+        "name": "Receiving",
+        "phone": "253-555-0174",
+        "role": "RECEIVING"
+      }
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "created_by": "JOHNDOE",
+    "dock_count": 10,
+    "driver_assist": "DRIVER_ASSIST",
+    "external_codes": {},
+    "facility_id": "CASCADE-SEA",
+    "facility_type": "WAREHOUSE",
+    "first_come_first_served": true,
+    "last_used_at": "2026-11-11T19:30:00Z",
+    "lumper_policy": "NONE",
+    "mabd_program": false,
+    "name": "Cascade Packaging - Kent Distribution",
+    "notes": [],
+    "operating_hours": {
+      "fri": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "mon": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "thu": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "tue": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "wed": {
+        "close": "17:00",
+        "open": "07:00"
+      }
+    },
+    "pallet_exchange": "NONE",
+    "parent_company": "Cascade Packaging",
+    "roles": "CONSIGNEE",
+    "scheduling_method": "NONE_FCFS",
+    "shipment_count": 10,
+    "state": "WA",
+    "status": "ACTIVE",
+    "timezone": "America/Los_Angeles",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "updated_by": "JOHNDOE",
+    "zip": "98032"
+  },
+  {
+    "address1": "9410 N Burgard Way",
+    "appointment_required": false,
+    "avg_unload_minutes": 90,
+    "city": "Portland",
+    "code": "CASCADE-PDX",
+    "compliance_flags": [],
+    "contacts": [
+      {
+        "hours": "06:00-18:00 PT",
+        "name": "Shipping",
+        "phone": "503-555-0173",
+        "role": "SHIPPING"
+      }
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "created_by": "JOHNDOE",
+    "dock_count": 5,
+    "driver_assist": "DRIVER_ASSIST",
+    "external_codes": {},
+    "facility_id": "CASCADE-PDX",
+    "facility_type": "PLANT",
+    "first_come_first_served": true,
+    "last_used_at": "2026-11-11T19:30:00Z",
+    "lumper_policy": "NONE",
+    "mabd_program": false,
+    "name": "Cascade Packaging - Portland Plant",
+    "notes": [],
+    "operating_hours": {
+      "fri": {
+        "close": "18:00",
+        "open": "06:00"
+      },
+      "mon": {
+        "close": "18:00",
+        "open": "06:00"
+      },
+      "thu": {
+        "close": "18:00",
+        "open": "06:00"
+      },
+      "tue": {
+        "close": "18:00",
+        "open": "06:00"
+      },
+      "wed": {
+        "close": "18:00",
+        "open": "06:00"
+      }
+    },
+    "pallet_exchange": "NONE",
+    "parent_company": "Cascade Packaging",
+    "roles": "SHIPPER",
+    "scheduling_method": "NONE_FCFS",
+    "shipment_count": 10,
+    "state": "OR",
+    "status": "ACTIVE",
+    "timezone": "America/Los_Angeles",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "updated_by": "JOHNDOE",
+    "zip": "97203"
+  },
+  {
+    "address1": "11460 Rojas Dr",
+    "appointment_required": false,
+    "avg_unload_minutes": 90,
+    "city": "El Paso",
+    "code": "DESERTGATE-ELP",
+    "compliance_flags": [],
+    "contacts": [
+      {
+        "hours": "07:00-17:00 MT",
+        "name": "Receiving",
+        "phone": "915-555-0176",
+        "role": "RECEIVING"
+      }
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "created_by": "JOHNDOE",
+    "dock_count": 12,
+    "driver_assist": "DRIVER_ASSIST",
+    "external_codes": {},
+    "facility_id": "DESERTGATE-ELP",
+    "facility_type": "WAREHOUSE",
+    "first_come_first_served": true,
+    "last_used_at": "2026-11-13T11:20:36Z",
+    "lumper_policy": "NONE",
+    "mabd_program": false,
+    "name": "Desert Gateway Distribution - El Paso",
+    "notes": [],
+    "operating_hours": {
+      "fri": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "mon": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "thu": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "tue": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "wed": {
+        "close": "17:00",
+        "open": "07:00"
+      }
+    },
+    "pallet_exchange": "NONE",
+    "parent_company": "Desert Gateway Distribution",
+    "roles": "CONSIGNEE",
+    "scheduling_method": "NONE_FCFS",
+    "shipment_count": 7,
+    "state": "TX",
+    "status": "ACTIVE",
+    "timezone": "America/Denver",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "updated_by": "JOHNDOE",
+    "zip": "79936"
+  },
+  {
+    "address1": "2350 S 900 W",
+    "appointment_required": false,
+    "avg_unload_minutes": 90,
+    "city": "Salt Lake City",
+    "code": "EVERGREEN-SLC",
+    "compliance_flags": [],
+    "contacts": [
+      {
+        "hours": "07:00-16:00 MT",
+        "name": "Receiving",
+        "phone": "801-555-0178",
+        "role": "RECEIVING"
+      }
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "created_by": "JOHNDOE",
+    "dock_count": 9,
+    "driver_assist": "DRIVER_ASSIST",
+    "external_codes": {},
+    "facility_id": "EVERGREEN-SLC",
+    "facility_type": "WAREHOUSE",
+    "first_come_first_served": true,
+    "last_used_at": "2026-11-09T13:09:00Z",
+    "lumper_policy": "NONE",
+    "mabd_program": false,
+    "name": "Evergreen Distribution - Salt Lake City",
+    "notes": [],
+    "operating_hours": {
+      "fri": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "mon": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "thu": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "tue": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "wed": {
+        "close": "17:00",
+        "open": "07:00"
+      }
+    },
+    "pallet_exchange": "NONE",
+    "parent_company": "Evergreen Distribution",
+    "roles": "CONSIGNEE",
+    "scheduling_method": "NONE_FCFS",
+    "shipment_count": 3,
+    "state": "UT",
+    "status": "ACTIVE",
+    "timezone": "America/Denver",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "updated_by": "JOHNDOE",
+    "zip": "84119"
+  },
+  {
+    "address1": "88 Refrigeration Way",
+    "appointment_required": false,
+    "avg_unload_minutes": 80,
+    "city": "Rockford",
+    "code": "FROSTLINE-RFD",
+    "compliance_flags": [],
+    "contacts": [
+      {
+        "hours": "04:00-14:00 CT",
+        "name": "Cold Dock Office",
+        "phone": "815-555-0125",
+        "role": "SHIPPING"
+      }
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "created_by": "JOHNDOE",
+    "dock_count": 8,
+    "driver_assist": "DRIVER_ASSIST",
+    "external_codes": {},
+    "facility_id": "FROSTLINE-RFD",
+    "facility_type": "WAREHOUSE",
+    "first_come_first_served": true,
+    "last_used_at": "2026-11-13T11:20:36Z",
+    "lumper_policy": "NONE",
+    "mabd_program": false,
+    "name": "Frostline Cold Storage - Rockford",
+    "notes": [],
+    "operating_hours": {
+      "fri": {
+        "close": "14:00",
+        "open": "04:00"
+      },
+      "mon": {
+        "close": "14:00",
+        "open": "04:00"
+      },
+      "thu": {
+        "close": "14:00",
+        "open": "04:00"
+      },
+      "tue": {
+        "close": "14:00",
+        "open": "04:00"
+      },
+      "wed": {
+        "close": "14:00",
+        "open": "04:00"
+      }
+    },
+    "pallet_exchange": "NONE",
+    "parent_company": "Frostline Cold Storage",
+    "roles": "SHIPPER",
+    "scheduling_method": "NONE_FCFS",
+    "shipment_count": 17,
+    "special_instructions": "Reefer pre-cool verified before loading; dock 1-4 are freezer doors.",
+    "state": "IL",
+    "status": "ACTIVE",
+    "timezone": "America/Chicago",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "updated_by": "JOHNDOE",
+    "zip": "61101"
+  },
+  {
+    "address1": "18200 E 40th Ave",
+    "appointment_lead_time_hours": 24,
+    "appointment_required": true,
+    "avg_unload_minutes": 140,
+    "city": "Aurora",
+    "code": "GP-DC5",
+    "compliance_flags": [
+      "ID_REQUIRED"
+    ],
+    "contacts": [
+      {
+        "email": "dc5.receiving@grocerspride.example.com",
+        "hours": "04:00-12:00 MT",
+        "name": "Receiving Desk",
+        "phone": "303-555-0173",
+        "role": "RECEIVING"
+      }
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "created_by": "JOHNDOE",
+    "dock_count": 28,
+    "driver_assist": "LUMPER",
+    "external_codes": {},
+    "facility_id": "GP-DC5",
+    "facility_type": "DC",
+    "first_come_first_served": false,
+    "last_used_at": "2026-11-13T11:20:36Z",
+    "lumper_fee_max": 350,
+    "lumper_fee_min": 150,
+    "lumper_policy": "REQUIRED",
+    "mabd_program": true,
+    "mabd_program_note": "Perishable MABD window is 1 day.",
+    "name": "Grocer's Pride DC5",
+    "notes": [],
+    "operating_hours": {
+      "fri": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "mon": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "thu": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "tue": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "wed": {
+        "close": "17:00",
+        "open": "07:00"
+      }
+    },
+    "pallet_exchange": "CHEP",
+    "parent_company": "Grocer's Pride",
+    "receiving_hours": {
+      "fri": {
+        "close": "12:00",
+        "open": "04:00"
+      },
+      "mon": {
+        "close": "12:00",
+        "open": "04:00"
+      },
+      "thu": {
+        "close": "12:00",
+        "open": "04:00"
+      },
+      "tue": {
+        "close": "12:00",
+        "open": "04:00"
+      },
+      "wed": {
+        "close": "12:00",
+        "open": "04:00"
+      }
+    },
+    "roles": "CONSIGNEE",
+    "scheduling_email": "dc5.receiving@grocerspride.example.com",
+    "scheduling_method": "EMAIL",
+    "shipment_count": 29,
+    "special_instructions": "Reefer loads: pulp at door, temp download if pulp out of range.",
+    "state": "CO",
+    "status": "ACTIVE",
+    "timezone": "America/Denver",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "updated_by": "JOHNDOE",
+    "zip": "80011"
+  },
+  {
+    "address1": "5100 South Blvd",
+    "appointment_required": false,
+    "avg_unload_minutes": 60,
+    "city": "Charlotte",
+    "code": "GP-ST88",
+    "compliance_flags": [],
+    "contacts": [
+      {
+        "hours": "06:00-14:00 ET",
+        "name": "Store Receiving",
+        "phone": "704-555-0181",
+        "role": "RECEIVING"
+      }
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "created_by": "JOHNDOE",
+    "dock_count": 2,
+    "driver_assist": "DRIVER_ASSIST",
+    "external_codes": {},
+    "facility_id": "GP-ST88",
+    "facility_type": "STORE",
+    "first_come_first_served": true,
+    "last_used_at": "2026-11-13T11:20:36Z",
+    "lumper_policy": "NONE",
+    "mabd_program": false,
+    "name": "Grocer's Pride Store 88 - Charlotte",
+    "notes": [],
+    "operating_hours": {
+      "fri": {
+        "close": "22:00",
+        "open": "06:00"
+      },
+      "mon": {
+        "close": "22:00",
+        "open": "06:00"
+      },
+      "sat": {
+        "close": "22:00",
+        "open": "06:00"
+      },
+      "sun": {
+        "close": "22:00",
+        "open": "06:00"
+      },
+      "thu": {
+        "close": "22:00",
+        "open": "06:00"
+      },
+      "tue": {
+        "close": "22:00",
+        "open": "06:00"
+      },
+      "wed": {
+        "close": "22:00",
+        "open": "06:00"
+      }
+    },
+    "pallet_exchange": "NONE",
+    "parent_company": "Grocer's Pride",
+    "roles": "CONSIGNEE",
+    "scheduling_method": "NONE_FCFS",
+    "shipment_count": 9,
+    "state": "NC",
+    "status": "ACTIVE",
+    "timezone": "America/New_York",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "updated_by": "JOHNDOE",
+    "zip": "28217"
+  },
+  {
+    "address1": "4600 E Airport Dr",
+    "appointment_grace_minutes": 30,
+    "appointment_lead_time_hours": 48,
+    "appointment_required": true,
+    "avg_unload_minutes": 110,
+    "city": "Ontario",
+    "code": "HGD-DC08",
+    "compliance_flags": [
+      "ID_REQUIRED",
+      "NO_CELL_PHONES"
+    ],
+    "contacts": [
+      {
+        "hours": "06:00-15:00 PT",
+        "name": "DC08 Scheduling",
+        "phone": "909-555-0172",
+        "role": "SCHEDULING"
+      }
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "created_by": "JOHNDOE",
+    "dock_count": 54,
+    "driver_assist": "DRIVER_ASSIST",
+    "external_codes": {
+      "HGD": "008"
+    },
+    "facility_id": "HGD-DC08",
+    "facility_type": "DC",
+    "first_come_first_served": false,
+    "last_used_at": "2026-11-12T19:26:00Z",
+    "lumper_fee_max": 250,
+    "lumper_fee_min": 100,
+    "lumper_policy": "OPTIONAL",
+    "mabd_program": false,
+    "name": "HomeGoods Depot DC08",
+    "notes": [],
+    "operating_hours": {
+      "fri": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "mon": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "thu": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "tue": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "wed": {
+        "close": "17:00",
+        "open": "07:00"
+      }
+    },
+    "pallet_exchange": "PECO",
+    "parent_company": "HomeGoods Depot",
+    "portal_credentials_note": "Per-carrier login issued by HGD transportation \u2014 pointer in ops vault.",
+    "portal_url": "https://carriers.homegoodsdepot.example.com",
+    "portal_vendor": "RETAILER_PROPRIETARY",
+    "receiving_hours": {
+      "fri": {
+        "close": "15:00",
+        "open": "06:00"
+      },
+      "mon": {
+        "close": "15:00",
+        "open": "06:00"
+      },
+      "thu": {
+        "close": "15:00",
+        "open": "06:00"
+      },
+      "tue": {
+        "close": "15:00",
+        "open": "06:00"
+      },
+      "wed": {
+        "close": "15:00",
+        "open": "06:00"
+      }
+    },
+    "roles": "CONSIGNEE",
+    "scheduling_method": "PORTAL",
+    "shipment_count": 7,
+    "state": "CA",
+    "status": "ACTIVE",
+    "timezone": "America/Los_Angeles",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "updated_by": "JOHNDOE",
+    "zip": "91761"
+  },
+  {
+    "zip": "31322",
+    "created_by": "JOHNDOE",
+    "status": "ACTIVE",
+    "operating_hours": {
+      "fri": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "mon": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "thu": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "tue": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "wed": {
+        "close": "17:00",
+        "open": "07:00"
+      }
+    },
+    "first_come_first_served": true,
+    "lumper_policy": "OPTIONAL",
+    "name": "HomeGoods Depot DC15",
+    "special_instructions": "FCFS 06:00-17:00; expect 1-2 hr dock wait midweek.",
+    "parent_company": "HomeGoods Depot",
+    "state": "GA",
+    "city": "Pooler",
+    "code": "HGD-DC15",
+    "pallet_exchange": "NONE",
+    "updated_by": "JOHNDOE",
+    "shipment_count": 0,
+    "lumper_fee_max": 200,
+    "scheduling_method": "NONE_FCFS",
+    "dock_count": 30,
+    "notes": [],
+    "mabd_program": false,
+    "avg_unload_minutes": 95,
+    "address1": "1000 Trade Center Pkwy",
+    "facility_type": "DC",
+    "receiving_hours": {
+      "fri": {
+        "close": "17:00",
+        "open": "06:00"
+      },
+      "mon": {
+        "close": "17:00",
+        "open": "06:00"
+      },
+      "thu": {
+        "close": "17:00",
+        "open": "06:00"
+      },
+      "tue": {
+        "close": "17:00",
+        "open": "06:00"
+      },
+      "wed": {
+        "close": "17:00",
+        "open": "06:00"
+      }
+    },
+    "external_codes": {},
+    "created_at": "2025-10-09T13:20:36Z",
+    "contacts": [
+      {
+        "hours": "06:00-17:00 ET",
+        "name": "Receiving",
+        "phone": "912-555-0178",
+        "role": "RECEIVING"
+      }
+    ],
+    "lumper_fee_min": 75,
+    "driver_assist": "DRIVER_ASSIST",
+    "compliance_flags": [],
+    "appointment_required": false,
+    "updated_at": "2025-10-09T13:20:36Z",
+    "roles": "CONSIGNEE",
+    "facility_id": "HGD-DC15",
+    "timezone": "America/New_York"
+  },
+  {
+    "address1": "2410 Gallatin Pike",
+    "appointment_required": true,
+    "avg_unload_minutes": 60,
+    "city": "Nashville",
+    "code": "HGD-ST112",
+    "compliance_flags": [],
+    "contacts": [
+      {
+        "hours": "08:00-16:00 CT",
+        "name": "Store Receiving",
+        "phone": "615-555-0179",
+        "role": "RECEIVING"
+      }
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "created_by": "JOHNDOE",
+    "dock_count": 2,
+    "driver_assist": "DRIVER_ASSIST",
+    "external_codes": {},
+    "facility_id": "HGD-ST112",
+    "facility_type": "STORE",
+    "first_come_first_served": true,
+    "last_used_at": "2026-11-13T11:20:36Z",
+    "lumper_policy": "NONE",
+    "mabd_program": false,
+    "name": "HomeGoods Depot Store 112 - Nashville",
+    "notes": [],
+    "operating_hours": {
+      "fri": {
+        "close": "20:00",
+        "open": "08:00"
+      },
+      "mon": {
+        "close": "20:00",
+        "open": "08:00"
+      },
+      "sat": {
+        "close": "20:00",
+        "open": "08:00"
+      },
+      "sun": {
+        "close": "20:00",
+        "open": "08:00"
+      },
+      "thu": {
+        "close": "20:00",
+        "open": "08:00"
+      },
+      "tue": {
+        "close": "20:00",
+        "open": "08:00"
+      },
+      "wed": {
+        "close": "20:00",
+        "open": "08:00"
+      }
+    },
+    "pallet_exchange": "NONE",
+    "parent_company": "HomeGoods Depot",
+    "roles": "CONSIGNEE",
+    "scheduling_method": "PHONE",
+    "scheduling_phone": "615-555-0179",
+    "shipment_count": 4,
+    "special_instructions": "Rear alley dock \u2014 53' trailers must back in from Cleveland St.",
+    "state": "TN",
+    "status": "ACTIVE",
+    "timezone": "America/Chicago",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "updated_by": "JOHNDOE",
+    "zip": "37206"
+  },
+  {
+    "address1": "435 Steelworks Blvd",
+    "appointment_required": false,
+    "avg_unload_minutes": 60,
+    "city": "Pittsburgh",
+    "code": "IRONPEAK-PIT",
+    "compliance_flags": [
+      "STEEL_TOES",
+      "SAFETY_VEST"
+    ],
+    "contacts": [
+      {
+        "hours": "06:00-16:00 ET",
+        "name": "Shipping Office",
+        "phone": "412-555-0163",
+        "role": "SHIPPING"
+      }
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "created_by": "JOHNDOE",
+    "dock_count": 4,
+    "driver_assist": "DRIVER_ASSIST",
+    "external_codes": {},
+    "facility_id": "IRONPEAK-PIT",
+    "facility_type": "PLANT",
+    "first_come_first_served": true,
+    "last_used_at": "2026-11-13T11:20:36Z",
+    "lumper_policy": "NONE",
+    "mabd_program": false,
+    "name": "Ironpeak Fabrication - Plant 1",
+    "notes": [],
+    "operating_hours": {
+      "fri": {
+        "close": "16:00",
+        "open": "06:00"
+      },
+      "mon": {
+        "close": "16:00",
+        "open": "06:00"
+      },
+      "thu": {
+        "close": "16:00",
+        "open": "06:00"
+      },
+      "tue": {
+        "close": "16:00",
+        "open": "06:00"
+      },
+      "wed": {
+        "close": "16:00",
+        "open": "06:00"
+      }
+    },
+    "pallet_exchange": "NONE",
+    "parent_company": "Ironpeak Fabrication",
+    "roles": "SHIPPER",
+    "scheduling_method": "NONE_FCFS",
+    "shipment_count": 10,
+    "special_instructions": "Overhead crane loading \u2014 hard hats issued at office.",
+    "state": "PA",
+    "status": "ACTIVE",
+    "timezone": "America/New_York",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "updated_by": "JOHNDOE",
+    "zip": "15220"
+  },
+  {
+    "address1": "6000 Groveport Rd",
+    "appointment_required": false,
+    "avg_unload_minutes": 90,
+    "city": "Columbus",
+    "code": "KEYSTONE-CMH",
+    "compliance_flags": [],
+    "contacts": [
+      {
+        "hours": "07:00-17:00 ET",
+        "name": "Shipping Desk",
+        "phone": "614-555-0141",
+        "role": "SHIPPING"
+      }
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "created_by": "JOHNDOE",
+    "dock_count": 20,
+    "driver_assist": "DRIVER_ASSIST",
+    "external_codes": {},
+    "facility_id": "KEYSTONE-CMH",
+    "facility_type": "WAREHOUSE",
+    "first_come_first_served": true,
+    "last_used_at": "2026-11-13T11:20:36Z",
+    "lumper_policy": "NONE",
+    "mabd_program": false,
+    "name": "Keystone Home & Garden - Columbus WH",
+    "notes": [],
+    "operating_hours": {
+      "fri": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "mon": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "thu": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "tue": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "wed": {
+        "close": "17:00",
+        "open": "07:00"
+      }
+    },
+    "pallet_exchange": "NONE",
+    "parent_company": "Keystone Home & Garden",
+    "roles": "BOTH",
+    "scheduling_method": "NONE_FCFS",
+    "shipment_count": 26,
+    "state": "OH",
+    "status": "ACTIVE",
+    "timezone": "America/New_York",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "updated_by": "JOHNDOE",
+    "zip": "43217"
+  },
+  {
+    "address1": "7301 Risinger Rd",
+    "appointment_lead_time_hours": 24,
+    "appointment_required": true,
+    "avg_unload_minutes": 90,
+    "city": "Fort Worth",
+    "code": "KEYSTONE-FTW",
+    "compliance_flags": [],
+    "contacts": [
+      {
+        "email": "ftw.receiving@keystonehg.example.com",
+        "hours": "07:00-16:00 CT",
+        "name": "Receiving",
+        "phone": "817-555-0142",
+        "role": "RECEIVING"
+      }
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "created_by": "JOHNDOE",
+    "dock_count": 16,
+    "driver_assist": "DRIVER_ASSIST",
+    "external_codes": {},
+    "facility_id": "KEYSTONE-FTW",
+    "facility_type": "WAREHOUSE",
+    "first_come_first_served": true,
+    "last_used_at": "2026-11-13T11:20:36Z",
+    "lumper_policy": "NONE",
+    "mabd_program": false,
+    "name": "Keystone Home & Garden - Fort Worth WH",
+    "notes": [],
+    "operating_hours": {
+      "fri": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "mon": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "thu": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "tue": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "wed": {
+        "close": "17:00",
+        "open": "07:00"
+      }
+    },
+    "pallet_exchange": "NONE",
+    "parent_company": "Keystone Home & Garden",
+    "roles": "CONSIGNEE",
+    "scheduling_email": "ftw.receiving@keystonehg.example.com",
+    "scheduling_method": "EMAIL",
+    "shipment_count": 11,
+    "state": "TX",
+    "status": "ACTIVE",
+    "timezone": "America/Chicago",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "updated_by": "JOHNDOE",
+    "zip": "76134"
+  },
+  {
+    "address1": "14800 Jacintoport Blvd",
+    "appointment_required": false,
+    "avg_unload_minutes": 75,
+    "city": "Houston",
+    "code": "LONESTAR-HOU",
+    "compliance_flags": [
+      "ID_REQUIRED",
+      "NO_CELL_PHONES",
+      "TWIC_REQUIRED"
+    ],
+    "contacts": [
+      {
+        "hours": "05:00-17:00 CT",
+        "name": "Load Desk",
+        "phone": "713-555-0129",
+        "role": "SHIPPING"
+      }
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "created_by": "JOHNDOE",
+    "dock_count": 10,
+    "driver_assist": "DRIVER_ASSIST",
+    "external_codes": {},
+    "facility_id": "LONESTAR-HOU",
+    "facility_type": "PLANT",
+    "first_come_first_served": true,
+    "last_used_at": "2026-11-13T11:20:36Z",
+    "lumper_policy": "NONE",
+    "mabd_program": false,
+    "name": "Lone Star Chemical - Jacintoport Plant",
+    "notes": [],
+    "operating_hours": {
+      "fri": {
+        "close": "17:00",
+        "open": "05:00"
+      },
+      "mon": {
+        "close": "17:00",
+        "open": "05:00"
+      },
+      "thu": {
+        "close": "17:00",
+        "open": "05:00"
+      },
+      "tue": {
+        "close": "17:00",
+        "open": "05:00"
+      },
+      "wed": {
+        "close": "17:00",
+        "open": "05:00"
+      }
+    },
+    "pallet_exchange": "NONE",
+    "parent_company": "Lone Star Chemical",
+    "roles": "SHIPPER",
+    "scheduling_method": "NONE_FCFS",
+    "shipment_count": 10,
+    "special_instructions": "Hazmat site \u2014 placards verified before gate release. TWIC or escort required.",
+    "state": "TX",
+    "status": "ACTIVE",
+    "timezone": "America/Chicago",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "updated_by": "JOHNDOE",
+    "zip": "77015"
+  },
+  {
+    "address1": "3901 Gardner Ave",
+    "appointment_required": false,
+    "avg_unload_minutes": 90,
+    "city": "Kansas City",
+    "code": "MIDWAY-MKC",
+    "compliance_flags": [],
+    "contacts": [
+      {
+        "hours": "07:00-17:00 CT",
+        "name": "Warehouse Office",
+        "phone": "816-555-0128",
+        "role": "SHIPPING"
+      }
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "created_by": "JOHNDOE",
+    "dock_count": 14,
+    "driver_assist": "DRIVER_ASSIST",
+    "external_codes": {},
+    "facility_id": "MIDWAY-MKC",
+    "facility_type": "WAREHOUSE",
+    "first_come_first_served": true,
+    "last_used_at": "2026-11-13T11:20:36Z",
+    "lumper_policy": "NONE",
+    "mabd_program": false,
+    "name": "Midway Distributors - KC Warehouse",
+    "notes": [],
+    "operating_hours": {
+      "fri": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "mon": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "thu": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "tue": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "wed": {
+        "close": "17:00",
+        "open": "07:00"
+      }
+    },
+    "pallet_exchange": "NONE",
+    "parent_company": "Midway Distributors",
+    "roles": "BOTH",
+    "scheduling_method": "NONE_FCFS",
+    "shipment_count": 9,
+    "state": "MO",
+    "status": "ACTIVE",
+    "timezone": "America/Chicago",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "updated_by": "JOHNDOE",
+    "zip": "64120"
+  },
+  {
+    "zip": "18106",
+    "created_by": "JOHNDOE",
+    "status": "ACTIVE",
+    "operating_hours": {
+      "fri": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "mon": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "thu": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "tue": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "wed": {
+        "close": "17:00",
+        "open": "07:00"
+      }
+    },
+    "first_come_first_served": false,
+    "lumper_policy": "OPTIONAL",
+    "name": "NestMart Regional DC3",
+    "parent_company": "NestMart",
+    "state": "PA",
+    "city": "Allentown",
+    "code": "NEST-DC3",
+    "pallet_exchange": "NONE",
+    "shipment_count": 0,
+    "updated_by": "JOHNDOE",
+    "lumper_fee_max": 225,
+    "scheduling_method": "PHONE",
+    "notes": [],
+    "dock_count": 24,
+    "mabd_program": false,
+    "avg_unload_minutes": 100,
+    "appointment_lead_time_hours": 24,
+    "address1": "7339 Industrial Blvd",
+    "facility_type": "DC",
+    "receiving_hours": {
+      "fri": {
+        "close": "16:00",
+        "open": "06:00"
+      },
+      "mon": {
+        "close": "16:00",
+        "open": "06:00"
+      },
+      "thu": {
+        "close": "16:00",
+        "open": "06:00"
+      },
+      "tue": {
+        "close": "16:00",
+        "open": "06:00"
+      },
+      "wed": {
+        "close": "16:00",
+        "open": "06:00"
+      }
+    },
+    "external_codes": {},
+    "created_at": "2025-10-09T13:20:36Z",
+    "appointment_grace_minutes": 30,
+    "contacts": [
+      {
+        "hours": "06:00-16:00 ET",
+        "name": "Dock Scheduling",
+        "phone": "610-555-0176",
+        "role": "SCHEDULING"
+      }
+    ],
+    "lumper_fee_min": 100,
+    "driver_assist": "DRIVER_ASSIST",
+    "scheduling_phone": "610-555-0176",
+    "compliance_flags": [
+      "SAFETY_VEST"
+    ],
+    "appointment_required": true,
+    "updated_at": "2025-10-09T13:20:36Z",
+    "roles": "CONSIGNEE",
+    "facility_id": "NEST-DC3",
+    "timezone": "America/New_York"
+  },
+  {
+    "address1": "4200 S Pulaski Rd",
+    "appointment_required": false,
+    "avg_unload_minutes": 45,
+    "city": "Chicago",
+    "code": "NORTHSTAR-CHI",
+    "compliance_flags": [],
+    "contacts": [
+      {
+        "hours": "06:00-18:00 CT",
+        "name": "Dock Office",
+        "phone": "312-555-0144",
+        "role": "SHIPPING"
+      }
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "created_by": "JOHNDOE",
+    "dock_count": 6,
+    "driver_assist": "DRIVER_ASSIST",
+    "external_codes": {},
+    "facility_id": "NORTHSTAR-CHI",
+    "facility_type": "PLANT",
+    "first_come_first_served": true,
+    "last_used_at": "2026-11-13T11:20:36Z",
+    "lumper_policy": "NONE",
+    "mabd_program": false,
+    "name": "Northstar Manufacturing - Chicago Dock",
+    "notes": [
+      {
+        "author": "JANEDOE",
+        "text": "Second-shift loads out slower after 16:00 \u2014 plan pickups before 15:00 when possible.",
+        "timestamp": "2026-06-16T15:40:00Z"
+      }
+    ],
+    "operating_hours": {
+      "fri": {
+        "close": "18:00",
+        "open": "06:00"
+      },
+      "mon": {
+        "close": "18:00",
+        "open": "06:00"
+      },
+      "thu": {
+        "close": "18:00",
+        "open": "06:00"
+      },
+      "tue": {
+        "close": "18:00",
+        "open": "06:00"
+      },
+      "wed": {
+        "close": "18:00",
+        "open": "06:00"
+      }
+    },
+    "pallet_exchange": "NONE",
+    "parent_company": "Northstar Manufacturing",
+    "roles": "SHIPPER",
+    "scheduling_method": "NONE_FCFS",
+    "shipment_count": 33,
+    "special_instructions": "Check in at guard shack; outbound doors 4-9. Drivers need load bars (2).",
+    "state": "IL",
+    "status": "ACTIVE",
+    "timezone": "America/Chicago",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "updated_by": "JOHNDOE",
+    "zip": "60632"
+  },
+  {
+    "address1": "7200 S Narragansett Ave",
+    "appointment_required": false,
+    "avg_unload_minutes": 40,
+    "city": "Bedford Park",
+    "code": "OAKDALE-CHI",
+    "compliance_flags": [],
+    "contacts": [
+      {
+        "hours": "05:00-21:00 CT",
+        "name": "Dock Office",
+        "phone": "708-555-0177",
+        "role": "RECEIVING"
+      }
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "created_by": "JOHNDOE",
+    "dock_count": 18,
+    "driver_assist": "DRIVER_ASSIST",
+    "external_codes": {},
+    "facility_id": "OAKDALE-CHI",
+    "facility_type": "CROSS_DOCK",
+    "first_come_first_served": true,
+    "last_used_at": "2026-11-10T17:53:00Z",
+    "lumper_policy": "NONE",
+    "mabd_program": false,
+    "name": "Oakdale Crossdock - Bedford Park",
+    "notes": [],
+    "operating_hours": {
+      "fri": {
+        "close": "21:00",
+        "open": "05:00"
+      },
+      "mon": {
+        "close": "21:00",
+        "open": "05:00"
+      },
+      "sat": {
+        "close": "21:00",
+        "open": "05:00"
+      },
+      "thu": {
+        "close": "21:00",
+        "open": "05:00"
+      },
+      "tue": {
+        "close": "21:00",
+        "open": "05:00"
+      },
+      "wed": {
+        "close": "21:00",
+        "open": "05:00"
+      }
+    },
+    "pallet_exchange": "NONE",
+    "parent_company": "Oakdale Logistics",
+    "roles": "BOTH",
+    "scheduling_method": "NONE_FCFS",
+    "shipment_count": 5,
+    "state": "IL",
+    "status": "ACTIVE",
+    "timezone": "America/Chicago",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "updated_by": "JOHNDOE",
+    "zip": "60638"
+  },
+  {
+    "address1": "777 Kentwood Ave SE",
+    "appointment_required": false,
+    "avg_unload_minutes": 90,
+    "city": "Grand Rapids",
+    "code": "PIONEER-GRR",
+    "compliance_flags": [],
+    "contacts": [
+      {
+        "hours": "06:00-16:30 ET",
+        "name": "Dock Office",
+        "phone": "616-555-0153",
+        "role": "SHIPPING"
+      }
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "created_by": "JOHNDOE",
+    "dock_count": 6,
+    "driver_assist": "DRIVER_ASSIST",
+    "external_codes": {},
+    "facility_id": "PIONEER-GRR",
+    "facility_type": "PLANT",
+    "first_come_first_served": true,
+    "last_used_at": "2026-11-13T11:20:36Z",
+    "lumper_policy": "NONE",
+    "mabd_program": false,
+    "name": "Pioneer Building Products - Kentwood Plant",
+    "notes": [],
+    "operating_hours": {
+      "fri": {
+        "close": "16:30",
+        "open": "06:00"
+      },
+      "mon": {
+        "close": "16:30",
+        "open": "06:00"
+      },
+      "thu": {
+        "close": "16:30",
+        "open": "06:00"
+      },
+      "tue": {
+        "close": "16:30",
+        "open": "06:00"
+      },
+      "wed": {
+        "close": "16:30",
+        "open": "06:00"
+      }
+    },
+    "pallet_exchange": "NONE",
+    "parent_company": "Pioneer Building Products",
+    "roles": "SHIPPER",
+    "scheduling_method": "NONE_FCFS",
+    "shipment_count": 10,
+    "state": "MI",
+    "status": "ACTIVE",
+    "timezone": "America/New_York",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "updated_by": "JOHNDOE",
+    "zip": "49508"
+  },
+  {
+    "address1": "2222 W Buckeye Rd",
+    "appointment_required": false,
+    "avg_unload_minutes": 90,
+    "city": "Phoenix",
+    "code": "REDROCK-PHX",
+    "compliance_flags": [
+      "ID_REQUIRED",
+      "SEAL_REQUIRED"
+    ],
+    "contacts": [
+      {
+        "hours": "05:00-17:00 MST",
+        "name": "Traffic Office",
+        "phone": "602-555-0114",
+        "role": "SHIPPING"
+      }
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "created_by": "JOHNDOE",
+    "dock_count": 4,
+    "driver_assist": "DRIVER_ASSIST",
+    "external_codes": {},
+    "facility_id": "REDROCK-PHX",
+    "facility_type": "PLANT",
+    "first_come_first_served": true,
+    "last_used_at": "2026-11-13T11:20:36Z",
+    "lumper_policy": "NONE",
+    "mabd_program": false,
+    "name": "Red Rock Electronics - Buckeye Rd Plant",
+    "notes": [],
+    "operating_hours": {
+      "fri": {
+        "close": "17:00",
+        "open": "05:00"
+      },
+      "mon": {
+        "close": "17:00",
+        "open": "05:00"
+      },
+      "thu": {
+        "close": "17:00",
+        "open": "05:00"
+      },
+      "tue": {
+        "close": "17:00",
+        "open": "05:00"
+      },
+      "wed": {
+        "close": "17:00",
+        "open": "05:00"
+      }
+    },
+    "pallet_exchange": "NONE",
+    "parent_company": "Red Rock Electronics",
+    "roles": "SHIPPER",
+    "scheduling_method": "NONE_FCFS",
+    "shipment_count": 9,
+    "special_instructions": "High-value freight \u2014 seal applied at dock, number on BOL.",
+    "state": "AZ",
+    "status": "ACTIVE",
+    "timezone": "America/Phoenix",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "updated_by": "JOHNDOE",
+    "zip": "85009"
+  },
+  {
+    "address1": "1418 Maplecrest Ct",
+    "appointment_required": false,
+    "avg_unload_minutes": 30,
+    "city": "Naperville",
+    "code": "RES-MAPLE",
+    "compliance_flags": [],
+    "contacts": [],
+    "created_at": "2025-10-09T13:20:36Z",
+    "created_by": "JOHNDOE",
+    "dock_count": 0,
+    "driver_assist": "DRIVER_ASSIST",
+    "external_codes": {},
+    "facility_id": "RES-MAPLE",
+    "facility_type": "RESIDENCE",
+    "first_come_first_served": true,
+    "last_used_at": "2026-09-26T13:35:00Z",
+    "lumper_policy": "NONE",
+    "mabd_program": false,
+    "name": "Residence - 1418 Maplecrest Ct",
+    "notes": [],
+    "operating_hours": {
+      "fri": {
+        "close": "17:00",
+        "open": "09:00"
+      },
+      "mon": {
+        "close": "17:00",
+        "open": "09:00"
+      },
+      "sat": {
+        "close": "17:00",
+        "open": "09:00"
+      },
+      "thu": {
+        "close": "17:00",
+        "open": "09:00"
+      },
+      "tue": {
+        "close": "17:00",
+        "open": "09:00"
+      },
+      "wed": {
+        "close": "17:00",
+        "open": "09:00"
+      }
+    },
+    "pallet_exchange": "NONE",
+    "roles": "CONSIGNEE",
+    "scheduling_method": "NONE_FCFS",
+    "shipment_count": 1,
+    "special_instructions": "Residential \u2014 liftgate required, call consignee 30 min out.",
+    "state": "IL",
+    "status": "ACTIVE",
+    "timezone": "America/Chicago",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "updated_by": "JOHNDOE",
+    "zip": "60540"
+  },
+  {
+    "address1": "7803 E Canyon Vista Dr",
+    "appointment_required": false,
+    "avg_unload_minutes": 30,
+    "city": "Scottsdale",
+    "code": "RES-CANYON",
+    "compliance_flags": [],
+    "contacts": [],
+    "created_at": "2025-10-09T13:20:36Z",
+    "created_by": "JOHNDOE",
+    "dock_count": 0,
+    "driver_assist": "DRIVER_ASSIST",
+    "external_codes": {},
+    "facility_id": "RES-CANYON",
+    "facility_type": "RESIDENCE",
+    "first_come_first_served": true,
+    "last_used_at": "2026-11-10T18:50:00Z",
+    "lumper_policy": "NONE",
+    "mabd_program": false,
+    "name": "Residence - 7803 E Canyon Vista Dr",
+    "notes": [],
+    "operating_hours": {
+      "fri": {
+        "close": "17:00",
+        "open": "09:00"
+      },
+      "mon": {
+        "close": "17:00",
+        "open": "09:00"
+      },
+      "sat": {
+        "close": "17:00",
+        "open": "09:00"
+      },
+      "thu": {
+        "close": "17:00",
+        "open": "09:00"
+      },
+      "tue": {
+        "close": "17:00",
+        "open": "09:00"
+      },
+      "wed": {
+        "close": "17:00",
+        "open": "09:00"
+      }
+    },
+    "pallet_exchange": "NONE",
+    "roles": "CONSIGNEE",
+    "scheduling_method": "NONE_FCFS",
+    "shipment_count": 2,
+    "special_instructions": "Gated community \u2014 access code from consignee day-of.",
+    "state": "AZ",
+    "status": "ACTIVE",
+    "timezone": "America/Phoenix",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "updated_by": "JOHNDOE",
+    "zip": "85255"
+  },
+  {
+    "address1": "5580 S Cherry Ave",
+    "appointment_required": false,
+    "avg_unload_minutes": 70,
+    "city": "Fresno",
+    "code": "SUNBELT-FRS",
+    "compliance_flags": [],
+    "contacts": [
+      {
+        "hours": "05:00-15:00 PT",
+        "name": "Yard Office",
+        "phone": "559-555-0183",
+        "role": "SHIPPING"
+      }
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "created_by": "JOHNDOE",
+    "dock_count": 3,
+    "driver_assist": "DRIVER_ASSIST",
+    "external_codes": {},
+    "facility_id": "SUNBELT-FRS",
+    "facility_type": "PLANT",
+    "first_come_first_served": true,
+    "last_used_at": "2026-11-12T19:26:00Z",
+    "lumper_policy": "NONE",
+    "mabd_program": false,
+    "name": "Sunbelt Agri Supply - Fresno Yard",
+    "notes": [],
+    "operating_hours": {
+      "fri": {
+        "close": "15:00",
+        "open": "05:00"
+      },
+      "mon": {
+        "close": "15:00",
+        "open": "05:00"
+      },
+      "sat": {
+        "close": "15:00",
+        "open": "05:00"
+      },
+      "thu": {
+        "close": "15:00",
+        "open": "05:00"
+      },
+      "tue": {
+        "close": "15:00",
+        "open": "05:00"
+      },
+      "wed": {
+        "close": "15:00",
+        "open": "05:00"
+      }
+    },
+    "pallet_exchange": "NONE",
+    "parent_company": "Sunbelt Agri Supply",
+    "roles": "SHIPPER",
+    "scheduling_method": "NONE_FCFS",
+    "shipment_count": 10,
+    "special_instructions": "Flatbeds tarp on-site; forklift assist available until 14:00.",
+    "state": "CA",
+    "status": "ACTIVE",
+    "timezone": "America/Los_Angeles",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "updated_by": "JOHNDOE",
+    "zip": "93706"
+  },
+  {
+    "address1": "480 Doremus Ave",
+    "appointment_required": false,
+    "avg_unload_minutes": 45,
+    "city": "Newark",
+    "code": "TRISTATE-EWR",
+    "compliance_flags": [
+      "ID_REQUIRED"
+    ],
+    "contacts": [
+      {
+        "hours": "24/7",
+        "name": "Dock Window 3",
+        "phone": "973-555-0175",
+        "role": "RECEIVING"
+      }
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "created_by": "JOHNDOE",
+    "dock_count": 26,
+    "driver_assist": "DRIVER_ASSIST",
+    "external_codes": {},
+    "facility_id": "TRISTATE-EWR",
+    "facility_type": "CROSS_DOCK",
+    "first_come_first_served": true,
+    "last_used_at": "2026-11-13T11:20:36Z",
+    "lumper_policy": "NONE",
+    "mabd_program": false,
+    "name": "Tri-State Crossdock - Newark",
+    "notes": [],
+    "operating_hours": {
+      "fri": {
+        "close": "23:59",
+        "open": "00:00"
+      },
+      "mon": {
+        "close": "23:59",
+        "open": "00:00"
+      },
+      "sat": {
+        "close": "23:59",
+        "open": "00:00"
+      },
+      "sun": {
+        "close": "23:59",
+        "open": "00:00"
+      },
+      "thu": {
+        "close": "23:59",
+        "open": "00:00"
+      },
+      "tue": {
+        "close": "23:59",
+        "open": "00:00"
+      },
+      "wed": {
+        "close": "23:59",
+        "open": "00:00"
+      }
+    },
+    "pallet_exchange": "NONE",
+    "parent_company": "Tri-State Crossdock",
+    "roles": "BOTH",
+    "scheduling_method": "NONE_FCFS",
+    "shipment_count": 19,
+    "special_instructions": "24/7 cross-dock; check in at window 3 with file number.",
+    "state": "NJ",
+    "status": "ACTIVE",
+    "timezone": "America/New_York",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "updated_by": "JOHNDOE",
+    "zip": "07105"
+  },
+  {
+    "address1": "2100 Prairie Trail Dr",
+    "appointment_required": false,
+    "avg_unload_minutes": 60,
+    "city": "Des Moines",
+    "code": "VALIANT-DSM",
+    "compliance_flags": [
+      "ID_REQUIRED"
+    ],
+    "contacts": [
+      {
+        "hours": "04:00-16:00 CT",
+        "name": "Shipping Office",
+        "phone": "515-555-0134",
+        "role": "SHIPPING"
+      }
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "created_by": "JOHNDOE",
+    "dock_count": 12,
+    "driver_assist": "DRIVER_ASSIST",
+    "external_codes": {},
+    "facility_id": "VALIANT-DSM",
+    "facility_type": "PLANT",
+    "first_come_first_served": true,
+    "last_used_at": "2026-11-13T11:20:36Z",
+    "lumper_policy": "NONE",
+    "mabd_program": false,
+    "name": "Valiant Foods - Des Moines Plant",
+    "notes": [],
+    "operating_hours": {
+      "fri": {
+        "close": "16:00",
+        "open": "04:00"
+      },
+      "mon": {
+        "close": "16:00",
+        "open": "04:00"
+      },
+      "sat": {
+        "close": "16:00",
+        "open": "04:00"
+      },
+      "thu": {
+        "close": "16:00",
+        "open": "04:00"
+      },
+      "tue": {
+        "close": "16:00",
+        "open": "04:00"
+      },
+      "wed": {
+        "close": "16:00",
+        "open": "04:00"
+      }
+    },
+    "pallet_exchange": "NONE",
+    "parent_company": "Valiant Foods Group",
+    "roles": "SHIPPER",
+    "scheduling_method": "NONE_FCFS",
+    "shipment_count": 13,
+    "special_instructions": "Food-grade trailers only; washout ticket checked at gate.",
+    "state": "IA",
+    "status": "ACTIVE",
+    "timezone": "America/Chicago",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "updated_by": "JOHNDOE",
+    "zip": "50313"
+  },
+  {
+    "address1": "5205 Tulane Rd",
+    "appointment_lead_time_hours": 24,
+    "appointment_required": true,
+    "avg_unload_minutes": 120,
+    "city": "Memphis",
+    "code": "VMART-DC09",
+    "compliance_flags": [
+      "ID_REQUIRED"
+    ],
+    "contacts": [
+      {
+        "hours": "05:00-13:00 CT",
+        "name": "Receiving (appt line)",
+        "phone": "901-555-0175",
+        "role": "SCHEDULING"
+      }
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "created_by": "JOHNDOE",
+    "dock_count": 32,
+    "driver_assist": "LUMPER",
+    "external_codes": {},
+    "facility_id": "VMART-DC09",
+    "facility_type": "DC",
+    "first_come_first_served": false,
+    "last_used_at": "2026-11-13T11:20:36Z",
+    "lumper_fee_max": 275,
+    "lumper_fee_min": 125,
+    "lumper_policy": "REQUIRED",
+    "mabd_program": true,
+    "mabd_program_note": "MABD on all PO freight.",
+    "name": "ValueMart Stores DC09",
+    "notes": [],
+    "operating_hours": {
+      "fri": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "mon": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "thu": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "tue": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "wed": {
+        "close": "17:00",
+        "open": "07:00"
+      }
+    },
+    "pallet_exchange": "CHEP",
+    "parent_company": "ValueMart Stores",
+    "receiving_hours": {
+      "fri": {
+        "close": "13:00",
+        "open": "05:00"
+      },
+      "mon": {
+        "close": "13:00",
+        "open": "05:00"
+      },
+      "thu": {
+        "close": "13:00",
+        "open": "05:00"
+      },
+      "tue": {
+        "close": "13:00",
+        "open": "05:00"
+      },
+      "wed": {
+        "close": "13:00",
+        "open": "05:00"
+      }
+    },
+    "roles": "CONSIGNEE",
+    "scheduling_method": "PHONE",
+    "scheduling_phone": "901-555-0175",
+    "shipment_count": 3,
+    "state": "TN",
+    "status": "ACTIVE",
+    "timezone": "America/Chicago",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "updated_by": "JOHNDOE",
+    "zip": "38109"
+  },
+  {
+    "address1": "2801 Rock Creek Blvd",
+    "appointment_grace_minutes": 15,
+    "appointment_lead_time_hours": 24,
+    "appointment_required": true,
+    "avg_unload_minutes": 120,
+    "city": "Joliet",
+    "code": "VMART-DC22",
+    "compliance_flags": [
+      "ID_REQUIRED",
+      "SAFETY_VEST"
+    ],
+    "contacts": [
+      {
+        "hours": "05:00-13:00 CT",
+        "name": "Receiving",
+        "phone": "815-555-0171",
+        "role": "RECEIVING"
+      }
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "created_by": "JOHNDOE",
+    "dock_count": 36,
+    "driver_assist": "LUMPER",
+    "external_codes": {
+      "VMART": "022"
+    },
+    "facility_id": "VMART-DC22",
+    "facility_type": "DC",
+    "first_come_first_served": false,
+    "last_used_at": "2026-11-10T17:53:00Z",
+    "lumper_fee_max": 275,
+    "lumper_fee_min": 125,
+    "lumper_policy": "REQUIRED",
+    "mabd_program": true,
+    "mabd_program_note": "MABD on all PO freight; 2-day general merchandise window.",
+    "name": "ValueMart Stores DC22",
+    "notes": [
+      {
+        "author": "JANEDOE",
+        "text": "Slot times enforced to the minute \u2014 15 min grace, then rescheduled.",
+        "timestamp": "2026-09-14T15:40:00Z"
+      }
+    ],
+    "operating_hours": {
+      "fri": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "mon": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "thu": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "tue": {
+        "close": "17:00",
+        "open": "07:00"
+      },
+      "wed": {
+        "close": "17:00",
+        "open": "07:00"
+      }
+    },
+    "pallet_exchange": "CHEP",
+    "parent_company": "ValueMart Stores",
+    "portal_credentials_note": "Shared ops login \u2014 see vault entry 'ValueMart Opendock'.",
+    "portal_url": "https://schedule.opendock.example.com/vmart-dc22",
+    "portal_vendor": "OPENDOCK",
+    "receiving_hours": {
+      "fri": {
+        "close": "13:00",
+        "open": "05:00"
+      },
+      "mon": {
+        "close": "13:00",
+        "open": "05:00"
+      },
+      "thu": {
+        "close": "13:00",
+        "open": "05:00"
+      },
+      "tue": {
+        "close": "13:00",
+        "open": "05:00"
+      },
+      "wed": {
+        "close": "13:00",
+        "open": "05:00"
+      }
+    },
+    "roles": "CONSIGNEE",
+    "scheduling_method": "PORTAL",
+    "shipment_count": 5,
+    "special_instructions": "Overnight parking prohibited; staging lot on Rock Creek Blvd.",
+    "state": "IL",
+    "status": "ACTIVE",
+    "timezone": "America/Chicago",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "updated_by": "JOHNDOE",
+    "zip": "60431"
+  }
+]

@@ -1,0 +1,722 @@
+[
+  {
+    "accessorial_defaults": [],
+    "customer_roles": [
+      "SHIPPER",
+      "CONTROLLING"
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "margin_floor_pct": 10,
+    "contacts": [
+      {
+        "email": "dispatch@blueharborsd.example.com",
+        "name": "Fiona Meade",
+        "phone": "617-555-0191",
+        "role": "OPS",
+        "title": "Dispatch Desk"
+      },
+      {
+        "email": "ap@blueharborsd.example.com",
+        "name": "Gus Papadakis",
+        "phone": "617-555-0192",
+        "role": "AP",
+        "title": "AP"
+      }
+    ],
+    "status": "ACTIVE",
+    "created_by": "JOHNDOE",
+    "addresses": [
+      {
+        "address1": "12 Fish Pier Rd",
+        "address_type": "MAIN",
+        "city": "Boston",
+        "state": "MA",
+        "zip": "02210"
+      }
+    ],
+    "customer_id": "BLUEHARBOR",
+    "account_manager_id": "JOHNDOE",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "documents": [],
+    "customer_no": "10074",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "default_service_level": "TL_REEFER",
+    "tsa_known_shipper_status": "UNKNOWN",
+    "phone": "617-555-0190",
+    "legal_name": "Blue Harbor Seafood Distributors",
+    "salesperson_id": "JACKDOE",
+    "station": "ATL",
+    "required_references": []
+  },
+  {
+    "accessorial_defaults": [],
+    "customer_roles": [
+      "SHIPPER",
+      "CONTROLLING"
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "margin_floor_pct": 10,
+    "contacts": [
+      {
+        "email": "lfitch@cascadepkg.example.com",
+        "name": "Lena Fitch",
+        "phone": "503-555-0171",
+        "role": "OPS",
+        "title": "Logistics Coordinator"
+      },
+      {
+        "email": "ap@cascadepkg.example.com",
+        "name": "Ron Maier",
+        "phone": "503-555-0172",
+        "role": "AP",
+        "title": "AP"
+      }
+    ],
+    "created_by": "JOHNDOE",
+    "status": "ACTIVE",
+    "addresses": [
+      {
+        "address1": "9410 N Burgard Way",
+        "address_type": "MAIN",
+        "city": "Portland",
+        "state": "OR",
+        "zip": "97203"
+      }
+    ],
+    "customer_id": "CASCADEPKG",
+    "account_manager_id": "JOHNDOE",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "documents": [],
+    "customer_no": "10066",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "tsa_known_shipper_status": "UNKNOWN",
+    "legal_name": "Cascade Packaging Co.",
+    "phone": "503-555-0170",
+    "salesperson_id": "JACKDOE",
+    "station": "DFW",
+    "required_references": []
+  },
+  {
+    "accessorial_defaults": [],
+    "customer_roles": [
+      "SHIPPER",
+      "CONTROLLING"
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "margin_floor_pct": 10,
+    "contacts": [
+      {
+        "email": "ap@frostlinecold.example.com",
+        "name": "Pat Kowalski",
+        "phone": "815-555-0123",
+        "role": "AP",
+        "title": "AP Manager"
+      },
+      {
+        "email": "shipping@frostlinecold.example.com",
+        "name": "June Albers",
+        "phone": "815-555-0124",
+        "role": "OPS",
+        "title": "Shipping Office"
+      }
+    ],
+    "status": "ACTIVE",
+    "created_by": "JOHNDOE",
+    "addresses": [
+      {
+        "address1": "88 Refrigeration Way",
+        "address_type": "MAIN",
+        "city": "Rockford",
+        "state": "IL",
+        "zip": "61101"
+      }
+    ],
+    "customer_id": "FROSTLINE",
+    "account_manager_id": "JOHNDOE",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "documents": [],
+    "customer_no": "10077",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "default_service_level": "TL_REEFER",
+    "tsa_known_shipper_status": "UNKNOWN",
+    "salesperson_id": "JACKDOE",
+    "legal_name": "Frostline Cold Storage",
+    "phone": "815-555-0122",
+    "station": "CHI",
+    "required_references": []
+  },
+  {
+    "accessorial_defaults": [],
+    "customer_roles": [
+      "SHIPPER",
+      "CONTROLLING"
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "margin_floor_pct": 10,
+    "contacts": [
+      {
+        "email": "ohaddad@ironpeakfab.example.com",
+        "name": "Omar Haddad",
+        "phone": "412-555-0161",
+        "role": "OPS",
+        "title": "Plant Logistics"
+      },
+      {
+        "email": "ap@ironpeakfab.example.com",
+        "name": "Beth Crandall",
+        "phone": "412-555-0162",
+        "role": "AP",
+        "title": "AP"
+      }
+    ],
+    "status": "ACTIVE",
+    "created_by": "JOHNDOE",
+    "addresses": [
+      {
+        "address1": "435 Steelworks Blvd",
+        "address_type": "MAIN",
+        "city": "Pittsburgh",
+        "state": "PA",
+        "zip": "15220"
+      }
+    ],
+    "customer_id": "IRONPEAK",
+    "discount_pct": 61,
+    "account_manager_id": "JOHNDOE",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "documents": [],
+    "customer_no": "10063",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "default_service_level": "LTL_STANDARD",
+    "tsa_known_shipper_status": "UNKNOWN",
+    "phone": "412-555-0160",
+    "salesperson_id": "JACKDOE",
+    "legal_name": "Ironpeak Fabrication",
+    "station": "CHI",
+    "required_references": []
+  },
+  {
+    "accessorial_defaults": [],
+    "customer_roles": [
+      "SHIPPER",
+      "CONTROLLING"
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "margin_floor_pct": 10,
+    "contacts": [
+      {
+        "email": "vlindqvist@keystonehg.example.com",
+        "name": "Vera Lindqvist",
+        "phone": "614-555-0136",
+        "role": "OPS",
+        "title": "Corporate Transportation"
+      },
+      {
+        "email": "ap@keystonehg.example.com",
+        "name": "Shared Services AP",
+        "phone": "614-555-0137",
+        "role": "AP",
+        "title": "AP"
+      }
+    ],
+    "status": "ACTIVE",
+    "created_by": "JOHNDOE",
+    "addresses": [
+      {
+        "address1": "6000 Groveport Rd",
+        "address_type": "MAIN",
+        "city": "Columbus",
+        "state": "OH",
+        "zip": "43217"
+      }
+    ],
+    "customer_id": "KEYSTONEHD",
+    "account_manager_id": "JOHNDOE",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "documents": [],
+    "customer_no": "10094",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "tsa_known_shipper_status": "UNKNOWN",
+    "legal_name": "Keystone Home & Garden",
+    "salesperson_id": "JACKDOE",
+    "phone": "614-555-0135",
+    "station": "ATL",
+    "required_references": []
+  },
+  {
+    "accessorial_defaults": [],
+    "customer_roles": [
+      "SHIPPER",
+      "CONSIGNEE"
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "margin_floor_pct": 10,
+    "contacts": [
+      {
+        "email": "mochoa@keystonehg.example.com",
+        "name": "Manny Ochoa",
+        "phone": "817-555-0139",
+        "role": "OPS",
+        "title": "DC Manager"
+      }
+    ],
+    "status": "ACTIVE",
+    "created_by": "JOHNDOE",
+    "addresses": [
+      {
+        "address1": "7301 Risinger Rd",
+        "address_type": "MAIN",
+        "city": "Fort Worth",
+        "state": "TX",
+        "zip": "76134"
+      }
+    ],
+    "customer_id": "KEYSTONE-TX",
+    "account_manager_id": "JOHNDOE",
+    "parent_customer_id": "KEYSTONEHD",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "documents": [],
+    "customer_no": "10095",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "tsa_known_shipper_status": "UNKNOWN",
+    "salesperson_id": "JACKDOE",
+    "phone": "817-555-0138",
+    "legal_name": "Keystone Home & Garden - Texas Division",
+    "station": "DFW",
+    "required_references": []
+  },
+  {
+    "accessorial_defaults": [],
+    "customer_roles": [
+      "SHIPPER",
+      "CONTROLLING"
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "margin_floor_pct": 10,
+    "contacts": [
+      {
+        "email": "sibarra@lonestarchem.example.com",
+        "name": "Saul Ibarra",
+        "phone": "713-555-0121",
+        "role": "OPS",
+        "title": "Logistics"
+      },
+      {
+        "email": "ap@lonestarchem.example.com",
+        "name": "Kim Loftus",
+        "phone": "713-555-0124",
+        "role": "AP",
+        "title": "AP"
+      }
+    ],
+    "created_by": "JOHNDOE",
+    "status": "ACTIVE",
+    "addresses": [
+      {
+        "address1": "14800 Jacintoport Blvd",
+        "address_type": "MAIN",
+        "city": "Houston",
+        "state": "TX",
+        "zip": "77015"
+      }
+    ],
+    "customer_id": "LONESTARCH",
+    "account_manager_id": "JOHNDOE",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "documents": [],
+    "customer_no": "10086",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "tsa_known_shipper_status": "UNKNOWN",
+    "phone": "713-555-0120",
+    "legal_name": "Lone Star Chemical Co.",
+    "salesperson_id": "JACKDOE",
+    "station": "DFW",
+    "required_references": []
+  },
+  {
+    "accessorial_defaults": [],
+    "customer_roles": [
+      "SHIPPER",
+      "CONTROLLING"
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "margin_floor_pct": 10,
+    "contacts": [
+      {
+        "email": "cdelgado@midwaydist.example.com",
+        "name": "Chip Delgado",
+        "phone": "816-555-0126",
+        "role": "OPS",
+        "title": "Warehouse Manager"
+      },
+      {
+        "email": "ap@midwaydist.example.com",
+        "name": "Rita Sloane",
+        "phone": "816-555-0127",
+        "role": "AP",
+        "title": "AP"
+      }
+    ],
+    "created_by": "JOHNDOE",
+    "status": "ACTIVE",
+    "addresses": [
+      {
+        "address1": "3901 Gardner Ave",
+        "address_type": "MAIN",
+        "city": "Kansas City",
+        "state": "MO",
+        "zip": "64120"
+      }
+    ],
+    "customer_id": "MIDWAYDST",
+    "account_manager_id": "JOHNDOE",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "documents": [],
+    "customer_no": "10090",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "tsa_known_shipper_status": "UNKNOWN",
+    "phone": "816-555-0125",
+    "salesperson_id": "JACKDOE",
+    "legal_name": "Midway Distributors",
+    "station": "CHI",
+    "required_references": []
+  },
+  {
+    "accessorial_defaults": [],
+    "website": "northstarmfg.example.com",
+    "customer_roles": [
+      "SHIPPER",
+      "CONTROLLING"
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "margin_floor_pct": 10,
+    "contacts": [
+      {
+        "email": "logistics@northstarmfg.example.com",
+        "name": "Dana Whitfield",
+        "notify_events": [
+          "BOOKED",
+          "DELIVERED"
+        ],
+        "phone": "312-555-0141",
+        "role": "OPS",
+        "title": "Logistics Manager"
+      },
+      {
+        "email": "logistics@northstarmfg.example.com",
+        "name": "Priya Raman",
+        "phone": "312-555-0142",
+        "role": "AP",
+        "title": "AP Supervisor"
+      },
+      {
+        "email": "logistics@northstarmfg.example.com",
+        "name": "Cole Brennan",
+        "phone": "312-555-0143",
+        "role": "AFTER_HOURS",
+        "title": "Shipping Lead (2nd shift)"
+      }
+    ],
+    "created_by": "JOHNDOE",
+    "status": "ACTIVE",
+    "addresses": [
+      {
+        "address1": "4200 S Pulaski Rd",
+        "address_type": "MAIN",
+        "city": "Chicago",
+        "state": "IL",
+        "zip": "60632"
+      }
+    ],
+    "customer_id": "NORTHSTAR",
+    "account_manager_id": "JOHNDOE",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "documents": [],
+    "customer_no": "10041",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "default_service_level": "TL_DRY_VAN",
+    "tsa_known_shipper_status": "KNOWN",
+    "phone": "312-555-0140",
+    "legal_name": "Northstar Manufacturing",
+    "salesperson_id": "JACKDOE",
+    "station": "CHI",
+    "required_references": [
+      {
+        "ref_type": "PO",
+        "required_at": "BOOKING"
+      }
+    ]
+  },
+  {
+    "accessorial_defaults": [],
+    "customer_roles": [
+      "SHIPPER",
+      "CONTROLLING"
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "margin_floor_pct": 10,
+    "contacts": [
+      {
+        "email": "gwen@pioneerbp.example.com",
+        "name": "Gwen Sadowski",
+        "phone": "616-555-0151",
+        "role": "OPS",
+        "title": "Shipping Supervisor"
+      },
+      {
+        "email": "ap@pioneerbp.example.com",
+        "name": "Hal Turner",
+        "phone": "616-555-0152",
+        "role": "AP",
+        "title": "Controller"
+      }
+    ],
+    "status": "ACTIVE",
+    "created_by": "JOHNDOE",
+    "addresses": [
+      {
+        "address1": "777 Kentwood Ave SE",
+        "address_type": "MAIN",
+        "city": "Grand Rapids",
+        "state": "MI",
+        "zip": "49508"
+      }
+    ],
+    "customer_id": "PIONEERBLD",
+    "account_manager_id": "JOHNDOE",
+    "discount_pct": 63,
+    "updated_at": "2025-10-09T13:20:36Z",
+    "documents": [],
+    "customer_no": "10058",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "default_service_level": "LTL_STANDARD",
+    "tsa_known_shipper_status": "UNKNOWN",
+    "salesperson_id": "JACKDOE",
+    "phone": "616-555-0150",
+    "legal_name": "Pioneer Building Products",
+    "station": "CHI",
+    "required_references": []
+  },
+  {
+    "accessorial_defaults": [
+      "INSD"
+    ],
+    "customer_roles": [
+      "SHIPPER",
+      "CONTROLLING"
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "margin_floor_pct": 10,
+    "contacts": [
+      {
+        "email": "izhang@redrockel.example.com",
+        "name": "Ivy Zhang",
+        "phone": "602-555-0111",
+        "role": "OPS",
+        "title": "Traffic Manager"
+      },
+      {
+        "email": "ap@redrockel.example.com",
+        "name": "Noel Vance",
+        "phone": "602-555-0112",
+        "role": "AP",
+        "title": "AP"
+      },
+      {
+        "email": "ops@redrockel.example.com",
+        "name": "After Hours Desk",
+        "phone": "602-555-0113",
+        "role": "AFTER_HOURS",
+        "title": "Ops (24/7)"
+      }
+    ],
+    "created_by": "JOHNDOE",
+    "status": "ACTIVE",
+    "addresses": [
+      {
+        "address1": "2222 W Buckeye Rd",
+        "address_type": "MAIN",
+        "city": "Phoenix",
+        "state": "AZ",
+        "zip": "85009"
+      }
+    ],
+    "customer_id": "REDROCKEL",
+    "account_manager_id": "JOHNDOE",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "documents": [],
+    "customer_no": "10082",
+    "updated_by": "JOHNDOE",
+    "default_dim_factor": 250,
+    "notes": [],
+    "tsa_known_shipper_status": "KNOWN",
+    "phone": "602-555-0110",
+    "legal_name": "Red Rock Electronics",
+    "salesperson_id": "JACKDOE",
+    "station": "DFW",
+    "required_references": [
+      {
+        "ref_type": "SO",
+        "required_at": "BOOKING"
+      }
+    ]
+  },
+  {
+    "accessorial_defaults": [],
+    "customer_roles": [
+      "SHIPPER",
+      "CONTROLLING"
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "margin_floor_pct": 10,
+    "contacts": [
+      {
+        "email": "shipping@sunbeltag.example.com",
+        "name": "Reyna Solis",
+        "phone": "559-555-0181",
+        "role": "OPS",
+        "title": "Shipping Office"
+      },
+      {
+        "email": "walt@sunbeltag.example.com",
+        "name": "Walt Emery",
+        "phone": "559-555-0182",
+        "role": "PRIMARY",
+        "title": "Owner"
+      }
+    ],
+    "status": "ACTIVE",
+    "created_by": "JOHNDOE",
+    "addresses": [
+      {
+        "address1": "5580 S Cherry Ave",
+        "address_type": "MAIN",
+        "city": "Fresno",
+        "state": "CA",
+        "zip": "93706"
+      }
+    ],
+    "customer_id": "SUNBELTAG",
+    "account_manager_id": "JOHNDOE",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "documents": [],
+    "customer_no": "10071",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "tsa_known_shipper_status": "UNKNOWN",
+    "legal_name": "Sunbelt Agri Supply",
+    "phone": "559-555-0180",
+    "salesperson_id": "JACKDOE",
+    "station": "DFW",
+    "required_references": []
+  },
+  {
+    "accessorial_defaults": [],
+    "customer_roles": [
+      "SHIPPER"
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "margin_floor_pct": 10,
+    "contacts": [
+      {
+        "email": "skye@truenorthgear.example.com",
+        "name": "Skye Hollis",
+        "phone": "303-555-0146",
+        "role": "PRIMARY",
+        "title": "Supply Chain Lead"
+      }
+    ],
+    "created_by": "JOHNDOE",
+    "status": "PROSPECT",
+    "addresses": [
+      {
+        "address1": "1480 W Bayaud Ave",
+        "address_type": "MAIN",
+        "city": "Denver",
+        "state": "CO",
+        "zip": "80223"
+      }
+    ],
+    "customer_id": "TRUENORTH",
+    "account_manager_id": "JOHNDOE",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "documents": [],
+    "customer_no": "10099",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "tsa_known_shipper_status": "UNKNOWN",
+    "phone": "303-555-0145",
+    "salesperson_id": "JACKDOE",
+    "legal_name": "TrueNorth Outdoor Gear",
+    "station": "CHI",
+    "required_references": []
+  },
+  {
+    "accessorial_defaults": [
+      "LUM"
+    ],
+    "customer_roles": [
+      "SHIPPER",
+      "CONTROLLING"
+    ],
+    "created_at": "2025-10-09T13:20:36Z",
+    "margin_floor_pct": 10,
+    "contacts": [
+      {
+        "email": "mbell@valiantfoods.example.com",
+        "name": "Marcus Bell",
+        "phone": "515-555-0131",
+        "role": "OPS",
+        "title": "Transportation Manager"
+      },
+      {
+        "email": "payables@valiantfoods.example.com",
+        "name": "Ana Sofia Cruz",
+        "phone": "515-555-0132",
+        "role": "AP",
+        "title": "AP"
+      },
+      {
+        "email": "pricing@valiantfoods.example.com",
+        "name": "Terry Nguyen",
+        "phone": "515-555-0133",
+        "role": "PRICING",
+        "title": "Pricing Desk"
+      }
+    ],
+    "status": "ACTIVE",
+    "created_by": "JOHNDOE",
+    "addresses": [
+      {
+        "address1": "2100 Prairie Trail Dr",
+        "address_type": "MAIN",
+        "city": "Des Moines",
+        "state": "IA",
+        "zip": "50313"
+      }
+    ],
+    "customer_id": "VALIANTFD",
+    "account_manager_id": "JOHNDOE",
+    "updated_at": "2025-10-09T13:20:36Z",
+    "documents": [],
+    "customer_no": "10052",
+    "updated_by": "JOHNDOE",
+    "notes": [],
+    "tsa_known_shipper_status": "UNKNOWN",
+    "legal_name": "Valiant Foods Group",
+    "phone": "515-555-0130",
+    "salesperson_id": "JACKDOE",
+    "station": "CHI",
+    "required_references": []
+  }
+]

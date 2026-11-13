@@ -1,0 +1,3834 @@
+[
+  {
+    "buy_total": 891,
+    "service_failure": false,
+    "rate_con_number": "RC-7300126-1",
+    "status": "IN_TRANSIT",
+    "gp_amount": 114.75,
+    "customer_charges": [
+      {
+        "amount": 861.75,
+        "auto_flag": true,
+        "charge_code": "FRT",
+        "charge_id": "chg_d438d044ea5e420981b6",
+        "description": "Linehaul",
+        "override_flag": false,
+        "quantity": 225,
+        "rate": 3.83,
+        "rate_basis": "PER_MILE",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 144,
+        "auto_flag": true,
+        "charge_code": "FSC",
+        "charge_id": "chg_7889fbd56c7246bd8867",
+        "description": "Fuel surcharge @ 0.64/mi",
+        "override_flag": false,
+        "quantity": 225,
+        "rate": 0.64,
+        "rate_basis": "PER_MILE",
+        "status": "ESTIMATED"
+      }
+    ],
+    "special_instructions": "24/7 cross-dock; check in at window 3 with file number.",
+    "target_pay_min": 825,
+    "equipment_type": "R",
+    "tracking_sk": "2026-11-13T05:20:36Z#7300126",
+    "consignee_state": "NJ",
+    "shipper_city": "Boston",
+    "shipper_state": "MA",
+    "target_pay_max": 925,
+    "created_at": "2026-11-09T13:10:00Z",
+    "service_level": "TL_REEFER",
+    "driver_phone": "504-555-0185",
+    "freight_terms": "PREPAID",
+    "pod": {
+      "received": false
+    },
+    "milestones": [
+      {
+        "complete": true,
+        "entered_at": "2026-11-09T13:24:00Z",
+        "entered_by": "JOHNDOE",
+        "event_at": "2026-11-09T13:10:00Z",
+        "label": "New Shipment",
+        "milestone_code": "NEW",
+        "sequence": 1,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-10T06:32:44Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-10T06:02:44Z",
+        "label": "Carrier Assigned",
+        "milestone_code": "COVERED",
+        "sequence": 2,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-10T07:27:44Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-10T07:09:44Z",
+        "label": "Rate Confirmation Sent",
+        "milestone_code": "RATE_CON_SENT",
+        "sequence": 3,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-12T20:56:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-12T20:41:00Z",
+        "label": "Driver Dispatched",
+        "milestone_code": "DISPATCHED",
+        "sequence": 4,
+        "source": "AUTO"
+      },
+      {
+        "complete": false,
+        "label": "24HR Prior Confirmation to Pickup",
+        "milestone_code": "24H_PICKUP_CONF",
+        "sequence": 5
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-13T11:43:36Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-13T11:20:36Z",
+        "event_timezone": "America/New_York",
+        "label": "Onsite at Shipper",
+        "milestone_code": "AT_SHIPPER",
+        "sequence": 6,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-13T12:27:36Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-13T12:05:36Z",
+        "event_timezone": "America/New_York",
+        "label": "Loaded",
+        "milestone_code": "LOADED",
+        "sequence": 7,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-13T13:14:36Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-13T12:50:36Z",
+        "label": "In Transit",
+        "milestone_code": "IN_TRANSIT",
+        "sequence": 8,
+        "source": "AUTO"
+      },
+      {
+        "complete": false,
+        "label": "24HR Prior Confirmation to Delivery",
+        "milestone_code": "24H_DELIVERY_CONF",
+        "sequence": 9
+      },
+      {
+        "complete": false,
+        "label": "Arrived at Consignee",
+        "milestone_code": "AT_CONSIGNEE",
+        "sequence": 10
+      },
+      {
+        "complete": false,
+        "label": "Delivered",
+        "milestone_code": "DELIVERED",
+        "sequence": 11
+      },
+      {
+        "complete": false,
+        "label": "POD Received",
+        "milestone_code": "POD_RECEIVED",
+        "sequence": 12
+      }
+    ],
+    "track_owner": "JANEDOE",
+    "updated_at": "2026-11-13T13:20:36Z",
+    "shipper_name": "Blue Harbor - Fish Pier Cold Store",
+    "pro_number": "802-698043",
+    "references": [
+      {
+        "type": "SHIPMENT",
+        "value": "7300126"
+      },
+      {
+        "type": "BOL",
+        "value": "BLU867886"
+      },
+      {
+        "type": "PRO",
+        "value": "802-698043"
+      },
+      {
+        "type": "RATE_CON",
+        "value": "RC-7300126-1"
+      }
+    ],
+    "freight_lines": [
+      {
+        "chargeable_lb": 31710,
+        "description": "Frozen seafood, palletized",
+        "dim_factor": 194,
+        "dim_weight_lb": 11235,
+        "hazmat": false,
+        "height_in": 54,
+        "length_in": 48,
+        "line_no": 1,
+        "package_type": "PALLET",
+        "pieces": 21,
+        "weight_lb": 31710,
+        "width_in": 40
+      }
+    ],
+    "shipment_id": "7300126",
+    "rate_con_rev": 1,
+    "pickup_date": "2026-11-13",
+    "driver_name": "Curt Landry",
+    "vendor_costs": [
+      {
+        "amount": 747,
+        "charge_code": "FRT",
+        "cost_id": "cost_0bf71da0778442f8b7d1",
+        "description": "Carrier linehaul \u2014 Sunridge Trucking LLC",
+        "override_flag": false,
+        "quantity": 225,
+        "rate": 3.32,
+        "rate_basis": "PER_MILE",
+        "status": "CONFIRMED",
+        "vendor_id": "SUNRIDGE"
+      },
+      {
+        "amount": 144,
+        "charge_code": "FSC",
+        "cost_id": "cost_10fd6f54a91949f3abed",
+        "description": "Fuel surcharge @ 0.64/mi",
+        "override_flag": false,
+        "quantity": 225,
+        "rate": 0.64,
+        "rate_basis": "PER_MILE",
+        "status": "CONFIRMED",
+        "vendor_id": "SUNRIDGE"
+      }
+    ],
+    "created_by": "JOHNDOE",
+    "internal_notes": "",
+    "transit_days_est": 1,
+    "carrier_contact": "Sunridge Dispatch",
+    "trailer_number": "53251",
+    "gp_pct": 11.4,
+    "tracking_pk": "TRACK",
+    "status_updated_at": "2026-11-13T12:50:36Z",
+    "consignee_city": "Newark",
+    "updated_by": "JANEDOE",
+    "next_tracking_at": "2026-11-13T05:20:36Z",
+    "salesperson_id": "JACKDOE",
+    "station": "ATL",
+    "freight_totals": {
+      "actual_lb": 31710,
+      "chargeable_lb": 31710,
+      "cubic_ft": 1260,
+      "density_pcf": 25.17,
+      "dim_factor_used": 194,
+      "dim_weight_lb": 11235,
+      "pallet_positions": 11,
+      "pieces": 21
+    },
+    "dim_factor_used": 194,
+    "mode": "TL",
+    "delivery_date_target": "2026-11-14",
+    "customer_id": "BLUEHARBOR",
+    "consignee_name": "Tri-State Crossdock - Newark",
+    "status_updated_by": "JANEDOE",
+    "account_manager_id": "JOHNDOE",
+    "sell_total": 1005.75,
+    "truck_number": "304",
+    "stops": [
+      {
+        "actual_arrival": "2026-11-13T11:20:36Z",
+        "actual_departure": "2026-11-13T12:05:36Z",
+        "address_snapshot": {
+          "address1": "12 Fish Pier Rd",
+          "city": "Boston",
+          "name": "Blue Harbor - Fish Pier Cold Store",
+          "state": "MA",
+          "timezone": "America/New_York",
+          "zip": "02210"
+        },
+        "appointment": {
+          "status": "NOT_REQUIRED"
+        },
+        "facility_id": "BLUEHARBOR-BOS",
+        "instructions": "Pre-cool to -10F before arrival; pulp check at loading.",
+        "references": [],
+        "scheduled_window": {
+          "earliest_local": "2026-11-13T08:00:00",
+          "latest_local": "2026-11-13T14:00:00",
+          "timezone": "America/New_York"
+        },
+        "stop_seq": 1,
+        "stop_type": "PICKUP"
+      },
+      {
+        "address_snapshot": {
+          "address1": "480 Doremus Ave",
+          "city": "Newark",
+          "name": "Tri-State Crossdock - Newark",
+          "state": "NJ",
+          "timezone": "America/New_York",
+          "zip": "07105"
+        },
+        "appointment": {
+          "status": "NOT_REQUIRED"
+        },
+        "facility_id": "TRISTATE-EWR",
+        "instructions": "24/7 cross-dock; check in at window 3 with file number.",
+        "references": [],
+        "scheduled_window": {
+          "earliest_local": "2026-11-14T08:00:00",
+          "latest_local": "2026-11-14T16:00:00",
+          "timezone": "America/New_York"
+        },
+        "stop_seq": 2,
+        "stop_type": "DELIVERY"
+      }
+    ],
+    "carrier_id": "SUNRIDGE",
+    "miles": 225,
+    "rate_con_doc_id": "doc_34d1c2d7b6894be6b765",
+    "overdue": true
+  },
+  {
+    "buy_total": 2970.75,
+    "service_failure": false,
+    "rate_con_number": "RC-7300117-1",
+    "status": "IN_TRANSIT",
+    "gp_amount": 469,
+    "customer_charges": [
+      {
+        "amount": 2682.5,
+        "auto_flag": true,
+        "charge_code": "FRT",
+        "charge_id": "chg_3922aa1ecfa24bfb9f0e",
+        "description": "Linehaul",
+        "override_flag": false,
+        "quantity": 925,
+        "rate": 2.9,
+        "rate_basis": "PER_MILE",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 527.25,
+        "auto_flag": true,
+        "charge_code": "FSC",
+        "charge_id": "chg_f158ee33ff7442948a04",
+        "description": "Fuel surcharge @ 0.57/mi",
+        "override_flag": false,
+        "quantity": 925,
+        "rate": 0.57,
+        "rate_basis": "PER_MILE",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 230,
+        "auto_flag": false,
+        "charge_code": "LUM",
+        "charge_id": "chg_06fd41b1139041d9b994",
+        "description": "Lumper reimbursement",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 230,
+        "rate_basis": "FLAT",
+        "status": "ESTIMATED"
+      }
+    ],
+    "special_instructions": "All trailers sealed; driver photo ID at gate. Lumper paid at receiving office (receipt required).",
+    "target_pay_min": 2575,
+    "tracking_sk": "2026-11-13T07:20:36Z#7300117",
+    "equipment_type": "V",
+    "consignee_state": "TX",
+    "shipper_city": "Chicago",
+    "shipper_state": "IL",
+    "target_pay_max": 2875,
+    "service_level": "TL_DRY_VAN",
+    "created_at": "2026-11-07T14:32:00Z",
+    "driver_phone": "214-555-0182",
+    "pod": {
+      "received": false
+    },
+    "freight_terms": "PREPAID",
+    "milestones": [
+      {
+        "complete": true,
+        "entered_at": "2026-11-07T14:41:00Z",
+        "entered_by": "api",
+        "event_at": "2026-11-07T14:32:00Z",
+        "label": "New Shipment",
+        "milestone_code": "NEW",
+        "sequence": 1,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-08T03:01:23Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-08T02:50:23Z",
+        "label": "Carrier Assigned",
+        "milestone_code": "COVERED",
+        "sequence": 2,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-08T03:56:23Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-08T03:35:23Z",
+        "label": "Rate Confirmation Sent",
+        "milestone_code": "RATE_CON_SENT",
+        "sequence": 3,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-09T21:36:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-09T21:05:00Z",
+        "label": "Driver Dispatched",
+        "milestone_code": "DISPATCHED",
+        "sequence": 4,
+        "source": "AUTO"
+      },
+      {
+        "complete": false,
+        "label": "24HR Prior Confirmation to Pickup",
+        "milestone_code": "24H_PICKUP_CONF",
+        "sequence": 5
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-10T14:01:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-10T13:44:00Z",
+        "event_timezone": "America/Chicago",
+        "label": "Onsite at Shipper",
+        "milestone_code": "AT_SHIPPER",
+        "sequence": 6,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-10T16:18:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-10T15:59:00Z",
+        "event_timezone": "America/Chicago",
+        "label": "Loaded",
+        "milestone_code": "LOADED",
+        "sequence": 7,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-10T17:18:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-10T16:44:00Z",
+        "label": "In Transit",
+        "milestone_code": "IN_TRANSIT",
+        "sequence": 8,
+        "source": "AUTO"
+      },
+      {
+        "complete": false,
+        "label": "24HR Prior Confirmation to Delivery",
+        "milestone_code": "24H_DELIVERY_CONF",
+        "sequence": 9
+      },
+      {
+        "complete": false,
+        "label": "Arrived at Consignee",
+        "milestone_code": "AT_CONSIGNEE",
+        "sequence": 10
+      },
+      {
+        "complete": false,
+        "label": "Delivered",
+        "milestone_code": "DELIVERED",
+        "sequence": 11
+      },
+      {
+        "complete": false,
+        "label": "POD Received",
+        "milestone_code": "POD_RECEIVED",
+        "sequence": 12
+      }
+    ],
+    "track_owner": "JANEDOE",
+    "updated_at": "2026-11-10T17:29:00Z",
+    "shipper_name": "Northstar Manufacturing - Chicago Dock",
+    "pro_number": "452-780566",
+    "references": [
+      {
+        "type": "SHIPMENT",
+        "value": "7300117"
+      },
+      {
+        "type": "PO",
+        "value": "PO-854899"
+      },
+      {
+        "type": "BOL",
+        "value": "NOR994705"
+      },
+      {
+        "type": "PRO",
+        "value": "452-780566"
+      },
+      {
+        "type": "RATE_CON",
+        "value": "RC-7300117-1"
+      },
+      {
+        "type": "DELIVERY_NUMBER",
+        "value": "BBR-DC135-62324"
+      }
+    ],
+    "freight_lines": [
+      {
+        "chargeable_lb": 32274,
+        "description": "Machined steel components, palletized",
+        "dim_factor": 194,
+        "dim_weight_lb": 10472,
+        "hazmat": false,
+        "height_in": 48,
+        "length_in": 48,
+        "line_no": 1,
+        "package_type": "PALLET",
+        "pieces": 22,
+        "weight_lb": 32274,
+        "width_in": 40
+      }
+    ],
+    "shipment_id": "7300117",
+    "rate_con_rev": 1,
+    "driver_name": "Tonya Fields",
+    "pickup_date": "2026-11-10",
+    "vendor_costs": [
+      {
+        "amount": 2238.5,
+        "charge_code": "FRT",
+        "cost_id": "cost_412f828e86344ab28fdc",
+        "description": "Carrier linehaul \u2014 Blue Ridge Transport",
+        "override_flag": false,
+        "quantity": 925,
+        "rate": 2.42,
+        "rate_basis": "PER_MILE",
+        "status": "CONFIRMED",
+        "vendor_id": "BLUERIDGE"
+      },
+      {
+        "amount": 527.25,
+        "charge_code": "FSC",
+        "cost_id": "cost_99b3ea0f008e45d39d15",
+        "description": "Fuel surcharge @ 0.57/mi",
+        "override_flag": false,
+        "quantity": 925,
+        "rate": 0.57,
+        "rate_basis": "PER_MILE",
+        "status": "CONFIRMED",
+        "vendor_id": "BLUERIDGE"
+      },
+      {
+        "amount": 205,
+        "charge_code": "LUM",
+        "cost_id": "cost_f629143db73e43f098af",
+        "description": "Lumper service \u2014 DockHands (receipt on file)",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 205,
+        "rate_basis": "FLAT",
+        "status": "CONFIRMED",
+        "vendor_id": "DOCKHANDS"
+      }
+    ],
+    "internal_notes": "Lumper required at destination \u2014 driver pays, we reimburse with receipt.",
+    "created_by": "api",
+    "carrier_contact": "BRT Dispatch",
+    "transit_days_est": 2,
+    "trailer_number": "53937",
+    "gp_pct": 13.6,
+    "tracking_pk": "TRACK",
+    "status_updated_at": "2026-11-10T16:44:00Z",
+    "consignee_city": "Dallas",
+    "updated_by": "JANEDOE",
+    "next_tracking_at": "2026-11-13T07:20:36Z",
+    "salesperson_id": "JACKDOE",
+    "station": "CHI",
+    "freight_totals": {
+      "actual_lb": 32274,
+      "chargeable_lb": 32274,
+      "cubic_ft": 1173.3,
+      "density_pcf": 27.51,
+      "dim_factor_used": 194,
+      "dim_weight_lb": 10472,
+      "pallet_positions": 11,
+      "pieces": 22
+    },
+    "dim_factor_used": 194,
+    "mode": "TL",
+    "delivery_date_target": "2026-11-12",
+    "customer_id": "NORTHSTAR",
+    "consignee_name": "Big-Box Retailer DC135",
+    "status_updated_by": "JANEDOE",
+    "account_manager_id": "JOHNDOE",
+    "truck_number": "397",
+    "sell_total": 3439.75,
+    "stops": [
+      {
+        "actual_arrival": "2026-11-10T13:44:00Z",
+        "actual_departure": "2026-11-10T15:59:00Z",
+        "address_snapshot": {
+          "address1": "4200 S Pulaski Rd",
+          "city": "Chicago",
+          "name": "Northstar Manufacturing - Chicago Dock",
+          "state": "IL",
+          "timezone": "America/Chicago",
+          "zip": "60632"
+        },
+        "appointment": {
+          "status": "NOT_REQUIRED"
+        },
+        "facility_id": "NORTHSTAR-CHI",
+        "instructions": "Check in at guard shack; outbound doors 4-9. Drivers need load bars (2).",
+        "references": [],
+        "scheduled_window": {
+          "earliest_local": "2026-11-10T08:00:00",
+          "latest_local": "2026-11-10T14:00:00",
+          "timezone": "America/Chicago"
+        },
+        "stop_seq": 1,
+        "stop_type": "PICKUP"
+      },
+      {
+        "address_snapshot": {
+          "address1": "9800 Commerce Pkwy",
+          "city": "Dallas",
+          "name": "Big-Box Retailer DC135",
+          "state": "TX",
+          "timezone": "America/Chicago",
+          "zip": "75237"
+        },
+        "appointment": {
+          "confirmation_number": "BBR-DC135-62324",
+          "method_used": "PORTAL",
+          "portal_ref": "MERIDIAN_DOCK:BBR-DC135-62324",
+          "scheduled_by": "JOHNDOE",
+          "status": "CONFIRMED"
+        },
+        "facility_id": "BBR-DC135",
+        "instructions": "All trailers sealed; driver photo ID at gate. Lumper paid at receiving office (receipt required).",
+        "mabd_date": "2026-11-12",
+        "references": [
+          {
+            "type": "PO",
+            "value": "PO-854899"
+          },
+          {
+            "type": "DELIVERY_NUMBER",
+            "value": "BBR-DC135-62324"
+          }
+        ],
+        "scheduled_window": {
+          "earliest_local": "2026-11-12T09:00:00",
+          "latest_local": "2026-11-12T10:00:00",
+          "timezone": "America/Chicago"
+        },
+        "stop_seq": 2,
+        "stop_type": "DELIVERY"
+      }
+    ],
+    "carrier_id": "BLUERIDGE",
+    "miles": 925,
+    "rate_con_doc_id": "doc_987774ed9179452f87c0",
+    "overdue": true
+  },
+  {
+    "buy_total": 1508.6,
+    "service_failure": false,
+    "rate_con_number": "RC-7300137-1",
+    "status": "IN_TRANSIT",
+    "gp_amount": 304.9,
+    "customer_charges": [
+      {
+        "amount": 1238.4,
+        "auto_flag": true,
+        "charge_code": "FRT",
+        "charge_id": "chg_3cbb07981237435584fd",
+        "description": "Linehaul",
+        "override_flag": false,
+        "quantity": 430,
+        "rate": 2.88,
+        "rate_basis": "PER_MILE",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 245.1,
+        "auto_flag": true,
+        "charge_code": "FSC",
+        "charge_id": "chg_cdf0ede9f07f47d98d01",
+        "description": "Fuel surcharge @ 0.57/mi",
+        "override_flag": false,
+        "quantity": 430,
+        "rate": 0.57,
+        "rate_basis": "PER_MILE",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 330,
+        "auto_flag": true,
+        "charge_code": "INSD",
+        "charge_id": "chg_adc07c162b284a5aa202",
+        "description": "Cargo insurance on declared value $60,000.00",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 0.55,
+        "rate_basis": "PCT_OF_VALUE",
+        "status": "ESTIMATED"
+      }
+    ],
+    "target_pay_min": 1225,
+    "tracking_sk": "2026-11-13T07:20:36Z#7300137",
+    "equipment_type": "V",
+    "consignee_state": "TX",
+    "shipper_city": "Phoenix",
+    "shipper_state": "AZ",
+    "target_pay_max": 1350,
+    "service_level": "TL_DRY_VAN",
+    "created_at": "2026-11-10T15:50:00Z",
+    "driver_phone": "214-555-0182",
+    "pod": {
+      "received": false
+    },
+    "freight_terms": "PREPAID",
+    "milestones": [
+      {
+        "complete": true,
+        "entered_at": "2026-11-10T16:21:00Z",
+        "entered_by": "JOHNDOE",
+        "event_at": "2026-11-10T15:50:00Z",
+        "label": "New Shipment",
+        "milestone_code": "NEW",
+        "sequence": 1,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-11T07:23:48Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-11T07:04:48Z",
+        "label": "Carrier Assigned",
+        "milestone_code": "COVERED",
+        "sequence": 2,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-11T08:07:48Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-11T08:03:48Z",
+        "label": "Rate Confirmation Sent",
+        "milestone_code": "RATE_CON_SENT",
+        "sequence": 3,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-12T22:32:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-12T22:06:00Z",
+        "label": "Driver Dispatched",
+        "milestone_code": "DISPATCHED",
+        "sequence": 4,
+        "source": "AUTO"
+      },
+      {
+        "complete": false,
+        "label": "24HR Prior Confirmation to Pickup",
+        "milestone_code": "24H_PICKUP_CONF",
+        "sequence": 5
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-13T11:48:36Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-13T11:20:36Z",
+        "event_timezone": "America/Phoenix",
+        "label": "Onsite at Shipper",
+        "milestone_code": "AT_SHIPPER",
+        "sequence": 6,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-13T12:17:36Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-13T12:05:36Z",
+        "event_timezone": "America/Phoenix",
+        "label": "Loaded",
+        "milestone_code": "LOADED",
+        "sequence": 7,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-13T13:20:36Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-13T12:50:36Z",
+        "label": "In Transit",
+        "milestone_code": "IN_TRANSIT",
+        "sequence": 8,
+        "source": "AUTO"
+      },
+      {
+        "complete": false,
+        "label": "24HR Prior Confirmation to Delivery",
+        "milestone_code": "24H_DELIVERY_CONF",
+        "sequence": 9
+      },
+      {
+        "complete": false,
+        "label": "Arrived at Consignee",
+        "milestone_code": "AT_CONSIGNEE",
+        "sequence": 10
+      },
+      {
+        "complete": false,
+        "label": "Delivered",
+        "milestone_code": "DELIVERED",
+        "sequence": 11
+      },
+      {
+        "complete": false,
+        "label": "POD Received",
+        "milestone_code": "POD_RECEIVED",
+        "sequence": 12
+      }
+    ],
+    "track_owner": "JANEDOE",
+    "updated_at": "2026-11-13T13:20:36Z",
+    "shipper_name": "Red Rock Electronics - Buckeye Rd Plant",
+    "pro_number": "302-110109",
+    "references": [
+      {
+        "type": "SHIPMENT",
+        "value": "7300137"
+      },
+      {
+        "type": "BOL",
+        "value": "RED292698"
+      },
+      {
+        "type": "PRO",
+        "value": "302-110109"
+      },
+      {
+        "type": "RATE_CON",
+        "value": "RC-7300137-1"
+      }
+    ],
+    "freight_lines": [
+      {
+        "chargeable_lb": 8060,
+        "description": "Consumer electronics, shrink-wrapped",
+        "dim_factor": 250,
+        "dim_weight_lb": 6201,
+        "hazmat": false,
+        "height_in": 62,
+        "length_in": 48,
+        "line_no": 1,
+        "package_type": "PALLET",
+        "pieces": 13,
+        "weight_lb": 8060,
+        "width_in": 40
+      }
+    ],
+    "shipment_id": "7300137",
+    "rate_con_rev": 1,
+    "driver_name": "Tonya Fields",
+    "pickup_date": "2026-11-13",
+    "vendor_costs": [
+      {
+        "amount": 1053.5,
+        "charge_code": "FRT",
+        "cost_id": "cost_1d884db92d434a33bd1b",
+        "description": "Carrier linehaul \u2014 Prairie Haul Lines",
+        "override_flag": false,
+        "quantity": 430,
+        "rate": 2.45,
+        "rate_basis": "PER_MILE",
+        "status": "CONFIRMED",
+        "vendor_id": "PRAIRIEHL"
+      },
+      {
+        "amount": 245.1,
+        "charge_code": "FSC",
+        "cost_id": "cost_a66b439a52a4484189d3",
+        "description": "Fuel surcharge @ 0.57/mi",
+        "override_flag": false,
+        "quantity": 430,
+        "rate": 0.57,
+        "rate_basis": "PER_MILE",
+        "status": "CONFIRMED",
+        "vendor_id": "PRAIRIEHL"
+      },
+      {
+        "amount": 210,
+        "charge_code": "INSD",
+        "cost_id": "cost_9f8eefc02f274388bb6e",
+        "description": "Spot cargo policy \u2014 Shield Cargo Insurance",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 0.35,
+        "rate_basis": "PCT_OF_VALUE",
+        "status": "CONFIRMED",
+        "vendor_id": "SHIELDINS"
+      }
+    ],
+    "created_by": "JOHNDOE",
+    "internal_notes": "",
+    "transit_days_est": 1,
+    "carrier_contact": "Prairie Dispatch",
+    "gp_pct": 16.8,
+    "trailer_number": "53496",
+    "tracking_pk": "TRACK",
+    "status_updated_at": "2026-11-13T12:50:36Z",
+    "consignee_city": "El Paso",
+    "updated_by": "JANEDOE",
+    "next_tracking_at": "2026-11-13T07:20:36Z",
+    "declared_value": 60000,
+    "salesperson_id": "JACKDOE",
+    "station": "DFW",
+    "dim_factor_used": 250,
+    "freight_totals": {
+      "actual_lb": 8060,
+      "chargeable_lb": 8060,
+      "cubic_ft": 895.6,
+      "density_pcf": 9,
+      "dim_factor_used": 250,
+      "dim_weight_lb": 6201,
+      "pallet_positions": 7,
+      "pieces": 13
+    },
+    "mode": "TL",
+    "delivery_date_target": "2026-11-14",
+    "customer_id": "REDROCKEL",
+    "insurance_type": "SPOT_CARGO",
+    "consignee_name": "Desert Gateway Distribution - El Paso",
+    "status_updated_by": "JANEDOE",
+    "truck_number": "782",
+    "sell_total": 1813.5,
+    "account_manager_id": "JOHNDOE",
+    "stops": [
+      {
+        "actual_arrival": "2026-11-13T11:20:36Z",
+        "actual_departure": "2026-11-13T12:05:36Z",
+        "address_snapshot": {
+          "address1": "2222 W Buckeye Rd",
+          "city": "Phoenix",
+          "name": "Red Rock Electronics - Buckeye Rd Plant",
+          "state": "AZ",
+          "timezone": "America/Phoenix",
+          "zip": "85009"
+        },
+        "appointment": {
+          "status": "NOT_REQUIRED"
+        },
+        "facility_id": "REDROCK-PHX",
+        "instructions": "High-value freight \u2014 seal applied at dock, number on BOL.",
+        "references": [],
+        "scheduled_window": {
+          "earliest_local": "2026-11-13T08:00:00",
+          "latest_local": "2026-11-13T14:00:00",
+          "timezone": "America/Phoenix"
+        },
+        "stop_seq": 1,
+        "stop_type": "PICKUP"
+      },
+      {
+        "address_snapshot": {
+          "address1": "11460 Rojas Dr",
+          "city": "El Paso",
+          "name": "Desert Gateway Distribution - El Paso",
+          "state": "TX",
+          "timezone": "America/Denver",
+          "zip": "79936"
+        },
+        "appointment": {
+          "status": "NOT_REQUIRED"
+        },
+        "facility_id": "DESERTGATE-ELP",
+        "references": [],
+        "scheduled_window": {
+          "earliest_local": "2026-11-14T08:00:00",
+          "latest_local": "2026-11-14T16:00:00",
+          "timezone": "America/Denver"
+        },
+        "stop_seq": 2,
+        "stop_type": "DELIVERY"
+      }
+    ],
+    "carrier_id": "PRAIRIEHL",
+    "miles": 430,
+    "rate_con_doc_id": "doc_2c628e7af4e942b78299",
+    "overdue": true
+  },
+  {
+    "buy_total": 1199.12,
+    "service_failure": false,
+    "status": "DELIVERED",
+    "gp_amount": 321.21,
+    "customer_charges": [
+      {
+        "amount": 1080.16,
+        "auto_flag": true,
+        "charge_code": "FRT",
+        "charge_id": "chg_52bd36f7227e48d9ad88",
+        "description": "LTL class 60 @ 38.80/cwt less 64.5%",
+        "override_flag": false,
+        "quantity": 78.42,
+        "rate": 13.77,
+        "rate_basis": "PER_CWT",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 440.17,
+        "auto_flag": true,
+        "charge_code": "FSC",
+        "charge_id": "chg_e7cae34cc39f4f6c9e9b",
+        "description": "LTL fuel surcharge 40.75%",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 40.75,
+        "rate_basis": "PCT_OF_FRT",
+        "status": "ESTIMATED"
+      }
+    ],
+    "special_instructions": "24/7 cross-dock; check in at window 3 with file number.",
+    "tracking_sk": "2026-11-13T14:13:00Z#7300123",
+    "equipment_type": "V",
+    "consignee_state": "NJ",
+    "shipper_city": "Pittsburgh",
+    "shipper_state": "PA",
+    "service_level": "LTL_STANDARD",
+    "created_at": "2026-11-08T21:47:00Z",
+    "pod": {
+      "received": false
+    },
+    "freight_terms": "PREPAID",
+    "milestones": [
+      {
+        "complete": true,
+        "entered_at": "2026-11-08T22:17:00Z",
+        "entered_by": "JOHNDOE",
+        "event_at": "2026-11-08T21:47:00Z",
+        "label": "New Shipment",
+        "milestone_code": "NEW",
+        "sequence": 1,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-08T23:45:16Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-08T23:35:16Z",
+        "label": "Tendered to Carrier",
+        "milestone_code": "TENDERED_TO_CARRIER",
+        "sequence": 2,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-11T15:13:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-11T14:54:00Z",
+        "event_timezone": "America/New_York",
+        "label": "Picked Up",
+        "milestone_code": "PICKED_UP",
+        "sequence": 3,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-11T15:58:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-11T15:39:00Z",
+        "label": "In Transit",
+        "milestone_code": "IN_TRANSIT",
+        "sequence": 4,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-12T12:04:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-12T11:52:00Z",
+        "event_timezone": "America/New_York",
+        "label": "Out for Delivery",
+        "milestone_code": "OUT_FOR_DELIVERY",
+        "sequence": 5,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-12T14:39:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-12T14:13:00Z",
+        "event_timezone": "America/New_York",
+        "label": "Delivered",
+        "milestone_code": "DELIVERED",
+        "sequence": 6,
+        "source": "AUTO"
+      },
+      {
+        "complete": false,
+        "label": "POD Received",
+        "milestone_code": "POD_RECEIVED",
+        "sequence": 7
+      }
+    ],
+    "track_owner": "JANEDOE",
+    "updated_at": "2026-11-12T14:58:00Z",
+    "shipper_name": "Ironpeak Fabrication - Plant 1",
+    "pro_number": "539-924296",
+    "references": [
+      {
+        "type": "SHIPMENT",
+        "value": "7300123"
+      },
+      {
+        "type": "BOL",
+        "value": "IRO298689"
+      },
+      {
+        "type": "PRO",
+        "value": "539-924296"
+      }
+    ],
+    "freight_lines": [
+      {
+        "chargeable_lb": 7842,
+        "description": "Fabricated steel brackets",
+        "dim_factor": 194,
+        "dim_weight_lb": 1872,
+        "freight_class": 60,
+        "hazmat": false,
+        "height_in": 30,
+        "length_in": 48,
+        "line_no": 1,
+        "package_type": "SKID",
+        "pieces": 6,
+        "weight_lb": 7842,
+        "width_in": 42
+      }
+    ],
+    "shipment_id": "7300123",
+    "pickup_date": "2026-11-11",
+    "vendor_costs": [
+      {
+        "amount": 851.95,
+        "charge_code": "FRT",
+        "cost_id": "cost_b00542b00f8f4a07a562",
+        "description": "LTL class 60 @ 38.80/cwt less 72% \u2014 Coastline LTL Systems",
+        "override_flag": false,
+        "quantity": 78.42,
+        "rate": 10.86,
+        "rate_basis": "PER_CWT",
+        "status": "CONFIRMED",
+        "vendor_id": "COASTLTL"
+      },
+      {
+        "amount": 347.17,
+        "charge_code": "FSC",
+        "cost_id": "cost_3a308a010abf43068f84",
+        "description": "LTL fuel surcharge 40.75%",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 40.75,
+        "rate_basis": "PCT_OF_FRT",
+        "status": "CONFIRMED",
+        "vendor_id": "COASTLTL"
+      }
+    ],
+    "created_by": "JOHNDOE",
+    "internal_notes": "",
+    "transit_days_est": 1,
+    "carrier_contact": "Coastline Dispatch",
+    "gp_pct": 21.1,
+    "tracking_pk": "TRACK",
+    "status_updated_at": "2026-11-12T14:13:00Z",
+    "consignee_city": "Newark",
+    "updated_by": "JANEDOE",
+    "next_tracking_at": "2026-11-13T14:13:00Z",
+    "salesperson_id": "JACKDOE",
+    "station": "CHI",
+    "dim_factor_used": 194,
+    "freight_totals": {
+      "actual_lb": 7842,
+      "chargeable_lb": 7842,
+      "cubic_ft": 210,
+      "density_pcf": 37.34,
+      "dim_factor_used": 194,
+      "dim_weight_lb": 1872,
+      "pallet_positions": 3,
+      "pieces": 6
+    },
+    "mode": "LTL",
+    "delivery_date_target": "2026-11-12",
+    "customer_id": "IRONPEAK",
+    "consignee_name": "Tri-State Crossdock - Newark",
+    "status_updated_by": "JANEDOE",
+    "sell_total": 1520.33,
+    "account_manager_id": "JOHNDOE",
+    "stops": [
+      {
+        "actual_arrival": "2026-11-11T12:44:00Z",
+        "actual_departure": "2026-11-11T14:54:00Z",
+        "address_snapshot": {
+          "address1": "435 Steelworks Blvd",
+          "city": "Pittsburgh",
+          "name": "Ironpeak Fabrication - Plant 1",
+          "state": "PA",
+          "timezone": "America/New_York",
+          "zip": "15220"
+        },
+        "appointment": {
+          "status": "NOT_REQUIRED"
+        },
+        "facility_id": "IRONPEAK-PIT",
+        "instructions": "Overhead crane loading \u2014 hard hats issued at office.",
+        "references": [],
+        "scheduled_window": {
+          "earliest_local": "2026-11-11T08:00:00",
+          "latest_local": "2026-11-11T14:00:00",
+          "timezone": "America/New_York"
+        },
+        "stop_seq": 1,
+        "stop_type": "PICKUP"
+      },
+      {
+        "actual_arrival": "2026-11-12T11:52:00Z",
+        "actual_departure": "2026-11-12T14:13:00Z",
+        "address_snapshot": {
+          "address1": "480 Doremus Ave",
+          "city": "Newark",
+          "name": "Tri-State Crossdock - Newark",
+          "state": "NJ",
+          "timezone": "America/New_York",
+          "zip": "07105"
+        },
+        "appointment": {
+          "status": "NOT_REQUIRED"
+        },
+        "facility_id": "TRISTATE-EWR",
+        "instructions": "24/7 cross-dock; check in at window 3 with file number.",
+        "references": [],
+        "scheduled_window": {
+          "earliest_local": "2026-11-12T08:00:00",
+          "latest_local": "2026-11-12T16:00:00",
+          "timezone": "America/New_York"
+        },
+        "stop_seq": 2,
+        "stop_type": "DELIVERY"
+      }
+    ],
+    "carrier_id": "COASTLTL",
+    "miles": 370,
+    "overdue": true
+  },
+  {
+    "buy_total": 2752,
+    "service_failure": false,
+    "rate_con_number": "RC-7300125-1",
+    "status": "AT_DELIVERY",
+    "gp_amount": 296,
+    "customer_charges": [
+      {
+        "amount": 2592,
+        "auto_flag": true,
+        "charge_code": "FRT",
+        "charge_id": "chg_f000b521715a487f95e2",
+        "description": "Linehaul",
+        "override_flag": false,
+        "quantity": 800,
+        "rate": 3.24,
+        "rate_basis": "PER_MILE",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 456,
+        "auto_flag": true,
+        "charge_code": "FSC",
+        "charge_id": "chg_361a085af9874d2d9ab1",
+        "description": "Fuel surcharge @ 0.57/mi",
+        "override_flag": false,
+        "quantity": 800,
+        "rate": 0.57,
+        "rate_basis": "PER_MILE",
+        "status": "ESTIMATED"
+      }
+    ],
+    "target_pay_min": 2575,
+    "equipment_type": "F",
+    "tracking_sk": "2026-11-13T15:20:36Z#7300125",
+    "consignee_state": "UT",
+    "shipper_city": "Fresno",
+    "shipper_state": "CA",
+    "target_pay_max": 2875,
+    "service_level": "TL_FLATBED",
+    "created_at": "2026-11-09T13:09:00Z",
+    "pod": {
+      "received": false
+    },
+    "driver_phone": "312-555-0181",
+    "freight_terms": "PREPAID",
+    "milestones": [
+      {
+        "complete": true,
+        "entered_at": "2026-11-09T13:37:00Z",
+        "entered_by": "JOHNDOE",
+        "event_at": "2026-11-09T13:09:00Z",
+        "label": "New Shipment",
+        "milestone_code": "NEW",
+        "sequence": 1,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-10T02:37:18Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-10T02:12:18Z",
+        "label": "Carrier Assigned",
+        "milestone_code": "COVERED",
+        "sequence": 2,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-10T03:50:18Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-10T03:41:18Z",
+        "label": "Rate Confirmation Sent",
+        "milestone_code": "RATE_CON_SENT",
+        "sequence": 3,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-10T23:24:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-10T23:02:00Z",
+        "label": "Driver Dispatched",
+        "milestone_code": "DISPATCHED",
+        "sequence": 4,
+        "source": "AUTO"
+      },
+      {
+        "complete": false,
+        "label": "24HR Prior Confirmation to Pickup",
+        "milestone_code": "24H_PICKUP_CONF",
+        "sequence": 5
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-11T15:49:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-11T15:32:00Z",
+        "event_timezone": "America/Los_Angeles",
+        "label": "Onsite at Shipper",
+        "milestone_code": "AT_SHIPPER",
+        "sequence": 6,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-11T16:52:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-11T16:34:00Z",
+        "event_timezone": "America/Los_Angeles",
+        "label": "Loaded",
+        "milestone_code": "LOADED",
+        "sequence": 7,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-11T17:22:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-11T17:19:00Z",
+        "label": "In Transit",
+        "milestone_code": "IN_TRANSIT",
+        "sequence": 8,
+        "source": "AUTO"
+      },
+      {
+        "complete": false,
+        "label": "24HR Prior Confirmation to Delivery",
+        "milestone_code": "24H_DELIVERY_CONF",
+        "sequence": 9
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-13T13:18:36Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-13T12:50:36Z",
+        "event_timezone": "America/Denver",
+        "label": "Arrived at Consignee",
+        "milestone_code": "AT_CONSIGNEE",
+        "sequence": 10,
+        "source": "AUTO"
+      },
+      {
+        "complete": false,
+        "label": "Delivered",
+        "milestone_code": "DELIVERED",
+        "sequence": 11
+      },
+      {
+        "complete": false,
+        "label": "POD Received",
+        "milestone_code": "POD_RECEIVED",
+        "sequence": 12
+      }
+    ],
+    "track_owner": "JANEDOE",
+    "updated_at": "2026-11-13T13:20:36Z",
+    "shipper_name": "Sunbelt Agri Supply - Fresno Yard",
+    "pro_number": "949-771921",
+    "references": [
+      {
+        "type": "SHIPMENT",
+        "value": "7300125"
+      },
+      {
+        "type": "BOL",
+        "value": "SUN194759"
+      },
+      {
+        "type": "PRO",
+        "value": "949-771921"
+      },
+      {
+        "type": "RATE_CON",
+        "value": "RC-7300125-1"
+      }
+    ],
+    "freight_lines": [
+      {
+        "chargeable_lb": 13384,
+        "description": "Irrigation pipe and fittings",
+        "dim_factor": 194,
+        "dim_weight_lb": 9982,
+        "hazmat": false,
+        "height_in": 24,
+        "length_in": 240,
+        "line_no": 1,
+        "package_type": "BUNDLE",
+        "pieces": 14,
+        "weight_lb": 13384,
+        "width_in": 24
+      }
+    ],
+    "shipment_id": "7300125",
+    "rate_con_rev": 1,
+    "pickup_date": "2026-11-11",
+    "driver_name": "Earl Simmons",
+    "vendor_costs": [
+      {
+        "amount": 2296,
+        "charge_code": "FRT",
+        "cost_id": "cost_d124f45759de4e8f985a",
+        "description": "Carrier linehaul \u2014 High Plains Freightways",
+        "override_flag": false,
+        "quantity": 800,
+        "rate": 2.87,
+        "rate_basis": "PER_MILE",
+        "status": "CONFIRMED",
+        "vendor_id": "HIGHPLAIN"
+      },
+      {
+        "amount": 456,
+        "charge_code": "FSC",
+        "cost_id": "cost_89f3739cd10044ada6c8",
+        "description": "Fuel surcharge @ 0.57/mi",
+        "override_flag": false,
+        "quantity": 800,
+        "rate": 0.57,
+        "rate_basis": "PER_MILE",
+        "status": "CONFIRMED",
+        "vendor_id": "HIGHPLAIN"
+      }
+    ],
+    "created_by": "JOHNDOE",
+    "internal_notes": "",
+    "transit_days_est": 2,
+    "carrier_contact": "Flatbed Desk",
+    "trailer_number": "53470",
+    "gp_pct": 9.7,
+    "tracking_pk": "TRACK",
+    "consignee_city": "Salt Lake City",
+    "status_updated_at": "2026-11-13T12:50:36Z",
+    "updated_by": "JANEDOE",
+    "next_tracking_at": "2026-11-13T15:20:36Z",
+    "salesperson_id": "JACKDOE",
+    "station": "DFW",
+    "freight_totals": {
+      "actual_lb": 13384,
+      "chargeable_lb": 13384,
+      "cubic_ft": 1120,
+      "density_pcf": 11.95,
+      "dim_factor_used": 194,
+      "dim_weight_lb": 9982,
+      "pallet_positions": 0,
+      "pieces": 14
+    },
+    "dim_factor_used": 194,
+    "delivery_date_target": "2026-11-13",
+    "mode": "TL",
+    "customer_id": "SUNBELTAG",
+    "status_updated_by": "JANEDOE",
+    "consignee_name": "Evergreen Distribution - Salt Lake City",
+    "sell_total": 3048,
+    "account_manager_id": "JOHNDOE",
+    "truck_number": "271",
+    "stops": [
+      {
+        "actual_arrival": "2026-11-11T15:32:00Z",
+        "actual_departure": "2026-11-11T16:34:00Z",
+        "address_snapshot": {
+          "address1": "5580 S Cherry Ave",
+          "city": "Fresno",
+          "name": "Sunbelt Agri Supply - Fresno Yard",
+          "state": "CA",
+          "timezone": "America/Los_Angeles",
+          "zip": "93706"
+        },
+        "appointment": {
+          "status": "NOT_REQUIRED"
+        },
+        "facility_id": "SUNBELT-FRS",
+        "instructions": "Flatbeds tarp on-site; forklift assist available until 14:00.",
+        "references": [],
+        "scheduled_window": {
+          "earliest_local": "2026-11-11T08:00:00",
+          "latest_local": "2026-11-11T14:00:00",
+          "timezone": "America/Los_Angeles"
+        },
+        "stop_seq": 1,
+        "stop_type": "PICKUP"
+      },
+      {
+        "actual_arrival": "2026-11-13T12:50:36Z",
+        "address_snapshot": {
+          "address1": "2350 S 900 W",
+          "city": "Salt Lake City",
+          "name": "Evergreen Distribution - Salt Lake City",
+          "state": "UT",
+          "timezone": "America/Denver",
+          "zip": "84119"
+        },
+        "appointment": {
+          "status": "NOT_REQUIRED"
+        },
+        "facility_id": "EVERGREEN-SLC",
+        "references": [],
+        "scheduled_window": {
+          "earliest_local": "2026-11-13T08:00:00",
+          "latest_local": "2026-11-13T16:00:00",
+          "timezone": "America/Denver"
+        },
+        "stop_seq": 2,
+        "stop_type": "DELIVERY"
+      }
+    ],
+    "carrier_id": "HIGHPLAIN",
+    "miles": 800,
+    "rate_con_doc_id": "doc_eb6df21536df42f78b15",
+    "overdue": true
+  },
+  {
+    "buy_total": 884.67,
+    "shipment_id": "7300136",
+    "service_failure": false,
+    "pickup_date": "2026-11-13",
+    "vendor_costs": [
+      {
+        "amount": 628.54,
+        "charge_code": "FRT",
+        "cost_id": "cost_3eff300ffec2417a92fd",
+        "description": "LTL class 92.5 @ 55.10/cwt less 72% \u2014 National LTL Freightways",
+        "override_flag": false,
+        "quantity": 40.74,
+        "rate": 15.43,
+        "rate_basis": "PER_CWT",
+        "status": "CONFIRMED",
+        "vendor_id": "NATLTLFW"
+      },
+      {
+        "amount": 256.13,
+        "charge_code": "FSC",
+        "cost_id": "cost_0e74734137f847428bef",
+        "description": "LTL fuel surcharge 40.75%",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 40.75,
+        "rate_basis": "PCT_OF_FRT",
+        "status": "CONFIRMED",
+        "vendor_id": "NATLTLFW"
+      }
+    ],
+    "internal_notes": "",
+    "status": "AT_PICKUP",
+    "created_by": "JOHNDOE",
+    "transit_days_est": 1,
+    "carrier_contact": "National LTL Central Dispatch",
+    "gp_pct": 21.1,
+    "tracking_pk": "TRACK",
+    "gp_amount": 236.95,
+    "customer_charges": [
+      {
+        "amount": 796.89,
+        "auto_flag": true,
+        "charge_code": "FRT",
+        "charge_id": "chg_bb76ccbbd22a4ac8abdc",
+        "description": "LTL class 92.5 @ 55.10/cwt less 64.5%",
+        "override_flag": false,
+        "quantity": 40.74,
+        "rate": 19.56,
+        "rate_basis": "PER_CWT",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 324.73,
+        "auto_flag": true,
+        "charge_code": "FSC",
+        "charge_id": "chg_13358baaea4b4aa2a0c1",
+        "description": "LTL fuel surcharge 40.75%",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 40.75,
+        "rate_basis": "PCT_OF_FRT",
+        "status": "ESTIMATED"
+      }
+    ],
+    "status_updated_at": "2026-11-13T12:47:00Z",
+    "consignee_city": "Charlotte",
+    "tracking_sk": "2026-11-13T15:20:36Z#7300136",
+    "equipment_type": "V",
+    "updated_by": "JANEDOE",
+    "consignee_state": "NC",
+    "next_tracking_at": "2026-11-13T15:20:36Z",
+    "shipper_city": "Columbus",
+    "shipper_state": "OH",
+    "salesperson_id": "JACKDOE",
+    "station": "ATL",
+    "dim_factor_used": 194,
+    "freight_totals": {
+      "actual_lb": 4074,
+      "chargeable_lb": 4074,
+      "cubic_ft": 333.3,
+      "density_pcf": 12.22,
+      "dim_factor_used": 194,
+      "dim_weight_lb": 2970,
+      "pallet_positions": 3,
+      "pieces": 6
+    },
+    "service_level": "LTL_STANDARD",
+    "created_at": "2026-11-10T13:08:00Z",
+    "mode": "LTL",
+    "delivery_date_target": "2026-11-14",
+    "pod": {
+      "received": false
+    },
+    "freight_terms": "PREPAID",
+    "milestones": [
+      {
+        "complete": true,
+        "entered_at": "2026-11-10T13:28:00Z",
+        "entered_by": "JOHNDOE",
+        "event_at": "2026-11-10T13:08:00Z",
+        "label": "New Shipment",
+        "milestone_code": "NEW",
+        "sequence": 1,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-10T20:04:09Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-10T19:58:09Z",
+        "label": "Tendered to Carrier",
+        "milestone_code": "TENDERED_TO_CARRIER",
+        "sequence": 2,
+        "source": "AUTO"
+      },
+      {
+        "complete": false,
+        "label": "Picked Up",
+        "milestone_code": "PICKED_UP",
+        "sequence": 3
+      },
+      {
+        "complete": false,
+        "label": "In Transit",
+        "milestone_code": "IN_TRANSIT",
+        "sequence": 4
+      },
+      {
+        "complete": false,
+        "label": "Out for Delivery",
+        "milestone_code": "OUT_FOR_DELIVERY",
+        "sequence": 5
+      },
+      {
+        "complete": false,
+        "label": "Delivered",
+        "milestone_code": "DELIVERED",
+        "sequence": 6
+      },
+      {
+        "complete": false,
+        "label": "POD Received",
+        "milestone_code": "POD_RECEIVED",
+        "sequence": 7
+      }
+    ],
+    "customer_id": "KEYSTONEHD",
+    "track_owner": "JANEDOE",
+    "consignee_name": "Grocer's Pride Store 88 - Charlotte",
+    "status_updated_by": "JANEDOE",
+    "sell_total": 1121.62,
+    "account_manager_id": "JOHNDOE",
+    "stops": [
+      {
+        "actual_arrival": "2026-11-13T12:47:00Z",
+        "address_snapshot": {
+          "address1": "6000 Groveport Rd",
+          "city": "Columbus",
+          "name": "Keystone Home & Garden - Columbus WH",
+          "state": "OH",
+          "timezone": "America/New_York",
+          "zip": "43217"
+        },
+        "appointment": {
+          "status": "NOT_REQUIRED"
+        },
+        "facility_id": "KEYSTONE-CMH",
+        "references": [],
+        "scheduled_window": {
+          "earliest_local": "2026-11-13T08:00:00",
+          "latest_local": "2026-11-13T14:00:00",
+          "timezone": "America/New_York"
+        },
+        "stop_seq": 1,
+        "stop_type": "PICKUP"
+      },
+      {
+        "address_snapshot": {
+          "address1": "5100 South Blvd",
+          "city": "Charlotte",
+          "name": "Grocer's Pride Store 88 - Charlotte",
+          "state": "NC",
+          "timezone": "America/New_York",
+          "zip": "28217"
+        },
+        "appointment": {
+          "status": "NOT_REQUIRED"
+        },
+        "facility_id": "GP-ST88",
+        "references": [],
+        "scheduled_window": {
+          "earliest_local": "2026-11-14T08:00:00",
+          "latest_local": "2026-11-14T16:00:00",
+          "timezone": "America/New_York"
+        },
+        "stop_seq": 2,
+        "stop_type": "DELIVERY"
+      }
+    ],
+    "updated_at": "2026-11-13T13:20:36Z",
+    "shipper_name": "Keystone Home & Garden - Columbus WH",
+    "carrier_id": "NATLTLFW",
+    "pro_number": "881-158756",
+    "references": [
+      {
+        "type": "SHIPMENT",
+        "value": "7300136"
+      },
+      {
+        "type": "PRO",
+        "value": "881-158756"
+      }
+    ],
+    "miles": 425,
+    "freight_lines": [
+      {
+        "chargeable_lb": 4074,
+        "description": "Garden tools and seasonal goods",
+        "dim_factor": 194,
+        "dim_weight_lb": 2970,
+        "freight_class": 92.5,
+        "hazmat": false,
+        "height_in": 50,
+        "length_in": 48,
+        "line_no": 1,
+        "package_type": "PALLET",
+        "pieces": 6,
+        "weight_lb": 4074,
+        "width_in": 40
+      }
+    ],
+    "overdue": true
+  },
+  {
+    "buy_total": 2018.95,
+    "service_failure": false,
+    "rate_con_number": "RC-7300138-1",
+    "status": "AT_PICKUP",
+    "gp_amount": 248.85,
+    "customer_charges": [
+      {
+        "amount": 1687.95,
+        "auto_flag": true,
+        "charge_code": "FRT",
+        "charge_id": "chg_137fbf3dbae04ce49505",
+        "description": "Linehaul",
+        "override_flag": false,
+        "quantity": 605,
+        "rate": 2.79,
+        "rate_basis": "PER_MILE",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 344.85,
+        "auto_flag": true,
+        "charge_code": "FSC",
+        "charge_id": "chg_959e787b21ad48b183fc",
+        "description": "Fuel surcharge @ 0.57/mi",
+        "override_flag": false,
+        "quantity": 605,
+        "rate": 0.57,
+        "rate_basis": "PER_MILE",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 235,
+        "auto_flag": false,
+        "charge_code": "LUM",
+        "charge_id": "chg_e79bea5a5471405d9dc3",
+        "description": "Lumper reimbursement",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 235,
+        "rate_basis": "FLAT",
+        "status": "ESTIMATED"
+      }
+    ],
+    "special_instructions": "Reefer loads: pulp at door, temp download if pulp out of range.",
+    "target_pay_min": 1675,
+    "tracking_sk": "2026-11-13T15:20:36Z#7300138",
+    "equipment_type": "V",
+    "consignee_state": "CO",
+    "shipper_city": "Kansas City",
+    "shipper_state": "MO",
+    "target_pay_max": 1900,
+    "created_at": "2026-11-10T15:57:00Z",
+    "service_level": "TL_DRY_VAN",
+    "freight_terms": "PREPAID",
+    "driver_phone": "312-555-0181",
+    "pod": {
+      "received": false
+    },
+    "milestones": [
+      {
+        "complete": true,
+        "entered_at": "2026-11-10T16:21:00Z",
+        "entered_by": "api",
+        "event_at": "2026-11-10T15:57:00Z",
+        "label": "New Shipment",
+        "milestone_code": "NEW",
+        "sequence": 1,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-11T04:00:59Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-11T03:54:59Z",
+        "label": "Carrier Assigned",
+        "milestone_code": "COVERED",
+        "sequence": 2,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-11T04:56:59Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-11T04:39:59Z",
+        "label": "Rate Confirmation Sent",
+        "milestone_code": "RATE_CON_SENT",
+        "sequence": 3,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-12T21:16:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-12T21:06:00Z",
+        "label": "Driver Dispatched",
+        "milestone_code": "DISPATCHED",
+        "sequence": 4,
+        "source": "AUTO"
+      },
+      {
+        "complete": false,
+        "label": "24HR Prior Confirmation to Pickup",
+        "milestone_code": "24H_PICKUP_CONF",
+        "sequence": 5
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-13T13:20:36Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-13T12:50:36Z",
+        "event_timezone": "America/Chicago",
+        "label": "Onsite at Shipper",
+        "milestone_code": "AT_SHIPPER",
+        "sequence": 6,
+        "source": "AUTO"
+      },
+      {
+        "complete": false,
+        "label": "Loaded",
+        "milestone_code": "LOADED",
+        "sequence": 7
+      },
+      {
+        "complete": false,
+        "label": "In Transit",
+        "milestone_code": "IN_TRANSIT",
+        "sequence": 8
+      },
+      {
+        "complete": false,
+        "label": "24HR Prior Confirmation to Delivery",
+        "milestone_code": "24H_DELIVERY_CONF",
+        "sequence": 9
+      },
+      {
+        "complete": false,
+        "label": "Arrived at Consignee",
+        "milestone_code": "AT_CONSIGNEE",
+        "sequence": 10
+      },
+      {
+        "complete": false,
+        "label": "Delivered",
+        "milestone_code": "DELIVERED",
+        "sequence": 11
+      },
+      {
+        "complete": false,
+        "label": "POD Received",
+        "milestone_code": "POD_RECEIVED",
+        "sequence": 12
+      }
+    ],
+    "track_owner": "JANEDOE",
+    "updated_at": "2026-11-13T13:20:36Z",
+    "shipper_name": "Midway Distributors - KC Warehouse",
+    "pro_number": "338-410928",
+    "references": [
+      {
+        "type": "SHIPMENT",
+        "value": "7300138"
+      },
+      {
+        "type": "PO",
+        "value": "PO-616929"
+      },
+      {
+        "type": "PRO",
+        "value": "338-410928"
+      },
+      {
+        "type": "RATE_CON",
+        "value": "RC-7300138-1"
+      },
+      {
+        "type": "DELIVERY_NUMBER",
+        "value": "GP-DC5-66305"
+      }
+    ],
+    "freight_lines": [
+      {
+        "chargeable_lb": 39750,
+        "description": "Mixed grocery dry goods",
+        "dim_factor": 194,
+        "dim_weight_lb": 14375,
+        "hazmat": false,
+        "height_in": 58,
+        "length_in": 48,
+        "line_no": 1,
+        "package_type": "PALLET",
+        "pieces": 25,
+        "weight_lb": 39750,
+        "width_in": 40
+      }
+    ],
+    "shipment_id": "7300138",
+    "rate_con_rev": 1,
+    "driver_name": "Earl Simmons",
+    "pickup_date": "2026-11-13",
+    "vendor_costs": [
+      {
+        "amount": 1464.1,
+        "charge_code": "FRT",
+        "cost_id": "cost_0a377ad29ef34e6b9593",
+        "description": "Carrier linehaul \u2014 Lakeshore Carriers Inc.",
+        "override_flag": false,
+        "quantity": 605,
+        "rate": 2.42,
+        "rate_basis": "PER_MILE",
+        "status": "CONFIRMED",
+        "vendor_id": "LAKESHORE"
+      },
+      {
+        "amount": 344.85,
+        "charge_code": "FSC",
+        "cost_id": "cost_57be6482a951412abe2f",
+        "description": "Fuel surcharge @ 0.57/mi",
+        "override_flag": false,
+        "quantity": 605,
+        "rate": 0.57,
+        "rate_basis": "PER_MILE",
+        "status": "CONFIRMED",
+        "vendor_id": "LAKESHORE"
+      },
+      {
+        "amount": 210,
+        "charge_code": "LUM",
+        "cost_id": "cost_f0b2ea5053c64d4282ed",
+        "description": "Lumper service \u2014 DockHands (receipt on file)",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 210,
+        "rate_basis": "FLAT",
+        "status": "CONFIRMED",
+        "vendor_id": "DOCKHANDS"
+      }
+    ],
+    "created_by": "api",
+    "internal_notes": "Lumper required at destination \u2014 driver pays, we reimburse with receipt.",
+    "transit_days_est": 1,
+    "carrier_contact": "Lakeshore Dispatch",
+    "trailer_number": "53837",
+    "gp_pct": 11,
+    "tracking_pk": "TRACK",
+    "consignee_city": "Aurora",
+    "status_updated_at": "2026-11-13T12:50:36Z",
+    "updated_by": "JANEDOE",
+    "next_tracking_at": "2026-11-13T15:20:36Z",
+    "salesperson_id": "JACKDOE",
+    "station": "CHI",
+    "freight_totals": {
+      "actual_lb": 39750,
+      "chargeable_lb": 39750,
+      "cubic_ft": 1611.1,
+      "density_pcf": 24.67,
+      "dim_factor_used": 194,
+      "dim_weight_lb": 14375,
+      "pallet_positions": 13,
+      "pieces": 25
+    },
+    "dim_factor_used": 194,
+    "mode": "TL",
+    "delivery_date_target": "2026-11-14",
+    "customer_id": "MIDWAYDST",
+    "consignee_name": "Grocer's Pride DC5",
+    "status_updated_by": "JANEDOE",
+    "truck_number": "632",
+    "sell_total": 2267.8,
+    "account_manager_id": "JOHNDOE",
+    "stops": [
+      {
+        "actual_arrival": "2026-11-13T12:50:36Z",
+        "address_snapshot": {
+          "address1": "3901 Gardner Ave",
+          "city": "Kansas City",
+          "name": "Midway Distributors - KC Warehouse",
+          "state": "MO",
+          "timezone": "America/Chicago",
+          "zip": "64120"
+        },
+        "appointment": {
+          "status": "NOT_REQUIRED"
+        },
+        "facility_id": "MIDWAY-MKC",
+        "references": [],
+        "scheduled_window": {
+          "earliest_local": "2026-11-13T08:00:00",
+          "latest_local": "2026-11-13T14:00:00",
+          "timezone": "America/Chicago"
+        },
+        "stop_seq": 1,
+        "stop_type": "PICKUP"
+      },
+      {
+        "address_snapshot": {
+          "address1": "18200 E 40th Ave",
+          "city": "Aurora",
+          "name": "Grocer's Pride DC5",
+          "state": "CO",
+          "timezone": "America/Denver",
+          "zip": "80011"
+        },
+        "appointment": {
+          "confirmation_number": "GP-DC5-66305",
+          "method_used": "EMAIL",
+          "scheduled_by": "JOHNDOE",
+          "status": "CONFIRMED"
+        },
+        "facility_id": "GP-DC5",
+        "instructions": "Reefer loads: pulp at door, temp download if pulp out of range.",
+        "mabd_date": "2026-11-14",
+        "references": [
+          {
+            "type": "PO",
+            "value": "PO-616929"
+          },
+          {
+            "type": "DELIVERY_NUMBER",
+            "value": "GP-DC5-66305"
+          }
+        ],
+        "scheduled_window": {
+          "earliest_local": "2026-11-14T08:00:00",
+          "latest_local": "2026-11-14T09:00:00",
+          "timezone": "America/Denver"
+        },
+        "stop_seq": 2,
+        "stop_type": "DELIVERY"
+      }
+    ],
+    "carrier_id": "LAKESHORE",
+    "miles": 605,
+    "rate_con_doc_id": "doc_8a3a9cde753046a2be11",
+    "overdue": true
+  },
+  {
+    "buy_total": 877.5,
+    "service_failure": false,
+    "rate_con_number": "RC-7300142-1",
+    "status": "AT_DELIVERY",
+    "gp_amount": 99,
+    "customer_charges": [
+      {
+        "amount": 832.5,
+        "auto_flag": true,
+        "charge_code": "FRT",
+        "charge_id": "chg_e74f09b39110412e97e0",
+        "description": "Linehaul",
+        "override_flag": false,
+        "quantity": 225,
+        "rate": 3.7,
+        "rate_basis": "PER_MILE",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 144,
+        "auto_flag": true,
+        "charge_code": "FSC",
+        "charge_id": "chg_7e2bf3b908aa433caf7f",
+        "description": "Fuel surcharge @ 0.64/mi",
+        "override_flag": false,
+        "quantity": 225,
+        "rate": 0.64,
+        "rate_basis": "PER_MILE",
+        "status": "ESTIMATED"
+      }
+    ],
+    "special_instructions": "24/7 cross-dock; check in at window 3 with file number.",
+    "target_pay_min": 825,
+    "tracking_sk": "2026-11-13T15:20:36Z#7300142",
+    "equipment_type": "R",
+    "consignee_state": "NJ",
+    "shipper_city": "Boston",
+    "shipper_state": "MA",
+    "target_pay_max": 900,
+    "created_at": "2026-11-10T18:41:00Z",
+    "service_level": "TL_REEFER",
+    "pod": {
+      "received": false
+    },
+    "freight_terms": "PREPAID",
+    "driver_phone": "920-555-0189",
+    "milestones": [
+      {
+        "complete": true,
+        "entered_at": "2026-11-10T18:46:00Z",
+        "entered_by": "JOHNDOE",
+        "event_at": "2026-11-10T18:41:00Z",
+        "label": "New Shipment",
+        "milestone_code": "NEW",
+        "sequence": 1,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-11T02:01:08Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-11T01:56:08Z",
+        "label": "Carrier Assigned",
+        "milestone_code": "COVERED",
+        "sequence": 2,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-11T03:39:08Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-11T03:19:08Z",
+        "label": "Rate Confirmation Sent",
+        "milestone_code": "RATE_CON_SENT",
+        "sequence": 3,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-11T20:52:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-11T20:37:00Z",
+        "label": "Driver Dispatched",
+        "milestone_code": "DISPATCHED",
+        "sequence": 4,
+        "source": "AUTO"
+      },
+      {
+        "complete": false,
+        "label": "24HR Prior Confirmation to Pickup",
+        "milestone_code": "24H_PICKUP_CONF",
+        "sequence": 5
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-12T12:43:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-12T12:39:00Z",
+        "event_timezone": "America/New_York",
+        "label": "Onsite at Shipper",
+        "milestone_code": "AT_SHIPPER",
+        "sequence": 6,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-12T13:45:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-12T13:24:00Z",
+        "event_timezone": "America/New_York",
+        "label": "Loaded",
+        "milestone_code": "LOADED",
+        "sequence": 7,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-12T14:18:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-12T14:09:00Z",
+        "label": "In Transit",
+        "milestone_code": "IN_TRANSIT",
+        "sequence": 8,
+        "source": "AUTO"
+      },
+      {
+        "complete": false,
+        "label": "24HR Prior Confirmation to Delivery",
+        "milestone_code": "24H_DELIVERY_CONF",
+        "sequence": 9
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-13T12:06:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-13T11:39:00Z",
+        "event_timezone": "America/New_York",
+        "label": "Arrived at Consignee",
+        "milestone_code": "AT_CONSIGNEE",
+        "sequence": 10,
+        "source": "AUTO"
+      },
+      {
+        "complete": false,
+        "label": "Delivered",
+        "milestone_code": "DELIVERED",
+        "sequence": 11
+      },
+      {
+        "complete": false,
+        "label": "POD Received",
+        "milestone_code": "POD_RECEIVED",
+        "sequence": 12
+      }
+    ],
+    "track_owner": "JANEDOE",
+    "updated_at": "2026-11-13T12:24:00Z",
+    "shipper_name": "Blue Harbor - Fish Pier Cold Store",
+    "pro_number": "411-794806",
+    "references": [
+      {
+        "type": "SHIPMENT",
+        "value": "7300142"
+      },
+      {
+        "type": "BOL",
+        "value": "BLU589648"
+      },
+      {
+        "type": "PRO",
+        "value": "411-794806"
+      },
+      {
+        "type": "RATE_CON",
+        "value": "RC-7300142-1"
+      }
+    ],
+    "freight_lines": [
+      {
+        "chargeable_lb": 32040,
+        "description": "Frozen seafood, palletized",
+        "dim_factor": 194,
+        "dim_weight_lb": 9630,
+        "hazmat": false,
+        "height_in": 54,
+        "length_in": 48,
+        "line_no": 1,
+        "package_type": "PALLET",
+        "pieces": 18,
+        "weight_lb": 32040,
+        "width_in": 40
+      }
+    ],
+    "shipment_id": "7300142",
+    "rate_con_rev": 1,
+    "pickup_date": "2026-11-12",
+    "driver_name": "Randy Voss",
+    "vendor_costs": [
+      {
+        "amount": 733.5,
+        "charge_code": "FRT",
+        "cost_id": "cost_f740ac1250ba48edb69b",
+        "description": "Carrier linehaul \u2014 Canyon Freight Systems",
+        "override_flag": false,
+        "quantity": 225,
+        "rate": 3.26,
+        "rate_basis": "PER_MILE",
+        "status": "CONFIRMED",
+        "vendor_id": "CANYONFRT"
+      },
+      {
+        "amount": 144,
+        "charge_code": "FSC",
+        "cost_id": "cost_7cb8343f7a474d619392",
+        "description": "Fuel surcharge @ 0.64/mi",
+        "override_flag": false,
+        "quantity": 225,
+        "rate": 0.64,
+        "rate_basis": "PER_MILE",
+        "status": "CONFIRMED",
+        "vendor_id": "CANYONFRT"
+      }
+    ],
+    "internal_notes": "",
+    "created_by": "JOHNDOE",
+    "transit_days_est": 1,
+    "carrier_contact": "Canyon Dispatch",
+    "trailer_number": "53563",
+    "gp_pct": 10.1,
+    "tracking_pk": "TRACK",
+    "status_updated_at": "2026-11-13T11:39:00Z",
+    "consignee_city": "Newark",
+    "updated_by": "JANEDOE",
+    "next_tracking_at": "2026-11-13T15:20:36Z",
+    "salesperson_id": "JACKDOE",
+    "station": "ATL",
+    "freight_totals": {
+      "actual_lb": 32040,
+      "chargeable_lb": 32040,
+      "cubic_ft": 1080,
+      "density_pcf": 29.67,
+      "dim_factor_used": 194,
+      "dim_weight_lb": 9630,
+      "pallet_positions": 9,
+      "pieces": 18
+    },
+    "dim_factor_used": 194,
+    "delivery_date_target": "2026-11-13",
+    "mode": "TL",
+    "customer_id": "BLUEHARBOR",
+    "consignee_name": "Tri-State Crossdock - Newark",
+    "status_updated_by": "JANEDOE",
+    "truck_number": "255",
+    "account_manager_id": "JOHNDOE",
+    "sell_total": 976.5,
+    "stops": [
+      {
+        "actual_arrival": "2026-11-12T12:39:00Z",
+        "actual_departure": "2026-11-12T13:24:00Z",
+        "address_snapshot": {
+          "address1": "12 Fish Pier Rd",
+          "city": "Boston",
+          "name": "Blue Harbor - Fish Pier Cold Store",
+          "state": "MA",
+          "timezone": "America/New_York",
+          "zip": "02210"
+        },
+        "appointment": {
+          "status": "NOT_REQUIRED"
+        },
+        "facility_id": "BLUEHARBOR-BOS",
+        "instructions": "Pre-cool to -10F before arrival; pulp check at loading.",
+        "references": [],
+        "scheduled_window": {
+          "earliest_local": "2026-11-12T08:00:00",
+          "latest_local": "2026-11-12T14:00:00",
+          "timezone": "America/New_York"
+        },
+        "stop_seq": 1,
+        "stop_type": "PICKUP"
+      },
+      {
+        "actual_arrival": "2026-11-13T11:39:00Z",
+        "address_snapshot": {
+          "address1": "480 Doremus Ave",
+          "city": "Newark",
+          "name": "Tri-State Crossdock - Newark",
+          "state": "NJ",
+          "timezone": "America/New_York",
+          "zip": "07105"
+        },
+        "appointment": {
+          "status": "NOT_REQUIRED"
+        },
+        "facility_id": "TRISTATE-EWR",
+        "instructions": "24/7 cross-dock; check in at window 3 with file number.",
+        "references": [],
+        "scheduled_window": {
+          "earliest_local": "2026-11-13T08:00:00",
+          "latest_local": "2026-11-13T16:00:00",
+          "timezone": "America/New_York"
+        },
+        "stop_seq": 2,
+        "stop_type": "DELIVERY"
+      }
+    ],
+    "carrier_id": "CANYONFRT",
+    "miles": 225,
+    "rate_con_doc_id": "doc_b704b1dffa4f4a309a1f",
+    "overdue": true
+  },
+  {
+    "buy_total": 849.8,
+    "service_failure": false,
+    "rate_con_number": "RC-7300143-1",
+    "status": "AT_DELIVERY",
+    "gp_amount": 346.96,
+    "customer_charges": [
+      {
+        "amount": 448.25,
+        "auto_flag": true,
+        "charge_code": "FRT",
+        "charge_id": "chg_2afd5afd69904985976a",
+        "description": "Expedite linehaul",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 448.25,
+        "rate_basis": "FLAT",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 125.51,
+        "auto_flag": true,
+        "charge_code": "FSC",
+        "charge_id": "chg_86c3f6b8d5d64b21ad95",
+        "description": "Fuel surcharge 28% of linehaul",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 28,
+        "rate_basis": "PCT_OF_FRT",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 120,
+        "auto_flag": false,
+        "charge_code": "RSD",
+        "charge_id": "chg_0ebe13b998e445d8abc4",
+        "description": "Residential delivery",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 120,
+        "rate_basis": "FLAT",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 85,
+        "auto_flag": false,
+        "charge_code": "LGD",
+        "charge_id": "chg_ad7f490347804333b8e9",
+        "description": "Liftgate delivery",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 85,
+        "rate_basis": "FLAT",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 418,
+        "auto_flag": true,
+        "charge_code": "INSD",
+        "charge_id": "chg_8740fb32c0ff47ff9aac",
+        "description": "Cargo insurance on declared value $76,000.00",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 0.55,
+        "rate_basis": "PCT_OF_VALUE",
+        "status": "ESTIMATED"
+      }
+    ],
+    "special_instructions": "Gated community \u2014 access code from consignee day-of.",
+    "target_pay_min": 400,
+    "equipment_type": "HS",
+    "tracking_sk": "2026-11-13T15:20:36Z#7300143",
+    "consignee_state": "AZ",
+    "shipper_city": "Phoenix",
+    "shipper_state": "AZ",
+    "target_pay_max": 450,
+    "created_at": "2026-11-10T18:50:00Z",
+    "service_level": "EXPEDITE_HOTSHOT",
+    "pod": {
+      "received": false
+    },
+    "driver_phone": "214-555-0182",
+    "freight_terms": "PREPAID",
+    "milestones": [
+      {
+        "complete": true,
+        "entered_at": "2026-11-10T19:18:00Z",
+        "entered_by": "api",
+        "event_at": "2026-11-10T18:50:00Z",
+        "label": "New Shipment",
+        "milestone_code": "NEW",
+        "sequence": 1,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-11T06:00:28Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-11T05:44:28Z",
+        "label": "Carrier Assigned",
+        "milestone_code": "COVERED",
+        "sequence": 2,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-11T07:30:28Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-11T07:00:28Z",
+        "label": "Rate Confirmation Sent",
+        "milestone_code": "RATE_CON_SENT",
+        "sequence": 3,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-11T22:33:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-11T22:28:00Z",
+        "label": "Driver Dispatched",
+        "milestone_code": "DISPATCHED",
+        "sequence": 4,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-12T15:21:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-12T14:51:00Z",
+        "event_timezone": "America/Phoenix",
+        "label": "Onsite at Shipper",
+        "milestone_code": "AT_SHIPPER",
+        "sequence": 5,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-12T16:53:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-12T16:23:00Z",
+        "event_timezone": "America/Phoenix",
+        "label": "Loaded",
+        "milestone_code": "LOADED",
+        "sequence": 6,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-12T17:27:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-12T17:08:00Z",
+        "label": "In Transit",
+        "milestone_code": "IN_TRANSIT",
+        "sequence": 7,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-13T13:20:36Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-13T12:50:36Z",
+        "event_timezone": "America/Phoenix",
+        "label": "Arrived at Consignee",
+        "milestone_code": "AT_CONSIGNEE",
+        "sequence": 8,
+        "source": "AUTO"
+      },
+      {
+        "complete": false,
+        "label": "Delivered",
+        "milestone_code": "DELIVERED",
+        "sequence": 9
+      },
+      {
+        "complete": false,
+        "label": "POD Received",
+        "milestone_code": "POD_RECEIVED",
+        "sequence": 10
+      }
+    ],
+    "track_owner": "JANEDOE",
+    "updated_at": "2026-11-13T13:20:36Z",
+    "shipper_name": "Red Rock Electronics - Buckeye Rd Plant",
+    "pro_number": "340-801568",
+    "references": [
+      {
+        "type": "SHIPMENT",
+        "value": "7300143"
+      },
+      {
+        "type": "BOL",
+        "value": "RED902630"
+      },
+      {
+        "type": "PRO",
+        "value": "340-801568"
+      },
+      {
+        "type": "RATE_CON",
+        "value": "RC-7300143-1"
+      }
+    ],
+    "freight_lines": [
+      {
+        "chargeable_lb": 461,
+        "description": "Rack-mount server crate",
+        "dim_factor": 250,
+        "dim_weight_lb": 461,
+        "hazmat": false,
+        "height_in": 48,
+        "length_in": 60,
+        "line_no": 1,
+        "package_type": "CRATE",
+        "pieces": 1,
+        "weight_lb": 458,
+        "width_in": 40
+      }
+    ],
+    "shipment_id": "7300143",
+    "rate_con_rev": 1,
+    "driver_name": "Tonya Fields",
+    "pickup_date": "2026-11-12",
+    "vendor_costs": [
+      {
+        "amount": 335,
+        "charge_code": "FRT",
+        "cost_id": "cost_fb7edf3f928449d2b456",
+        "description": "Expedite spot \u2014 MetroDash Couriers",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 335,
+        "rate_basis": "FLAT",
+        "status": "CONFIRMED",
+        "vendor_id": "METRODASH"
+      },
+      {
+        "amount": 93.8,
+        "charge_code": "FSC",
+        "cost_id": "cost_e343096194904af2b773",
+        "description": "Fuel surcharge 28% of linehaul",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 28,
+        "rate_basis": "PCT_OF_FRT",
+        "status": "CONFIRMED",
+        "vendor_id": "METRODASH"
+      },
+      {
+        "amount": 90,
+        "charge_code": "RSD",
+        "cost_id": "cost_b05124d3d9d54785b316",
+        "description": "Residential delivery",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 90,
+        "rate_basis": "FLAT",
+        "status": "CONFIRMED",
+        "vendor_id": "METRODASH"
+      },
+      {
+        "amount": 65,
+        "charge_code": "LGD",
+        "cost_id": "cost_e0db53a9a2e640249dbc",
+        "description": "Liftgate delivery",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 65,
+        "rate_basis": "FLAT",
+        "status": "CONFIRMED",
+        "vendor_id": "METRODASH"
+      },
+      {
+        "amount": 266,
+        "charge_code": "INSD",
+        "cost_id": "cost_0b3fb54ca5bc486b91fe",
+        "description": "Spot cargo policy \u2014 Shield Cargo Insurance",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 0.35,
+        "rate_basis": "PCT_OF_VALUE",
+        "status": "CONFIRMED",
+        "vendor_id": "SHIELDINS"
+      }
+    ],
+    "internal_notes": "",
+    "created_by": "api",
+    "transit_days_est": 0,
+    "carrier_contact": "MetroDash Dispatch",
+    "gp_pct": 29,
+    "trailer_number": "53965",
+    "tracking_pk": "TRACK",
+    "consignee_city": "Scottsdale",
+    "status_updated_at": "2026-11-13T12:50:36Z",
+    "updated_by": "JANEDOE",
+    "next_tracking_at": "2026-11-13T15:20:36Z",
+    "declared_value": 76000,
+    "salesperson_id": "JACKDOE",
+    "station": "DFW",
+    "dim_factor_used": 250,
+    "freight_totals": {
+      "actual_lb": 458,
+      "chargeable_lb": 461,
+      "cubic_ft": 66.7,
+      "density_pcf": 6.87,
+      "dim_factor_used": 250,
+      "dim_weight_lb": 461,
+      "pallet_positions": 0,
+      "pieces": 1
+    },
+    "mode": "EXPEDITE",
+    "delivery_date_target": "2026-11-13",
+    "customer_id": "REDROCKEL",
+    "insurance_type": "SPOT_CARGO",
+    "status_updated_by": "JANEDOE",
+    "consignee_name": "Residence - 7803 E Canyon Vista Dr",
+    "truck_number": "528",
+    "sell_total": 1196.76,
+    "account_manager_id": "JOHNDOE",
+    "stops": [
+      {
+        "actual_arrival": "2026-11-12T14:51:00Z",
+        "actual_departure": "2026-11-12T16:23:00Z",
+        "address_snapshot": {
+          "address1": "2222 W Buckeye Rd",
+          "city": "Phoenix",
+          "name": "Red Rock Electronics - Buckeye Rd Plant",
+          "state": "AZ",
+          "timezone": "America/Phoenix",
+          "zip": "85009"
+        },
+        "appointment": {
+          "status": "NOT_REQUIRED"
+        },
+        "facility_id": "REDROCK-PHX",
+        "instructions": "High-value freight \u2014 seal applied at dock, number on BOL.",
+        "references": [],
+        "scheduled_window": {
+          "earliest_local": "2026-11-12T08:00:00",
+          "latest_local": "2026-11-12T14:00:00",
+          "timezone": "America/Phoenix"
+        },
+        "stop_seq": 1,
+        "stop_type": "PICKUP"
+      },
+      {
+        "actual_arrival": "2026-11-13T12:50:36Z",
+        "address_snapshot": {
+          "address1": "7803 E Canyon Vista Dr",
+          "city": "Scottsdale",
+          "name": "Residence - 7803 E Canyon Vista Dr",
+          "state": "AZ",
+          "timezone": "America/Phoenix",
+          "zip": "85255"
+        },
+        "appointment": {
+          "status": "NOT_REQUIRED"
+        },
+        "facility_id": "RES-CANYON",
+        "instructions": "Gated community \u2014 access code from consignee day-of.",
+        "references": [],
+        "scheduled_window": {
+          "earliest_local": "2026-11-13T08:00:00",
+          "latest_local": "2026-11-13T16:00:00",
+          "timezone": "America/Phoenix"
+        },
+        "stop_seq": 2,
+        "stop_type": "DELIVERY"
+      }
+    ],
+    "carrier_id": "METRODASH",
+    "miles": 25,
+    "rate_con_doc_id": "doc_91e562595bf7475cad98",
+    "overdue": true
+  },
+  {
+    "buy_total": 1181.8,
+    "service_failure": false,
+    "rate_con_number": "RC-7300160-1",
+    "status": "AT_PICKUP",
+    "gp_amount": 146,
+    "special_instructions": "All trailers sealed; driver photo ID at gate. Lumper paid at receiving office (receipt required).",
+    "customer_charges": [
+      {
+        "amount": 816,
+        "auto_flag": true,
+        "charge_code": "FRT",
+        "charge_id": "chg_815706c5a5334bbea252",
+        "description": "Linehaul",
+        "override_flag": false,
+        "quantity": 240,
+        "rate": 3.4,
+        "rate_basis": "PER_MILE",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 136.8,
+        "auto_flag": true,
+        "charge_code": "FSC",
+        "charge_id": "chg_fe51d732ed2f47c6a7c7",
+        "description": "Fuel surcharge @ 0.57/mi",
+        "override_flag": false,
+        "quantity": 240,
+        "rate": 0.57,
+        "rate_basis": "PER_MILE",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 300,
+        "auto_flag": false,
+        "charge_code": "LUM",
+        "charge_id": "chg_cf4d6db95e654945adcf",
+        "description": "Lumper reimbursement",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 300,
+        "rate_basis": "FLAT",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 75,
+        "auto_flag": false,
+        "charge_code": "HAZ",
+        "charge_id": "chg_c5ccb6f72ba243488263",
+        "description": "Hazmat handling",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 75,
+        "rate_basis": "FLAT",
+        "status": "ESTIMATED"
+      }
+    ],
+    "target_pay_min": 800,
+    "tracking_sk": "2026-11-13T15:20:36Z#7300160",
+    "equipment_type": "V",
+    "consignee_state": "TX",
+    "shipper_city": "Houston",
+    "shipper_state": "TX",
+    "target_pay_max": 900,
+    "created_at": "2026-11-11T21:51:00Z",
+    "service_level": "TL_DRY_VAN",
+    "driver_phone": "312-555-0181",
+    "pod": {
+      "received": false
+    },
+    "freight_terms": "PREPAID",
+    "milestones": [
+      {
+        "complete": true,
+        "entered_at": "2026-11-11T22:06:00Z",
+        "entered_by": "JOHNDOE",
+        "event_at": "2026-11-11T21:51:00Z",
+        "label": "New Shipment",
+        "milestone_code": "NEW",
+        "sequence": 1,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-12T07:32:46Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-12T07:12:46Z",
+        "label": "Carrier Assigned",
+        "milestone_code": "COVERED",
+        "sequence": 2,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-12T08:08:46Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-12T07:57:46Z",
+        "label": "Rate Confirmation Sent",
+        "milestone_code": "RATE_CON_SENT",
+        "sequence": 3,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-12T22:02:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-12T21:43:00Z",
+        "label": "Driver Dispatched",
+        "milestone_code": "DISPATCHED",
+        "sequence": 4,
+        "source": "AUTO"
+      },
+      {
+        "complete": false,
+        "label": "24HR Prior Confirmation to Pickup",
+        "milestone_code": "24H_PICKUP_CONF",
+        "sequence": 5
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-13T13:13:36Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-13T12:50:36Z",
+        "event_timezone": "America/Chicago",
+        "label": "Onsite at Shipper",
+        "milestone_code": "AT_SHIPPER",
+        "sequence": 6,
+        "source": "AUTO"
+      },
+      {
+        "complete": false,
+        "label": "Loaded",
+        "milestone_code": "LOADED",
+        "sequence": 7
+      },
+      {
+        "complete": false,
+        "label": "In Transit",
+        "milestone_code": "IN_TRANSIT",
+        "sequence": 8
+      },
+      {
+        "complete": false,
+        "label": "24HR Prior Confirmation to Delivery",
+        "milestone_code": "24H_DELIVERY_CONF",
+        "sequence": 9
+      },
+      {
+        "complete": false,
+        "label": "Arrived at Consignee",
+        "milestone_code": "AT_CONSIGNEE",
+        "sequence": 10
+      },
+      {
+        "complete": false,
+        "label": "Delivered",
+        "milestone_code": "DELIVERED",
+        "sequence": 11
+      },
+      {
+        "complete": false,
+        "label": "POD Received",
+        "milestone_code": "POD_RECEIVED",
+        "sequence": 12
+      }
+    ],
+    "track_owner": "JANEDOE",
+    "updated_at": "2026-11-13T13:20:36Z",
+    "shipper_name": "Lone Star Chemical - Jacintoport Plant",
+    "pro_number": "439-508354",
+    "references": [
+      {
+        "type": "SHIPMENT",
+        "value": "7300160"
+      },
+      {
+        "type": "PO",
+        "value": "PO-479176"
+      },
+      {
+        "type": "PRO",
+        "value": "439-508354"
+      },
+      {
+        "type": "RATE_CON",
+        "value": "RC-7300160-1"
+      },
+      {
+        "type": "DELIVERY_NUMBER",
+        "value": "BBR-DC135-81624"
+      }
+    ],
+    "freight_lines": [
+      {
+        "chargeable_lb": 15744,
+        "description": "Industrial cleaning compound (UN1760)",
+        "dim_factor": 194,
+        "dim_weight_lb": 3424,
+        "hazmat": true,
+        "height_in": 36,
+        "length_in": 24,
+        "line_no": 1,
+        "package_type": "DRUM",
+        "pieces": 32,
+        "weight_lb": 15744,
+        "width_in": 24
+      }
+    ],
+    "shipment_id": "7300160",
+    "rate_con_rev": 1,
+    "driver_name": "Earl Simmons",
+    "pickup_date": "2026-11-13",
+    "vendor_costs": [
+      {
+        "amount": 720,
+        "charge_code": "FRT",
+        "cost_id": "cost_e5a799b443744e22bf64",
+        "description": "Carrier linehaul \u2014 Sunridge Trucking LLC",
+        "override_flag": false,
+        "quantity": 240,
+        "rate": 3,
+        "rate_basis": "PER_MILE",
+        "status": "CONFIRMED",
+        "vendor_id": "SUNRIDGE"
+      },
+      {
+        "amount": 136.8,
+        "charge_code": "FSC",
+        "cost_id": "cost_74ceda86a6c84d5daec7",
+        "description": "Fuel surcharge @ 0.57/mi",
+        "override_flag": false,
+        "quantity": 240,
+        "rate": 0.57,
+        "rate_basis": "PER_MILE",
+        "status": "CONFIRMED",
+        "vendor_id": "SUNRIDGE"
+      },
+      {
+        "amount": 275,
+        "charge_code": "LUM",
+        "cost_id": "cost_87c982f33e9948f88b74",
+        "description": "Lumper service \u2014 DockHands (receipt on file)",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 275,
+        "rate_basis": "FLAT",
+        "status": "CONFIRMED",
+        "vendor_id": "DOCKHANDS"
+      },
+      {
+        "amount": 50,
+        "charge_code": "HAZ",
+        "cost_id": "cost_4d6c9ea6322c404bb1f4",
+        "description": "Hazmat handling",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 50,
+        "rate_basis": "FLAT",
+        "status": "CONFIRMED",
+        "vendor_id": "SUNRIDGE"
+      }
+    ],
+    "created_by": "JOHNDOE",
+    "internal_notes": "",
+    "transit_days_est": 1,
+    "carrier_contact": "Sunridge Dispatch",
+    "trailer_number": "53518",
+    "gp_pct": 11,
+    "tracking_pk": "TRACK",
+    "status_updated_at": "2026-11-13T12:50:36Z",
+    "consignee_city": "Dallas",
+    "updated_by": "JANEDOE",
+    "next_tracking_at": "2026-11-13T15:20:36Z",
+    "salesperson_id": "JACKDOE",
+    "station": "DFW",
+    "freight_totals": {
+      "actual_lb": 15744,
+      "chargeable_lb": 15744,
+      "cubic_ft": 384,
+      "density_pcf": 41,
+      "dim_factor_used": 194,
+      "dim_weight_lb": 3424,
+      "pallet_positions": 0,
+      "pieces": 32
+    },
+    "dim_factor_used": 194,
+    "mode": "TL",
+    "delivery_date_target": "2026-11-14",
+    "customer_id": "LONESTARCH",
+    "consignee_name": "Big-Box Retailer DC135",
+    "status_updated_by": "JANEDOE",
+    "sell_total": 1327.8,
+    "truck_number": "131",
+    "account_manager_id": "JOHNDOE",
+    "stops": [
+      {
+        "actual_arrival": "2026-11-13T12:50:36Z",
+        "address_snapshot": {
+          "address1": "14800 Jacintoport Blvd",
+          "city": "Houston",
+          "name": "Lone Star Chemical - Jacintoport Plant",
+          "state": "TX",
+          "timezone": "America/Chicago",
+          "zip": "77015"
+        },
+        "appointment": {
+          "status": "NOT_REQUIRED"
+        },
+        "facility_id": "LONESTAR-HOU",
+        "instructions": "Hazmat site \u2014 placards verified before gate release. TWIC or escort required.",
+        "references": [],
+        "scheduled_window": {
+          "earliest_local": "2026-11-13T08:00:00",
+          "latest_local": "2026-11-13T14:00:00",
+          "timezone": "America/Chicago"
+        },
+        "stop_seq": 1,
+        "stop_type": "PICKUP"
+      },
+      {
+        "address_snapshot": {
+          "address1": "9800 Commerce Pkwy",
+          "city": "Dallas",
+          "name": "Big-Box Retailer DC135",
+          "state": "TX",
+          "timezone": "America/Chicago",
+          "zip": "75237"
+        },
+        "appointment": {
+          "confirmation_number": "BBR-DC135-81624",
+          "method_used": "PORTAL",
+          "portal_ref": "MERIDIAN_DOCK:BBR-DC135-81624",
+          "scheduled_by": "JOHNDOE",
+          "status": "CONFIRMED"
+        },
+        "facility_id": "BBR-DC135",
+        "instructions": "All trailers sealed; driver photo ID at gate. Lumper paid at receiving office (receipt required).",
+        "mabd_date": "2026-11-14",
+        "references": [
+          {
+            "type": "PO",
+            "value": "PO-479176"
+          },
+          {
+            "type": "DELIVERY_NUMBER",
+            "value": "BBR-DC135-81624"
+          }
+        ],
+        "scheduled_window": {
+          "earliest_local": "2026-11-14T06:00:00",
+          "latest_local": "2026-11-14T07:00:00",
+          "timezone": "America/Chicago"
+        },
+        "stop_seq": 2,
+        "stop_type": "DELIVERY"
+      }
+    ],
+    "carrier_id": "SUNRIDGE",
+    "miles": 240,
+    "rate_con_doc_id": "doc_6f7af30994bc4207a652",
+    "overdue": true
+  },
+  {
+    "buy_total": 615.4,
+    "service_failure": false,
+    "rate_con_number": "RC-7300129-1",
+    "status": "DELIVERED",
+    "gp_amount": 90.1,
+    "customer_charges": [
+      {
+        "amount": 608.6,
+        "auto_flag": true,
+        "charge_code": "FRT",
+        "charge_id": "chg_18a438ee212b40f4b789",
+        "description": "Linehaul",
+        "override_flag": false,
+        "quantity": 170,
+        "rate": 3.58,
+        "rate_basis": "PER_MILE",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 96.9,
+        "auto_flag": true,
+        "charge_code": "FSC",
+        "charge_id": "chg_eb6437b6d89d4356a21c",
+        "description": "Fuel surcharge @ 0.57/mi",
+        "override_flag": false,
+        "quantity": 170,
+        "rate": 0.57,
+        "rate_basis": "PER_MILE",
+        "status": "ESTIMATED"
+      }
+    ],
+    "target_pay_min": 575,
+    "tracking_sk": "2026-11-13T15:48:00Z#7300129",
+    "equipment_type": "V",
+    "consignee_state": "WA",
+    "shipper_city": "Portland",
+    "shipper_state": "OR",
+    "target_pay_max": 625,
+    "created_at": "2026-11-09T13:52:00Z",
+    "service_level": "TL_DRY_VAN",
+    "freight_terms": "PREPAID",
+    "pod": {
+      "received": false
+    },
+    "driver_phone": "602-555-0188",
+    "milestones": [
+      {
+        "complete": true,
+        "entered_at": "2026-11-09T14:07:00Z",
+        "entered_by": "JOHNDOE",
+        "event_at": "2026-11-09T13:52:00Z",
+        "label": "New Shipment",
+        "milestone_code": "NEW",
+        "sequence": 1,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-10T00:03:33Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-09T23:30:33Z",
+        "label": "Carrier Assigned",
+        "milestone_code": "COVERED",
+        "sequence": 2,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-10T00:22:33Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-10T00:15:33Z",
+        "label": "Rate Confirmation Sent",
+        "milestone_code": "RATE_CON_SENT",
+        "sequence": 3,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-10T23:52:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-10T23:20:00Z",
+        "label": "Driver Dispatched",
+        "milestone_code": "DISPATCHED",
+        "sequence": 4,
+        "source": "AUTO"
+      },
+      {
+        "complete": false,
+        "label": "24HR Prior Confirmation to Pickup",
+        "milestone_code": "24H_PICKUP_CONF",
+        "sequence": 5
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-11T15:41:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-11T15:21:00Z",
+        "event_timezone": "America/Los_Angeles",
+        "label": "Onsite at Shipper",
+        "milestone_code": "AT_SHIPPER",
+        "sequence": 6,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-11T16:18:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-11T16:06:00Z",
+        "event_timezone": "America/Los_Angeles",
+        "label": "Loaded",
+        "milestone_code": "LOADED",
+        "sequence": 7,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-11T16:54:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-11T16:51:00Z",
+        "label": "In Transit",
+        "milestone_code": "IN_TRANSIT",
+        "sequence": 8,
+        "source": "AUTO"
+      },
+      {
+        "complete": false,
+        "label": "24HR Prior Confirmation to Delivery",
+        "milestone_code": "24H_DELIVERY_CONF",
+        "sequence": 9
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-12T15:14:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-12T14:40:00Z",
+        "event_timezone": "America/Los_Angeles",
+        "label": "Arrived at Consignee",
+        "milestone_code": "AT_CONSIGNEE",
+        "sequence": 10,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-12T15:53:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-12T15:48:00Z",
+        "event_timezone": "America/Los_Angeles",
+        "label": "Delivered",
+        "milestone_code": "DELIVERED",
+        "sequence": 11,
+        "source": "AUTO"
+      },
+      {
+        "complete": false,
+        "label": "POD Received",
+        "milestone_code": "POD_RECEIVED",
+        "sequence": 12
+      }
+    ],
+    "track_owner": "JANEDOE",
+    "updated_at": "2026-11-12T16:33:00Z",
+    "shipper_name": "Cascade Packaging - Portland Plant",
+    "pro_number": "167-753657",
+    "references": [
+      {
+        "type": "SHIPMENT",
+        "value": "7300129"
+      },
+      {
+        "type": "BOL",
+        "value": "CAS233923"
+      },
+      {
+        "type": "PRO",
+        "value": "167-753657"
+      },
+      {
+        "type": "RATE_CON",
+        "value": "RC-7300129-1"
+      }
+    ],
+    "freight_lines": [
+      {
+        "chargeable_lb": 7110,
+        "description": "Corrugated cartons, baled",
+        "dim_factor": 194,
+        "dim_weight_lb": 5450,
+        "freight_class": 85,
+        "hazmat": false,
+        "height_in": 55,
+        "length_in": 48,
+        "line_no": 1,
+        "package_type": "PALLET",
+        "pieces": 10,
+        "weight_lb": 7110,
+        "width_in": 40
+      }
+    ],
+    "shipment_id": "7300129",
+    "rate_con_rev": 1,
+    "pickup_date": "2026-11-11",
+    "driver_name": "Lupe Herrera",
+    "vendor_costs": [
+      {
+        "amount": 518.5,
+        "charge_code": "FRT",
+        "cost_id": "cost_374ae6a00dc049da92a5",
+        "description": "Carrier linehaul \u2014 Lakeshore Carriers Inc.",
+        "override_flag": false,
+        "quantity": 170,
+        "rate": 3.05,
+        "rate_basis": "PER_MILE",
+        "status": "CONFIRMED",
+        "vendor_id": "LAKESHORE"
+      },
+      {
+        "amount": 96.9,
+        "charge_code": "FSC",
+        "cost_id": "cost_e42a5fc9b56c4070b996",
+        "description": "Fuel surcharge @ 0.57/mi",
+        "override_flag": false,
+        "quantity": 170,
+        "rate": 0.57,
+        "rate_basis": "PER_MILE",
+        "status": "CONFIRMED",
+        "vendor_id": "LAKESHORE"
+      }
+    ],
+    "created_by": "JOHNDOE",
+    "internal_notes": "",
+    "transit_days_est": 1,
+    "carrier_contact": "Lakeshore Dispatch",
+    "gp_pct": 12.8,
+    "trailer_number": "53357",
+    "tracking_pk": "TRACK",
+    "consignee_city": "Kent",
+    "status_updated_at": "2026-11-12T15:48:00Z",
+    "updated_by": "JANEDOE",
+    "next_tracking_at": "2026-11-13T15:48:00Z",
+    "salesperson_id": "JACKDOE",
+    "station": "DFW",
+    "freight_totals": {
+      "actual_lb": 7110,
+      "chargeable_lb": 7110,
+      "cubic_ft": 611.1,
+      "density_pcf": 11.63,
+      "dim_factor_used": 194,
+      "dim_weight_lb": 5450,
+      "pallet_positions": 5,
+      "pieces": 10
+    },
+    "dim_factor_used": 194,
+    "delivery_date_target": "2026-11-12",
+    "mode": "TL",
+    "customer_id": "CASCADEPKG",
+    "status_updated_by": "JANEDOE",
+    "consignee_name": "Cascade Packaging - Kent Distribution",
+    "truck_number": "373",
+    "account_manager_id": "JOHNDOE",
+    "sell_total": 705.5,
+    "stops": [
+      {
+        "actual_arrival": "2026-11-11T15:21:00Z",
+        "actual_departure": "2026-11-11T16:06:00Z",
+        "address_snapshot": {
+          "address1": "9410 N Burgard Way",
+          "city": "Portland",
+          "name": "Cascade Packaging - Portland Plant",
+          "state": "OR",
+          "timezone": "America/Los_Angeles",
+          "zip": "97203"
+        },
+        "appointment": {
+          "status": "NOT_REQUIRED"
+        },
+        "facility_id": "CASCADE-PDX",
+        "references": [],
+        "scheduled_window": {
+          "earliest_local": "2026-11-11T08:00:00",
+          "latest_local": "2026-11-11T14:00:00",
+          "timezone": "America/Los_Angeles"
+        },
+        "stop_seq": 1,
+        "stop_type": "PICKUP"
+      },
+      {
+        "actual_arrival": "2026-11-12T14:40:00Z",
+        "actual_departure": "2026-11-12T15:48:00Z",
+        "address_snapshot": {
+          "address1": "18010 80th Pl S",
+          "city": "Kent",
+          "name": "Cascade Packaging - Kent Distribution",
+          "state": "WA",
+          "timezone": "America/Los_Angeles",
+          "zip": "98032"
+        },
+        "appointment": {
+          "status": "NOT_REQUIRED"
+        },
+        "facility_id": "CASCADE-SEA",
+        "references": [],
+        "scheduled_window": {
+          "earliest_local": "2026-11-12T08:00:00",
+          "latest_local": "2026-11-12T16:00:00",
+          "timezone": "America/Los_Angeles"
+        },
+        "stop_seq": 2,
+        "stop_type": "DELIVERY"
+      }
+    ],
+    "carrier_id": "LAKESHORE",
+    "miles": 170,
+    "rate_con_doc_id": "doc_843421be90794eb1b4e5",
+    "overdue": true
+  },
+  {
+    "buy_total": 897.5,
+    "service_failure": false,
+    "rate_con_number": "RC-7300131-1",
+    "status": "DELIVERED",
+    "gp_amount": 142.5,
+    "customer_charges": [
+      {
+        "amount": 897.5,
+        "auto_flag": true,
+        "charge_code": "FRT",
+        "charge_id": "chg_58cad42f077b4db2bfbc",
+        "description": "Linehaul",
+        "override_flag": false,
+        "quantity": 250,
+        "rate": 3.59,
+        "rate_basis": "PER_MILE",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 142.5,
+        "auto_flag": true,
+        "charge_code": "FSC",
+        "charge_id": "chg_bba3f78beb79416d81aa",
+        "description": "Fuel surcharge @ 0.57/mi",
+        "override_flag": false,
+        "quantity": 250,
+        "rate": 0.57,
+        "rate_basis": "PER_MILE",
+        "status": "ESTIMATED"
+      }
+    ],
+    "target_pay_min": 850,
+    "tracking_sk": "2026-11-13T16:18:00Z#7300131",
+    "equipment_type": "V",
+    "consignee_state": "CA",
+    "shipper_city": "Fresno",
+    "shipper_state": "CA",
+    "target_pay_max": 925,
+    "created_at": "2026-11-09T21:06:00Z",
+    "service_level": "TL_DRY_VAN",
+    "pod": {
+      "received": false
+    },
+    "freight_terms": "PREPAID",
+    "driver_phone": "214-555-0182",
+    "milestones": [
+      {
+        "complete": true,
+        "entered_at": "2026-11-09T21:25:00Z",
+        "entered_by": "JOHNDOE",
+        "event_at": "2026-11-09T21:06:00Z",
+        "label": "New Shipment",
+        "milestone_code": "NEW",
+        "sequence": 1,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-10T13:01:05Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-10T12:45:05Z",
+        "label": "Carrier Assigned",
+        "milestone_code": "COVERED",
+        "sequence": 2,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-10T14:06:05Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-10T14:01:05Z",
+        "label": "Rate Confirmation Sent",
+        "milestone_code": "RATE_CON_SENT",
+        "sequence": 3,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-10T23:52:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-10T23:34:00Z",
+        "label": "Driver Dispatched",
+        "milestone_code": "DISPATCHED",
+        "sequence": 4,
+        "source": "AUTO"
+      },
+      {
+        "complete": false,
+        "label": "24HR Prior Confirmation to Pickup",
+        "milestone_code": "24H_PICKUP_CONF",
+        "sequence": 5
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-11T15:47:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-11T15:44:00Z",
+        "event_timezone": "America/Los_Angeles",
+        "label": "Onsite at Shipper",
+        "milestone_code": "AT_SHIPPER",
+        "sequence": 6,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-11T17:42:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-11T17:18:00Z",
+        "event_timezone": "America/Los_Angeles",
+        "label": "Loaded",
+        "milestone_code": "LOADED",
+        "sequence": 7,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-11T18:05:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-11T18:03:00Z",
+        "label": "In Transit",
+        "milestone_code": "IN_TRANSIT",
+        "sequence": 8,
+        "source": "AUTO"
+      },
+      {
+        "complete": false,
+        "label": "24HR Prior Confirmation to Delivery",
+        "milestone_code": "24H_DELIVERY_CONF",
+        "sequence": 9
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-12T15:12:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-12T14:40:00Z",
+        "event_timezone": "America/Los_Angeles",
+        "label": "Arrived at Consignee",
+        "milestone_code": "AT_CONSIGNEE",
+        "sequence": 10,
+        "source": "AUTO"
+      },
+      {
+        "complete": true,
+        "entered_at": "2026-11-12T16:31:00Z",
+        "entered_by": "JANEDOE",
+        "event_at": "2026-11-12T16:18:00Z",
+        "event_timezone": "America/Los_Angeles",
+        "label": "Delivered",
+        "milestone_code": "DELIVERED",
+        "sequence": 11,
+        "source": "AUTO"
+      },
+      {
+        "complete": false,
+        "label": "POD Received",
+        "milestone_code": "POD_RECEIVED",
+        "sequence": 12
+      }
+    ],
+    "track_owner": "JANEDOE",
+    "updated_at": "2026-11-12T17:03:00Z",
+    "shipper_name": "Sunbelt Agri Supply - Fresno Yard",
+    "pro_number": "634-988052",
+    "references": [
+      {
+        "type": "SHIPMENT",
+        "value": "7300131"
+      },
+      {
+        "type": "PO",
+        "value": "PO-640139"
+      },
+      {
+        "type": "BOL",
+        "value": "SUN281589"
+      },
+      {
+        "type": "PRO",
+        "value": "634-988052"
+      },
+      {
+        "type": "RATE_CON",
+        "value": "RC-7300131-1"
+      },
+      {
+        "type": "DELIVERY_NUMBER",
+        "value": "HGD-DC08-61426"
+      }
+    ],
+    "freight_lines": [
+      {
+        "chargeable_lb": 41304,
+        "description": "Bagged fertilizer, palletized",
+        "dim_factor": 194,
+        "dim_weight_lb": 11880,
+        "hazmat": false,
+        "height_in": 50,
+        "length_in": 48,
+        "line_no": 1,
+        "package_type": "PALLET",
+        "pieces": 24,
+        "weight_lb": 41304,
+        "width_in": 40
+      }
+    ],
+    "shipment_id": "7300131",
+    "rate_con_rev": 1,
+    "pickup_date": "2026-11-11",
+    "driver_name": "Tonya Fields",
+    "vendor_costs": [
+      {
+        "amount": 755,
+        "charge_code": "FRT",
+        "cost_id": "cost_9ae0ba88d8444c5e9c6d",
+        "description": "Carrier linehaul \u2014 Acme Carrier Inc.",
+        "override_flag": false,
+        "quantity": 250,
+        "rate": 3.02,
+        "rate_basis": "PER_MILE",
+        "status": "CONFIRMED",
+        "vendor_id": "ACMECARR"
+      },
+      {
+        "amount": 142.5,
+        "charge_code": "FSC",
+        "cost_id": "cost_593f0db44dea4c629a55",
+        "description": "Fuel surcharge @ 0.57/mi",
+        "override_flag": false,
+        "quantity": 250,
+        "rate": 0.57,
+        "rate_basis": "PER_MILE",
+        "status": "CONFIRMED",
+        "vendor_id": "ACMECARR"
+      }
+    ],
+    "created_by": "JOHNDOE",
+    "internal_notes": "",
+    "carrier_contact": "Acme Dispatch",
+    "transit_days_est": 1,
+    "trailer_number": "53892",
+    "gp_pct": 13.7,
+    "tracking_pk": "TRACK",
+    "status_updated_at": "2026-11-12T16:18:00Z",
+    "consignee_city": "Ontario",
+    "updated_by": "JANEDOE",
+    "next_tracking_at": "2026-11-13T16:18:00Z",
+    "salesperson_id": "JACKDOE",
+    "station": "DFW",
+    "dim_factor_used": 194,
+    "freight_totals": {
+      "actual_lb": 41304,
+      "chargeable_lb": 41304,
+      "cubic_ft": 1333.3,
+      "density_pcf": 30.98,
+      "dim_factor_used": 194,
+      "dim_weight_lb": 11880,
+      "pallet_positions": 12,
+      "pieces": 24
+    },
+    "mode": "TL",
+    "delivery_date_target": "2026-11-12",
+    "customer_id": "SUNBELTAG",
+    "consignee_name": "HomeGoods Depot DC08",
+    "status_updated_by": "JANEDOE",
+    "truck_number": "258",
+    "sell_total": 1040,
+    "account_manager_id": "JOHNDOE",
+    "stops": [
+      {
+        "actual_arrival": "2026-11-11T15:44:00Z",
+        "actual_departure": "2026-11-11T17:18:00Z",
+        "address_snapshot": {
+          "address1": "5580 S Cherry Ave",
+          "city": "Fresno",
+          "name": "Sunbelt Agri Supply - Fresno Yard",
+          "state": "CA",
+          "timezone": "America/Los_Angeles",
+          "zip": "93706"
+        },
+        "appointment": {
+          "status": "NOT_REQUIRED"
+        },
+        "facility_id": "SUNBELT-FRS",
+        "instructions": "Flatbeds tarp on-site; forklift assist available until 14:00.",
+        "references": [],
+        "scheduled_window": {
+          "earliest_local": "2026-11-11T08:00:00",
+          "latest_local": "2026-11-11T14:00:00",
+          "timezone": "America/Los_Angeles"
+        },
+        "stop_seq": 1,
+        "stop_type": "PICKUP"
+      },
+      {
+        "actual_arrival": "2026-11-12T14:40:00Z",
+        "actual_departure": "2026-11-12T16:18:00Z",
+        "address_snapshot": {
+          "address1": "4600 E Airport Dr",
+          "city": "Ontario",
+          "name": "HomeGoods Depot DC08",
+          "state": "CA",
+          "timezone": "America/Los_Angeles",
+          "zip": "91761"
+        },
+        "appointment": {
+          "confirmation_number": "HGD-DC08-61426",
+          "method_used": "PORTAL",
+          "portal_ref": "RETAILER_PROPRIETARY:HGD-DC08-61426",
+          "scheduled_by": "JOHNDOE",
+          "status": "CONFIRMED"
+        },
+        "facility_id": "HGD-DC08",
+        "references": [
+          {
+            "type": "PO",
+            "value": "PO-640139"
+          },
+          {
+            "type": "DELIVERY_NUMBER",
+            "value": "HGD-DC08-61426"
+          }
+        ],
+        "scheduled_window": {
+          "earliest_local": "2026-11-12T08:00:00",
+          "latest_local": "2026-11-12T09:00:00",
+          "timezone": "America/Los_Angeles"
+        },
+        "stop_seq": 2,
+        "stop_type": "DELIVERY"
+      }
+    ],
+    "carrier_id": "ACMECARR",
+    "miles": 250,
+    "rate_con_doc_id": "doc_982da982e49f4a798882",
+    "overdue": true
+  }
+]

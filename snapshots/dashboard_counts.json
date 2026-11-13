@@ -1,0 +1,53 @@
+{
+  "tiles": [
+    {
+      "key": "quotes_pending",
+      "label": "Quotes pending",
+      "count": 10,
+      "filter_route": "/quotes?status=QUOTED,SENT",
+      "alert": false
+    },
+    {
+      "key": "to_cover",
+      "label": "To cover",
+      "count": 9,
+      "filter_route": "/shipments?status=BOOKED",
+      "alert": false
+    },
+    {
+      "key": "dispatched",
+      "label": "Dispatched",
+      "count": 12,
+      "filter_route": "/shipments?status=DISPATCHED,COVERED",
+      "alert": false
+    },
+    {
+      "key": "in_transit",
+      "label": "In transit",
+      "count": 20,
+      "filter_route": "/shipments?status=AT_PICKUP,PICKED_UP,IN_TRANSIT,AT_DELIVERY",
+      "alert": false
+    },
+    {
+      "key": "delivering_today",
+      "label": "Delivering today",
+      "count": 14,
+      "filter_route": "/shipments?delivery_date=2026-11-13",
+      "alert": false
+    },
+    {
+      "key": "awaiting_pod",
+      "label": "Delivered awaiting POD",
+      "count": 4,
+      "filter_route": "/shipments?status=DELIVERED",
+      "alert": false
+    },
+    {
+      "key": "tracking_overdue",
+      "label": "Tracking overdue",
+      "count": 12,
+      "filter_route": "/tracking",
+      "alert": true
+    }
+  ]
+}

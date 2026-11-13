@@ -1,0 +1,565 @@
+[
+  {
+    "customer_charges": [
+      {
+        "amount": 1635.2,
+        "auto_flag": true,
+        "charge_code": "FRT",
+        "charge_id": "chg_fc44f823d40f4aef8c6a",
+        "description": "Linehaul",
+        "override_flag": false,
+        "quantity": 560,
+        "rate": 2.92,
+        "rate_basis": "PER_MILE",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 319.2,
+        "auto_flag": true,
+        "charge_code": "FSC",
+        "charge_id": "chg_d70c7ddcce834f7d9645",
+        "description": "Fuel surcharge @ 0.57/mi",
+        "override_flag": false,
+        "quantity": 560,
+        "rate": 0.57,
+        "rate_basis": "PER_MILE",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 280,
+        "auto_flag": false,
+        "charge_code": "LUM",
+        "charge_id": "chg_91586002da1e4bc9a37b",
+        "description": "Lumper reimbursement",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 280,
+        "rate_basis": "FLAT",
+        "status": "ESTIMATED"
+      }
+    ],
+    "salesperson_id": "JACKDOE",
+    "contact": {
+      "email": "mbell@valiantfoods.example.com",
+      "name": "Marcus Bell",
+      "phone": "515-555-0131"
+    },
+    "destination": {
+      "city": "Memphis",
+      "facility_id": "VMART-DC09",
+      "name": "ValueMart Stores DC09",
+      "state": "TN",
+      "zip": "38109"
+    },
+    "customer_id": "VALIANTFD",
+    "target_margin_pct": 15,
+    "updated_by": "JACKDOE",
+    "pickup_date": "2026-11-12",
+    "pieces": 22,
+    "miles": 560,
+    "notes": [
+      {
+        "author": "JACKDOE",
+        "text": "rated TL: buy $1,696.80 / sell $2,234.40 / GP 24.1%",
+        "timestamp": "2026-11-09T08:50:36Z"
+      },
+      {
+        "author": "JACKDOE",
+        "text": "quote sent to customer",
+        "timestamp": "2026-11-09T09:50:36Z"
+      }
+    ],
+    "valid_until": "2026-11-16",
+    "chargeable_lb": 34760,
+    "created_at": "2026-11-09T08:20:36Z",
+    "vendor_costs": [
+      {
+        "amount": 1377.6,
+        "charge_code": "FRT",
+        "cost_id": "cost_0799bd15000d424097c4",
+        "description": "Carrier linehaul \u2014 market estimate",
+        "override_flag": false,
+        "quantity": 560,
+        "rate": 2.46,
+        "rate_basis": "PER_MILE",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 319.2,
+        "charge_code": "FSC",
+        "cost_id": "cost_dddce13c132e43b3aa79",
+        "description": "Fuel surcharge @ 0.57/mi",
+        "override_flag": false,
+        "quantity": 560,
+        "rate": 0.57,
+        "rate_basis": "PER_MILE",
+        "status": "ESTIMATED"
+      }
+    ],
+    "gp_pct": 24.1,
+    "equipment_type": "V",
+    "origin": {
+      "city": "Des Moines",
+      "facility_id": "VALIANT-DSM",
+      "name": "Valiant Foods - Des Moines Plant",
+      "state": "IA",
+      "zip": "50313"
+    },
+    "gp_amount": 537.6,
+    "actual_lb": 34760,
+    "quoted_by": "JACKDOE",
+    "created_by": "JACKDOE",
+    "pallet_positions": 11,
+    "status": "SENT",
+    "dim_factor_used": 194,
+    "transit_days_est": 1,
+    "cubic_ft": 1466.7,
+    "sent_at": "2026-11-09T09:50:36Z",
+    "quote_id": "7300124",
+    "buy_total": 1696.8,
+    "rate_source": "SPOT",
+    "freight_lines": [
+      {
+        "chargeable_lb": 34760,
+        "description": "Shelf-stable food products",
+        "dim_factor": 194,
+        "dim_weight_lb": 13068,
+        "hazmat": false,
+        "height_in": 60,
+        "length_in": 48,
+        "line_no": 1,
+        "package_type": "PALLET",
+        "pieces": 22,
+        "weight_lb": 34760,
+        "width_in": 40
+      }
+    ],
+    "updated_at": "2026-11-09T10:20:36Z",
+    "mode": "TL",
+    "sell_total": 2234.4,
+    "dim_weight_lb": 13068,
+    "density_pcf": 23.7,
+    "service_level": "TL_DRY_VAN",
+    "summary": "Quote 7300124 | SENT | VALIANTFD | TL TL_DRY_VAN V | Des Moines, IA -> Memphis, TN | 560 mi | sell $2,234.40 | valid until 11/16/26"
+  },
+  {
+    "buy_total": 3370,
+    "valid_until": "2026-11-17",
+    "gp_amount": 700,
+    "salesperson_id": "JACKDOE",
+    "updated_at": "2026-11-10T10:20:36Z",
+    "pickup_date": "2026-11-15",
+    "target_margin_pct": 15,
+    "updated_by": "JACKDOE",
+    "miles": 1000,
+    "pieces": 26,
+    "sent_at": "2026-11-10T09:50:36Z",
+    "transit_days_est": 2,
+    "created_at": "2026-11-10T08:20:36Z",
+    "contact": {
+      "email": "ap@frostlinecold.example.com",
+      "name": "Pat Kowalski",
+      "phone": "815-555-0123"
+    },
+    "equipment_type": "R",
+    "customer_charges": [
+      {
+        "amount": 3100,
+        "auto_flag": true,
+        "charge_code": "FRT",
+        "charge_id": "chg_a12e7a38b0464ec59011",
+        "description": "Linehaul",
+        "override_flag": false,
+        "quantity": 1000,
+        "rate": 3.1,
+        "rate_basis": "PER_MILE",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 640,
+        "auto_flag": true,
+        "charge_code": "FSC",
+        "charge_id": "chg_4b2e8c60971e45df946f",
+        "description": "Fuel surcharge @ 0.64/mi",
+        "override_flag": false,
+        "quantity": 1000,
+        "rate": 0.64,
+        "rate_basis": "PER_MILE",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 330,
+        "auto_flag": false,
+        "charge_code": "LUM",
+        "charge_id": "chg_35367512e3624256af7f",
+        "description": "Lumper reimbursement",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 330,
+        "rate_basis": "FLAT",
+        "status": "ESTIMATED"
+      }
+    ],
+    "gp_pct": 17.2,
+    "cubic_ft": 1450,
+    "quoted_by": "JACKDOE",
+    "created_by": "JACKDOE",
+    "vendor_costs": [
+      {
+        "amount": 2730,
+        "charge_code": "FRT",
+        "cost_id": "cost_80296d7087ee48549909",
+        "description": "Carrier linehaul \u2014 market estimate",
+        "override_flag": false,
+        "quantity": 1000,
+        "rate": 2.73,
+        "rate_basis": "PER_MILE",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 640,
+        "charge_code": "FSC",
+        "cost_id": "cost_15e607857e1848bab367",
+        "description": "Fuel surcharge @ 0.64/mi",
+        "override_flag": false,
+        "quantity": 1000,
+        "rate": 0.64,
+        "rate_basis": "PER_MILE",
+        "status": "ESTIMATED"
+      }
+    ],
+    "freight_lines": [
+      {
+        "chargeable_lb": 39600,
+        "description": "Frozen prepared foods",
+        "dim_factor": 194,
+        "dim_weight_lb": 12840,
+        "hazmat": false,
+        "height_in": 54,
+        "length_in": 48,
+        "line_no": 1,
+        "package_type": "PALLET",
+        "pieces": 24,
+        "weight_lb": 39600,
+        "width_in": 40
+      },
+      {
+        "chargeable_lb": 238,
+        "description": "Replacement parts, boxed",
+        "dim_factor": 194,
+        "dim_weight_lb": 90,
+        "hazmat": false,
+        "height_in": 18,
+        "length_in": 24,
+        "line_no": 2,
+        "package_type": "BOX",
+        "pieces": 2,
+        "weight_lb": 238,
+        "width_in": 20
+      }
+    ],
+    "status": "SENT",
+    "dim_factor_used": 194,
+    "customer_id": "FROSTLINE",
+    "quote_id": "7300134",
+    "density_pcf": 27.47,
+    "sell_total": 4070,
+    "actual_lb": 39838,
+    "chargeable_lb": 39838,
+    "rate_source": "SPOT",
+    "destination": {
+      "city": "Aurora",
+      "facility_id": "GP-DC5",
+      "name": "Grocer's Pride DC5",
+      "state": "CO",
+      "zip": "80011"
+    },
+    "pallet_positions": 12,
+    "service_level": "TL_REEFER",
+    "notes": [
+      {
+        "author": "JACKDOE",
+        "text": "rated TL: buy $3,370.00 / sell $4,070.00 / GP 17.2%",
+        "timestamp": "2026-11-10T08:50:36Z"
+      },
+      {
+        "author": "JACKDOE",
+        "text": "quote sent to customer",
+        "timestamp": "2026-11-10T09:50:36Z"
+      }
+    ],
+    "origin": {
+      "city": "Rockford",
+      "facility_id": "FROSTLINE-RFD",
+      "name": "Frostline Cold Storage - Rockford",
+      "state": "IL",
+      "zip": "61101"
+    },
+    "mode": "TL",
+    "dim_weight_lb": 12930,
+    "summary": "Quote 7300134 | SENT | FROSTLINE | TL TL_REEFER R | Rockford, IL -> Aurora, CO | 1000 mi | sell $4,070.00 | valid until 11/17/26"
+  },
+  {
+    "pieces": 4,
+    "origin": {
+      "city": "Phoenix",
+      "facility_id": "REDROCK-PHX",
+      "name": "Red Rock Electronics - Buckeye Rd Plant",
+      "state": "AZ",
+      "zip": "85009"
+    },
+    "salesperson_id": "JACKDOE",
+    "updated_by": "JACKDOE",
+    "updated_at": "2026-11-11T15:20:36Z",
+    "dim_factor_used": 250,
+    "density_pcf": 9.83,
+    "destination": {
+      "city": "El Paso",
+      "facility_id": "DESERTGATE-ELP",
+      "name": "Desert Gateway Distribution - El Paso",
+      "state": "TX",
+      "zip": "79936"
+    },
+    "created_at": "2026-11-11T13:20:36Z",
+    "contact": {
+      "email": "izhang@redrockel.example.com",
+      "name": "Ivy Zhang",
+      "phone": "602-555-0111"
+    },
+    "sent_at": "2026-11-11T14:50:36Z",
+    "dim_weight_lb": 1908,
+    "created_by": "JACKDOE",
+    "quoted_by": "JOHNDOE",
+    "mode": "EXPEDITE",
+    "gp_amount": 413.1,
+    "vendor_costs": [
+      {
+        "amount": 735.3,
+        "charge_code": "FRT",
+        "cost_id": "cost_e94dc4aacb4b4a6092bf",
+        "description": "Expedite spot \u2014 market estimate",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 735.3,
+        "rate_basis": "FLAT",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 205.88,
+        "charge_code": "FSC",
+        "cost_id": "cost_7d07cec7b8094339a2c5",
+        "description": "Fuel surcharge 28% of linehaul",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 28,
+        "rate_basis": "PCT_OF_FRT",
+        "status": "ESTIMATED"
+      }
+    ],
+    "status": "SENT",
+    "buy_total": 941.18,
+    "service_level": "EXPEDITE_SPRINTER",
+    "freight_lines": [
+      {
+        "chargeable_lb": 2708,
+        "description": "Consumer electronics, shrink-wrapped",
+        "dim_factor": 250,
+        "dim_weight_lb": 1908,
+        "hazmat": false,
+        "height_in": 62,
+        "length_in": 48,
+        "line_no": 1,
+        "package_type": "PALLET",
+        "pieces": 4,
+        "weight_lb": 2708,
+        "width_in": 40
+      }
+    ],
+    "notes": [
+      {
+        "author": "JOHNDOE",
+        "text": "rated EXPEDITE: buy $941.18 / sell $1,354.28 / GP 30.5%",
+        "timestamp": "2026-11-11T13:50:36Z"
+      },
+      {
+        "author": "JOHNDOE",
+        "text": "quote sent to customer",
+        "timestamp": "2026-11-11T14:50:36Z"
+      }
+    ],
+    "miles": 430,
+    "transit_days_est": 1,
+    "equipment_type": "SV",
+    "quote_id": "7300150",
+    "chargeable_lb": 2708,
+    "target_margin_pct": 25,
+    "rate_source": "SPOT",
+    "actual_lb": 2708,
+    "customer_id": "REDROCKEL",
+    "gp_pct": 30.5,
+    "sell_total": 1354.28,
+    "pickup_date": "2026-11-16",
+    "customer_charges": [
+      {
+        "amount": 1058.03,
+        "auto_flag": true,
+        "charge_code": "FRT",
+        "charge_id": "chg_c5290c61c9d54af0881d",
+        "description": "Expedite linehaul",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 1058.03,
+        "rate_basis": "FLAT",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 296.25,
+        "auto_flag": true,
+        "charge_code": "FSC",
+        "charge_id": "chg_4c146cfcc57249b587ab",
+        "description": "Fuel surcharge 28% of linehaul",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 28,
+        "rate_basis": "PCT_OF_FRT",
+        "status": "ESTIMATED"
+      }
+    ],
+    "cubic_ft": 275.6,
+    "valid_until": "2026-11-18",
+    "pallet_positions": 2,
+    "summary": "Quote 7300150 | SENT | REDROCKEL | EXPEDITE EXPEDITE_SPRINTER SV | Phoenix, AZ -> El Paso, TX | 430 mi | sell $1,354.28 | valid until 11/18/26"
+  },
+  {
+    "actual_lb": 3648,
+    "origin": {
+      "city": "Columbus",
+      "facility_id": "KEYSTONE-CMH",
+      "name": "Keystone Home & Garden - Columbus WH",
+      "state": "OH",
+      "zip": "43217"
+    },
+    "salesperson_id": "JACKDOE",
+    "contact": {
+      "email": "vlindqvist@keystonehg.example.com",
+      "name": "Vera Lindqvist",
+      "phone": "614-555-0136"
+    },
+    "pickup_date": "2026-11-15",
+    "chargeable_lb": 3648,
+    "quote_id": "7300162",
+    "updated_at": "2026-11-12T10:20:36Z",
+    "updated_by": "JACKDOE",
+    "miles": 425,
+    "sent_at": "2026-11-12T09:50:36Z",
+    "gp_pct": 21.1,
+    "equipment_type": "V",
+    "dim_weight_lb": 2970,
+    "created_by": "JACKDOE",
+    "quoted_by": "JOHNDOE",
+    "customer_id": "KEYSTONEHD",
+    "status": "SENT",
+    "notes": [
+      {
+        "author": "JOHNDOE",
+        "text": "rated LTL: buy $792.16 / sell $1,004.35 / GP 21.1%",
+        "timestamp": "2026-11-12T08:50:36Z"
+      },
+      {
+        "author": "JOHNDOE",
+        "text": "quote sent to customer",
+        "timestamp": "2026-11-12T09:50:36Z"
+      }
+    ],
+    "valid_until": "2026-11-19",
+    "buy_total": 792.16,
+    "dim_factor_used": 194,
+    "transit_days_est": 1,
+    "density_pcf": 10.94,
+    "pallet_positions": 3,
+    "created_at": "2026-11-12T08:20:36Z",
+    "target_margin_pct": 25,
+    "freight_lines": [
+      {
+        "chargeable_lb": 3648,
+        "description": "Garden tools and seasonal goods",
+        "dim_factor": 194,
+        "dim_weight_lb": 2970,
+        "freight_class": 92.5,
+        "hazmat": false,
+        "height_in": 50,
+        "length_in": 48,
+        "line_no": 1,
+        "package_type": "PALLET",
+        "pieces": 6,
+        "weight_lb": 3648,
+        "width_in": 40
+      }
+    ],
+    "destination": {
+      "city": "Charlotte",
+      "facility_id": "GP-ST88",
+      "name": "Grocer's Pride Store 88 - Charlotte",
+      "state": "NC",
+      "zip": "28217"
+    },
+    "pieces": 6,
+    "rate_source": "SPOT",
+    "cubic_ft": 333.3,
+    "sell_total": 1004.35,
+    "service_level": "LTL_STANDARD",
+    "customer_charges": [
+      {
+        "amount": 713.57,
+        "auto_flag": true,
+        "charge_code": "FRT",
+        "charge_id": "chg_33424f7413a1498a88a2",
+        "description": "LTL class 92.5 @ 55.10/cwt less 64.5%",
+        "override_flag": false,
+        "quantity": 36.48,
+        "rate": 19.56,
+        "rate_basis": "PER_CWT",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 290.78,
+        "auto_flag": true,
+        "charge_code": "FSC",
+        "charge_id": "chg_d4dd116f9afd4181af1e",
+        "description": "LTL fuel surcharge 40.75%",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 40.75,
+        "rate_basis": "PCT_OF_FRT",
+        "status": "ESTIMATED"
+      }
+    ],
+    "vendor_costs": [
+      {
+        "amount": 562.81,
+        "charge_code": "FRT",
+        "cost_id": "cost_30b0f1df64c048c89e9e",
+        "description": "LTL class 92.5 @ 55.10/cwt less 72% \u2014 market estimate",
+        "override_flag": false,
+        "quantity": 36.48,
+        "rate": 15.43,
+        "rate_basis": "PER_CWT",
+        "status": "ESTIMATED"
+      },
+      {
+        "amount": 229.35,
+        "charge_code": "FSC",
+        "cost_id": "cost_900db95020c84ddaa5bd",
+        "description": "LTL fuel surcharge 40.75%",
+        "override_flag": false,
+        "quantity": 1,
+        "rate": 40.75,
+        "rate_basis": "PCT_OF_FRT",
+        "status": "ESTIMATED"
+      }
+    ],
+    "mode": "LTL",
+    "gp_amount": 212.19,
+    "summary": "Quote 7300162 | SENT | KEYSTONEHD | LTL LTL_STANDARD V | Columbus, OH -> Charlotte, NC | 425 mi | sell $1,004.35 | valid until 11/19/26"
+  }
+]
