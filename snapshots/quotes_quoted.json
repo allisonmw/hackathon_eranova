@@ -1,49 +1,30 @@
 [
   {
-    "status": "QUOTED",
-    "actual_lb": 8870,
-    "miles": 800,
+    "valid_until": "2026-11-15",
     "target_margin_pct": 15,
+    "actual_lb": 8870,
     "pieces": 10,
-    "sell_total": 3160,
-    "quoted_by": "JACKDOE",
-    "dim_weight_lb": 7130,
-    "created_by": "JACKDOE",
-    "chargeable_lb": 8870,
-    "density_pcf": 11.09,
-    "salesperson_id": "JACKDOE",
     "cubic_ft": 800,
-    "equipment_type": "F",
-    "quote_id": "7300121",
-    "gp_pct": 11.9,
-    "updated_by": "JACKDOE",
-    "freight_lines": [
+    "rate_source": "SPOT",
+    "chargeable_lb": 8870,
+    "dim_weight_lb": 7130,
+    "sell_total": 3160,
+    "notes": [
       {
-        "chargeable_lb": 8870,
-        "description": "Irrigation pipe and fittings",
-        "dim_factor": 194,
-        "dim_weight_lb": 7130,
-        "hazmat": false,
-        "height_in": 24,
-        "length_in": 240,
-        "line_no": 1,
-        "package_type": "BUNDLE",
-        "pieces": 10,
-        "weight_lb": 8870,
-        "width_in": 24
+        "author": "JACKDOE",
+        "text": "rated TL: buy $2,784.00 / sell $3,160.00 / GP 11.9%",
+        "timestamp": "2026-11-08T05:50:36Z"
       }
     ],
-    "origin": {
-      "city": "Fresno",
-      "facility_id": "SUNBELT-FRS",
-      "name": "Sunbelt Agri Supply - Fresno Yard",
-      "state": "CA",
-      "zip": "93706"
-    },
-    "dim_factor_used": 194,
-    "valid_until": "2026-11-15",
+    "density_pcf": 11.09,
+    "miles": 800,
+    "gp_pct": 11.9,
     "transit_days_est": 2,
-    "buy_total": 2784,
+    "updated_at": "2026-11-08T07:20:36Z",
+    "quote_id": "7300121",
+    "created_by": "JACKDOE",
+    "quoted_by": "JACKDOE",
+    "dim_factor_used": 194,
     "destination": {
       "city": "Salt Lake City",
       "facility_id": "EVERGREEN-SLC",
@@ -51,6 +32,9 @@
       "state": "UT",
       "zip": "84119"
     },
+    "buy_total": 2784,
+    "pallet_positions": 0,
+    "status": "QUOTED",
     "vendor_costs": [
       {
         "amount": 2328,
@@ -75,7 +59,37 @@
         "status": "ESTIMATED"
       }
     ],
-    "pallet_positions": 0,
+    "freight_lines": [
+      {
+        "chargeable_lb": 8870,
+        "description": "Irrigation pipe and fittings",
+        "dim_factor": 194,
+        "dim_weight_lb": 7130,
+        "hazmat": false,
+        "height_in": 24,
+        "length_in": 240,
+        "line_no": 1,
+        "package_type": "BUNDLE",
+        "pieces": 10,
+        "weight_lb": 8870,
+        "width_in": 24
+      }
+    ],
+    "pickup_date": "2026-11-12",
+    "created_at": "2026-11-08T05:20:36Z",
+    "mode": "TL",
+    "updated_by": "JACKDOE",
+    "origin": {
+      "city": "Fresno",
+      "facility_id": "SUNBELT-FRS",
+      "name": "Sunbelt Agri Supply - Fresno Yard",
+      "state": "CA",
+      "zip": "93706"
+    },
+    "customer_id": "SUNBELTAG",
+    "gp_amount": 376,
+    "equipment_type": "F",
+    "salesperson_id": "JACKDOE",
     "customer_charges": [
       {
         "amount": 2704,
@@ -102,20 +116,6 @@
         "status": "ESTIMATED"
       }
     ],
-    "rate_source": "SPOT",
-    "notes": [
-      {
-        "author": "JACKDOE",
-        "text": "rated TL: buy $2,784.00 / sell $3,160.00 / GP 11.9%",
-        "timestamp": "2026-11-08T05:50:36Z"
-      }
-    ],
-    "customer_id": "SUNBELTAG",
-    "mode": "TL",
-    "pickup_date": "2026-11-12",
-    "created_at": "2026-11-08T05:20:36Z",
-    "gp_amount": 376,
-    "updated_at": "2026-11-08T07:20:36Z",
     "service_level": "TL_FLATBED",
     "contact": {
       "email": "shipping@sunbeltag.example.com",
@@ -126,71 +126,33 @@
   },
   {
     "buy_total": 882,
-    "status": "QUOTED",
     "pieces": 21,
-    "dim_weight_lb": 10957,
-    "target_margin_pct": 15,
-    "created_at": "2026-11-10T11:20:36Z",
-    "quoted_by": "JACKDOE",
-    "valid_until": "2026-11-17",
-    "created_by": "JACKDOE",
-    "destination": {
-      "city": "Newark",
-      "facility_id": "TRISTATE-EWR",
-      "name": "Tri-State Crossdock - Newark",
-      "state": "NJ",
-      "zip": "07105"
-    },
-    "equipment_type": "R",
-    "salesperson_id": "JACKDOE",
-    "transit_days_est": 1,
-    "cubic_ft": 1228.9,
-    "origin": {
-      "city": "Boston",
-      "facility_id": "BLUEHARBOR-BOS",
-      "name": "Blue Harbor - Fish Pier Cold Store",
-      "state": "MA",
-      "zip": "02210"
-    },
     "customer_id": "BLUEHARBOR",
-    "updated_by": "JACKDOE",
-    "vendor_costs": [
+    "target_margin_pct": 15,
+    "customer_charges": [
       {
-        "amount": 738,
+        "amount": 877.5,
+        "auto_flag": true,
         "charge_code": "FRT",
-        "cost_id": "cost_e2b5bd8f823d429f814b",
-        "description": "Carrier linehaul \u2014 market estimate",
+        "charge_id": "chg_c4a00f98614145088f0d",
+        "description": "Linehaul",
         "override_flag": false,
         "quantity": 225,
-        "rate": 3.28,
+        "rate": 3.9,
         "rate_basis": "PER_MILE",
         "status": "ESTIMATED"
       },
       {
         "amount": 144,
+        "auto_flag": true,
         "charge_code": "FSC",
-        "cost_id": "cost_81101ea98ef54b70a558",
+        "charge_id": "chg_f7cae2e355be474db423",
         "description": "Fuel surcharge @ 0.64/mi",
         "override_flag": false,
         "quantity": 225,
         "rate": 0.64,
         "rate_basis": "PER_MILE",
         "status": "ESTIMATED"
-      }
-    ],
-    "dim_factor_used": 194,
-    "contact": {
-      "email": "dispatch@blueharborsd.example.com",
-      "name": "Fiona Meade",
-      "phone": "617-555-0191"
-    },
-    "gp_amount": 139.5,
-    "miles": 225,
-    "notes": [
-      {
-        "author": "JACKDOE",
-        "text": "rated TL: buy $882.00 / sell $1,021.50 / GP 13.7%",
-        "timestamp": "2026-11-10T11:50:36Z"
       }
     ],
     "freight_lines": [
@@ -223,25 +185,29 @@
         "width_in": 40
       }
     ],
-    "gp_pct": 13.7,
-    "customer_charges": [
+    "rate_source": "SPOT",
+    "contact": {
+      "email": "dispatch@blueharborsd.example.com",
+      "name": "Fiona Meade",
+      "phone": "617-555-0191"
+    },
+    "cubic_ft": 1228.9,
+    "vendor_costs": [
       {
-        "amount": 877.5,
-        "auto_flag": true,
+        "amount": 738,
         "charge_code": "FRT",
-        "charge_id": "chg_c4a00f98614145088f0d",
-        "description": "Linehaul",
+        "cost_id": "cost_e2b5bd8f823d429f814b",
+        "description": "Carrier linehaul \u2014 market estimate",
         "override_flag": false,
         "quantity": 225,
-        "rate": 3.9,
+        "rate": 3.28,
         "rate_basis": "PER_MILE",
         "status": "ESTIMATED"
       },
       {
         "amount": 144,
-        "auto_flag": true,
         "charge_code": "FSC",
-        "charge_id": "chg_f7cae2e355be474db423",
+        "cost_id": "cost_81101ea98ef54b70a558",
         "description": "Fuel surcharge @ 0.64/mi",
         "override_flag": false,
         "quantity": 225,
@@ -250,22 +216,70 @@
         "status": "ESTIMATED"
       }
     ],
-    "pallet_positions": 11,
-    "rate_source": "SPOT",
+    "destination": {
+      "city": "Newark",
+      "facility_id": "TRISTATE-EWR",
+      "name": "Tri-State Crossdock - Newark",
+      "state": "NJ",
+      "zip": "07105"
+    },
+    "created_by": "JACKDOE",
+    "quoted_by": "JACKDOE",
+    "dim_factor_used": 194,
+    "gp_amount": 139.5,
+    "miles": 225,
+    "transit_days_est": 1,
+    "gp_pct": 13.7,
+    "created_at": "2026-11-10T11:20:36Z",
+    "status": "QUOTED",
     "sell_total": 1021.5,
+    "valid_until": "2026-11-17",
+    "pallet_positions": 11,
     "updated_at": "2026-11-10T13:20:36Z",
-    "mode": "TL",
-    "chargeable_lb": 32239,
     "pickup_date": "2026-11-12",
+    "notes": [
+      {
+        "author": "JACKDOE",
+        "text": "rated TL: buy $882.00 / sell $1,021.50 / GP 13.7%",
+        "timestamp": "2026-11-10T11:50:36Z"
+      }
+    ],
+    "mode": "TL",
+    "equipment_type": "R",
+    "updated_by": "JACKDOE",
+    "dim_weight_lb": 10957,
     "density_pcf": 26.23,
     "actual_lb": 32239,
     "quote_id": "7300135",
+    "salesperson_id": "JACKDOE",
+    "origin": {
+      "city": "Boston",
+      "facility_id": "BLUEHARBOR-BOS",
+      "name": "Blue Harbor - Fish Pier Cold Store",
+      "state": "MA",
+      "zip": "02210"
+    },
     "service_level": "TL_REEFER",
+    "chargeable_lb": 32239,
     "summary": "Quote 7300135 | QUOTED | BLUEHARBOR | TL TL_REEFER R | Boston, MA -> Newark, NJ | 225 mi | sell $1,021.50 | valid until 11/17/26"
   },
   {
     "buy_total": 327.41,
-    "status": "QUOTED",
+    "pickup_date": "2026-11-13",
+    "miles": 530,
+    "service_level": "LTL_STANDARD",
+    "notes": [
+      {
+        "author": "JACKDOE",
+        "text": "rated LTL: buy $327.41 / sell $415.11 / GP 21.1%",
+        "timestamp": "2026-11-11T07:50:36Z"
+      }
+    ],
+    "rate_source": "SPOT",
+    "mode": "LTL",
+    "sell_total": 415.11,
+    "gp_amount": 87.7,
+    "transit_days_est": 2,
     "customer_charges": [
       {
         "amount": 294.93,
@@ -292,13 +306,7 @@
         "status": "ESTIMATED"
       }
     ],
-    "created_at": "2026-11-11T07:20:36Z",
-    "pallet_positions": 2,
-    "quoted_by": "JACKDOE",
-    "created_by": "JACKDOE",
-    "salesperson_id": "JACKDOE",
-    "gp_amount": 87.7,
-    "sell_total": 415.11,
+    "gp_pct": 21.1,
     "dim_weight_lb": 1308,
     "destination": {
       "city": "Nashville",
@@ -307,43 +315,28 @@
       "state": "TN",
       "zip": "37206"
     },
-    "gp_pct": 21.1,
-    "equipment_type": "V",
-    "updated_by": "JACKDOE",
     "quote_id": "7300149",
-    "miles": 530,
-    "origin": {
-      "city": "Grand Rapids",
-      "facility_id": "PIONEER-GRR",
-      "name": "Pioneer Building Products - Kentwood Plant",
-      "state": "MI",
-      "zip": "49508"
-    },
+    "created_by": "JACKDOE",
+    "quoted_by": "JACKDOE",
     "dim_factor_used": 194,
-    "service_level": "LTL_STANDARD",
-    "chargeable_lb": 1401,
-    "pickup_date": "2026-11-13",
+    "created_at": "2026-11-11T07:20:36Z",
+    "density_pcf": 9.55,
+    "updated_at": "2026-11-11T09:20:36Z",
+    "status": "QUOTED",
+    "equipment_type": "V",
+    "pallet_positions": 2,
+    "customer_id": "PIONEERBLD",
+    "updated_by": "JACKDOE",
+    "target_margin_pct": 25,
+    "cubic_ft": 146.7,
     "actual_lb": 1401,
-    "transit_days_est": 2,
-    "notes": [
-      {
-        "author": "JACKDOE",
-        "text": "rated LTL: buy $327.41 / sell $415.11 / GP 21.1%",
-        "timestamp": "2026-11-11T07:50:36Z"
-      }
-    ],
-    "mode": "LTL",
+    "salesperson_id": "JACKDOE",
     "contact": {
       "email": "gwen@pioneerbp.example.com",
       "name": "Gwen Sadowski",
       "phone": "616-555-0151"
     },
-    "updated_at": "2026-11-11T09:20:36Z",
-    "rate_source": "SPOT",
-    "customer_id": "PIONEERBLD",
-    "target_margin_pct": 25,
-    "density_pcf": 9.55,
-    "cubic_ft": 146.7,
+    "pieces": 3,
     "vendor_costs": [
       {
         "amount": 232.62,
@@ -368,7 +361,6 @@
         "status": "ESTIMATED"
       }
     ],
-    "pieces": 3,
     "freight_lines": [
       {
         "chargeable_lb": 1401,
@@ -386,6 +378,14 @@
         "width_in": 40
       }
     ],
+    "origin": {
+      "city": "Grand Rapids",
+      "facility_id": "PIONEER-GRR",
+      "name": "Pioneer Building Products - Kentwood Plant",
+      "state": "MI",
+      "zip": "49508"
+    },
+    "chargeable_lb": 1401,
     "valid_until": "2026-11-18",
     "summary": "Quote 7300149 | QUOTED | PIONEERBLD | LTL LTL_STANDARD V | Grand Rapids, MI -> Nashville, TN | 530 mi | sell $415.11 | valid until 11/18/26"
   }

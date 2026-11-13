@@ -21,6 +21,8 @@ import os
 import pathlib
 import sys
 
+from datetime import datetime, timezone
+
 import httpx
 from dotenv import load_dotenv
 
@@ -167,10 +169,29 @@ def get_shipment(shipment_id: str) -> dict:
 
 
 def get_shipment_events(shipment_id: str) -> dict:
+    """Activity log for one shipment (check calls, status changes, notes, …)."""
     if demo_mode():
-        return {"ok": True, "data": [], "snapshot": True}
+        res = _snapshot("shipment_events")
+        return {**res, "data": res["data"].get(str(shipment_id), [])} if res["ok"] else res
     res = call("GET", f"/shipments/{shipment_id}/events")
-    return {**res, "data": res["data"].get("items", res["data"])} if res["ok"] else res
+    return {**res, "data": res["data"].get("items", res["data"])} if res["ok"] and isinstance(res["data"], dict) else res
+
+
+def events_for(shipment_ids: list[str]) -> dict:
+    """Events for many shipments: {"ok": True, "data": {shipment_id: [events]}, "failed": [ids]}."""
+    out, failed = {}, []
+    for sid in shipment_ids:
+        res = get_shipment_events(sid)
+        if res["ok"]:
+            out[str(sid)] = res["data"]
+        else:
+            failed.append(str(sid))
+    return {"ok": True, "data": out, "failed": failed}
+
+
+def snapshot_taken_at() -> str | None:
+    res = _snapshot("snapshot_meta")
+    return res["data"].get("taken_at") if res["ok"] else None
 
 
 def list_vendors() -> dict:
@@ -280,6 +301,15 @@ def save_snapshots() -> None:
         (SNAPSHOT_DIR / f"{name}.json").write_text(json.dumps(res["data"], indent=2), encoding="utf-8")
         n = len(res["data"]) if isinstance(res["data"], list) else "1"
         print(f"  {name}: {n}")
+    # Activity logs for the open loads (check calls, status changes) for tracking.
+    ships = json.loads((SNAPSHOT_DIR / "open_shipments.json").read_text(encoding="utf-8"))
+    ev = events_for([s["shipment_id"] for s in ships])
+    (SNAPSHOT_DIR / "shipment_events.json").write_text(json.dumps(ev["data"], indent=2), encoding="utf-8")
+    print(f"  shipment_events: {sum(map(len, ev['data'].values()))} events for {len(ev['data'])} loads"
+          + (f" (FAILED for {ev['failed']})" if ev["failed"] else ""))
+    taken = datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
+    (SNAPSHOT_DIR / "snapshot_meta.json").write_text(json.dumps({"taken_at": taken}, indent=2), encoding="utf-8")
+    print(f"  snapshot_meta: taken_at {taken}")
 
 
 if __name__ == "__main__":

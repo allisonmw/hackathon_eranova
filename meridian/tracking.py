@@ -1,247 +1,354 @@
-"""Tracking: where each truck is, its projected ETA, and whether it makes the deadline. Owner: agent & evals lead.
+"""Tracking from TMS data: where each truck is, our ETA at legal driving hours, and what needs attention.
+Owner: agent & evals lead.
 
-`estimate()` works from one ping plus the shipment's schedule, the way it would with a real
-telematics/ELD feed. It deliberately uses planning assumptions (ASSUMED_MPH, repair time, …), not the
-simulator's internals, and lists every assumption on the status so the UI can show it.
+Inputs, per load (all from the TMS, nothing simulated):
+  - the shipment: status, stops, scheduled windows, MABD, lane miles
+  - its facilities: city/state (placed on the map via meridian.geo), time zone
+  - its activity log: check calls (city, state, the driver's reported ETA, reason code, note) and
+    status changes (when it reached the shipper, was loaded, arrived at the receiver)
+  - an "as of" time
 
-`TrackingFeed` wraps a simulation (meridian.sim) and answers "as of time t" questions for the UI:
-statuses, positions, the event stream (telematics + driver reports + copilot alerts) and history.
+What it calculates:
+  - the latest known position and the trail of check calls
+  - our ETA from the latest position: distance left at ASSUMED_MPH, plus the federal hours-of-service
+    breaks (30 min after 8 h driving; 10 h off after 11 h driving or 14 h on duty)
+  - lateness vs the delivery window and the MABD, and a status: on time / at risk / late / arrived
+  - exceptions: driver's ETA not possible at legal hours, no location update for hours, reported
+    breakdown or weather, ETA passed with no arrival recorded
+
+Every planning assumption is listed on the status so the UI can show it next to the ETA.
 """
 
 from __future__ import annotations
 
-import bisect
-import math
+import re
 from datetime import datetime, timedelta
 
-from . import geo, sim
-from .models import FeedEvent, Ping, TrackingStatus
+from . import geo
+from .geo import UTC
+from .models import FeedEvent, PositionReport, TrackingStatus
 
 ASSUMED_MPH = 50.0            # planning average for a moving truck
-HOS_DRIVE_H, HOS_BREAK_H = 11.0, 10.0
+HOS_DRIVE_H, HOS_BREAK_H, HOS_DUTY_H = 11.0, 10.0, 14.0
+HOS_CYCLE_H = HOS_DRIVE_H + HOS_BREAK_H
 SHORT_BREAK_AFTER_H = 8.0     # 30-min break after 8 h driving
-LOADING_LEFT_H = 1.0          # loading in progress: assume ~1 h more
-REPAIR_H = 3.0                # mechanical breakdown with no repair ETA: assume 3 h from the stop
-AT_RISK_SLACK_MIN = 120       # less slack than this before the window closes = at risk
-LATE_TOLERANCE_MIN = 30       # projections hours out aren't that precise: within 30 min late = at risk
-LONG_STOP_MIN = 60            # unplanned stop this long = at risk
-ALERT_GRID = timedelta(minutes=15)
-ETA_SLIP_ALERT_MIN = 60
-BACK_ON_TIME_SLACK_MIN = 60
-RANK = {"ON_TIME": 0, "AT_RISK": 1, "LATE": 2}
+HOS_GRACE_H = 0.5             # overshooting the driver's hours by less than this (at a rough 50 mph): no 10 h break
+REST_INFERENCE_H = 8.0        # an idle gap this long between reports counts as rest (sleeper-berth split allows 8 + 2)
+LOADING_H = 1.5               # loading once the pickup window opens
+LOADING_LEFT_H = 1.0          # truck at the shipper, loading under way
+REPAIR_H = 3.0                # breakdown reported with no repair ETA
+AT_RISK_SLACK_MIN = 120       # less slack than this = at risk
+LATE_TOLERANCE_MIN = 30       # projections hours out aren't that precise
+STALE_REPORT_H = 6.0          # in transit with no location update for this long = at risk
+DRIVER_ETA_GAP_MIN = 60       # driver's ETA this much earlier than legal-hours ETA = flag it
+
+TRACKED_STAGES = {"DISPATCHED", "AT_PICKUP", "PICKED_UP", "IN_TRANSIT", "AT_DELIVERY"}
+REASON_TEXT = {"AI": "mechanical breakdown", "MECHANICAL": "mechanical breakdown", "AO": "weather",
+               "WEATHER": "weather", "B1": "consignee closed", "T3": "tractor or trailer not available",
+               "D1": "carrier dispatch error"}
+BREAKDOWN_CODES = {"AI", "MECHANICAL"}
+HOURS_LEFT_RE = re.compile(r"(\d+(?:\.\d+)?)\s*(?:h|hr|hrs|hours?)\b[^.\n]{0,25}?\bleft", re.I)
+STATUS_TO_RE = re.compile(r"→\s*([A-Z_]+)")
+MILESTONE_FOR = {"AT_PICKUP": "AT_SHIPPER", "PICKED_UP": "LOADED", "IN_TRANSIT": "IN_TRANSIT",
+                 "AT_DELIVERY": "AT_CONSIGNEE"}
 
 
-# --------------------------------------------------------------------------- lane facts
+# --------------------------------------------------------------------------- inputs
 
 def lane(shipment: dict, facilities: dict[str, dict]) -> dict:
     stops = shipment.get("stops") or []
     p, d = (stops[0], stops[-1]) if len(stops) >= 2 else ({}, {})
     pw, dw = p.get("scheduled_window") or {}, d.get("scheduled_window") or {}
-    dest_fac = facilities.get(d.get("facility_id") or "", {})
-    tz_name = dw.get("timezone") or dest_fac.get("timezone")
-    origin, dest = geo.stop_coords(p, facilities) if p else None, geo.stop_coords(d, facilities) if d else None
+    p_fac = facilities.get(p.get("facility_id") or "", {})
+    d_fac = facilities.get(d.get("facility_id") or "", {})
+    tz_name = dw.get("timezone") or d_fac.get("timezone")
+    origin = geo.stop_coords(p, facilities) if p else None
+    dest = geo.stop_coords(d, facilities) if d else None
     crow = geo.haversine_mi(origin, dest) if origin and dest else 0
     miles = float(shipment.get("miles") or 0)
     return {
         "origin": origin, "dest": dest, "miles": miles or crow * 1.2,
         "road_factor": (miles / crow) if miles and crow > 1 else 1.2,
         "pickup_open": geo.local_to_utc(pw.get("earliest_local"), pw.get("timezone")),
+        "pickup_tz": pw.get("timezone") or p_fac.get("timezone"),
+        "window_start": geo.local_to_utc(dw.get("earliest_local"), tz_name),
         "window_end": geo.local_to_utc(dw.get("latest_local"), tz_name),
         "mabd_end": geo.end_of_day_utc(d.get("mabd_date"), tz_name),
-        "tz": tz_name, "dest_name": dest_fac.get("name") or d.get("facility_id"),
+        "tz": tz_name,
+        "pickup_city": (p_fac.get("city"), p_fac.get("state")), "dest_city": (d_fac.get("city"), d_fac.get("state")),
     }
+
+
+def status_times(shipment: dict, events: list[dict]) -> dict[str, datetime]:
+    """When the load reached each status, from status-change events (milestones as a fallback)."""
+    times: dict[str, datetime] = {}
+    for e in events:
+        if e.get("event_type") == "STATUS_CHANGE" and (m := STATUS_TO_RE.search(e.get("note") or "")):
+            at = geo.parse_utc(e.get("event_at"))
+            if at and (m.group(1) not in times or at > times[m.group(1)]):
+                times[m.group(1)] = at
+    by_code = {m.get("milestone_code"): m for m in shipment.get("milestones") or []}
+    for status, code in MILESTONE_FOR.items():
+        m = by_code.get(code) or {}
+        if status not in times and m.get("complete") and (at := geo.parse_utc(m.get("event_at"))):
+            times[status] = at
+    return times
+
+
+def check_calls(events: list[dict], dest: tuple[float, float] | None) -> list[PositionReport]:
+    """Check calls as position reports, oldest first. Calls logged at the same moment are ordered
+    by distance to the destination, so the latest is the one furthest along."""
+    out = []
+    for e in events:
+        if e.get("event_type") != "CHECK_CALL" or not (at := geo.parse_utc(e.get("event_at"))):
+            continue
+        coords, approx = geo.place(e.get("city"), e.get("state"))
+        note = e.get("note") or ""
+        m = HOURS_LEFT_RE.search(note)
+        out.append(PositionReport(
+            at=at, city=e.get("city"), state=e.get("state"), lat=coords[0] if coords else None,
+            lon=coords[1] if coords else None, approximate=approx and coords is not None, source="check_call",
+            reported_eta=geo.parse_utc(e.get("eta")), reason_code=e.get("reason_code"),
+            hours_left=float(m.group(1)) if m else None, note=note))
+    far = lambda r: -geo.haversine_mi((r.lat, r.lon), dest) if dest and r.lat is not None else 0.0  # noqa: E731
+    return sorted(out, key=lambda r: (r.at, far(r)))
+
+
+def latest_activity(shipments: list[dict], events_by_id: dict[str, list[dict]]) -> datetime:
+    """The most recent moment the TMS data describes (latest status update or event)."""
+    times = [geo.parse_utc(s.get("status_updated_at")) for s in shipments]
+    times += [geo.parse_utc(e.get("event_at")) for evs in events_by_id.values() for e in evs]
+    times = [t for t in times if t]
+    return max(times) if times else datetime.now(UTC)
 
 
 # --------------------------------------------------------------------------- the estimate
 
 def drive_time(miles: float, hos_left: float | None) -> tuple[timedelta, int]:
-    """Hours to cover `miles` at ASSUMED_MPH, with 10 h breaks whenever the driver's hours run out,
-    and a 30-min break per 8 h stretch. Returns (duration, number of 10 h breaks)."""
+    """Time to cover `miles` at ASSUMED_MPH with hours-of-service breaks: a 10 h break each time the
+    driver's hours run out, and 30 min per 8 h driving stretch. Returns (duration, number of 10 h breaks)."""
     hours = miles / ASSUMED_MPH
-    left = HOS_DRIVE_H if hos_left is None else max(hos_left, 0.0)
-    breaks = 0 if hours <= left else math.ceil((hours - left) / HOS_DRIVE_H)
-    short = sum(int(min(hours, left if i == 0 else HOS_DRIVE_H) > SHORT_BREAK_AFTER_H) for i in range(breaks + 1))
+    cap = HOS_DRIVE_H if hos_left is None else max(hos_left, 0.0)
+    remaining, breaks, short = hours, 0, 0
+    while remaining > 1e-9:
+        if remaining - cap <= HOS_GRACE_H:     # close enough: finishes on this shift
+            cap = max(cap, remaining)
+        if cap <= 0:
+            breaks, cap = breaks + 1, HOS_DRIVE_H
+            continue
+        drive = min(remaining, cap)
+        short += drive > SHORT_BREAK_AFTER_H
+        remaining -= drive
+        if remaining > 1e-9:
+            breaks, cap = breaks + 1, HOS_DRIVE_H
     return timedelta(hours=hours + breaks * HOS_BREAK_H + short * 0.5), breaks
 
 
-def estimate(shipment: dict, facilities: dict[str, dict], ping: Ping | None, now: datetime,
-             stopped_since: datetime | None = None, arrived_at: datetime | None = None) -> TrackingStatus:
-    sid = str(shipment["shipment_id"])
-    ln = lane(shipment, facilities)
-    base = dict(shipment_id=sid, at=now, window_end=ln["window_end"], mabd_end=ln["mabd_end"], delivery_tz=ln["tz"])
-    if ping is None:
-        return TrackingStatus(state="NOT_TRACKED", status="NOT_TRACKED", **base)
+def _hours(td: timedelta) -> float:
+    return td.total_seconds() / 3600
 
-    pos = (ping.lat, ping.lon)
+
+def hours_driven_since_rest(points: list[tuple[datetime, tuple[float, float]]], road_factor: float) -> float:
+    """Driving hours on the driver's current shift, inferred from timed positions (departure, check calls).
+    For each stretch: driving needed = road miles / ASSUMED_MPH; if the rest of the gap is long enough to
+    rest (REST_INFERENCE_H), assume the driver rested and the clock restarted. Only the first point: nothing driven yet."""
+    driven = 0.0
+    for (t0, p0), (t1, p1) in zip(points, points[1:]):
+        seg = geo.haversine_mi(p0, p1) * road_factor / ASSUMED_MPH
+        idle = _hours(t1 - t0) - seg
+        driven = seg if idle >= REST_INFERENCE_H else driven + seg
+        if driven > HOS_DRIVE_H:          # the reports imply more driving than one shift allows:
+            driven -= HOS_DRIVE_H         # a break must have happened somewhere in between
+    return min(driven, HOS_DRIVE_H)
+
+
+def _pos(source: str, at: datetime, city_state: tuple, coords) -> PositionReport:
+    return PositionReport(at=at, city=city_state[0], state=city_state[1], source=source,
+                          lat=coords[0] if coords else None, lon=coords[1] if coords else None)
+
+
+def _dur(minutes: float) -> str:
+    m = abs(minutes)
+    return f"{m / 60:.1f} h" if m >= 90 else f"{m:.0f} min"
+
+
+def estimate(shipment: dict, facilities: dict[str, dict], events: list[dict], as_of: datetime) -> TrackingStatus:
+    sid, stage = str(shipment["shipment_id"]), shipment.get("status") or ""
+    ln = lane(shipment, facilities)
+    tzn = ln["tz"]
+    base = dict(shipment_id=sid, as_of=as_of, stage=stage, window_end=ln["window_end"],
+                mabd_end=ln["mabd_end"], delivery_tz=tzn)
+    if stage not in TRACKED_STAGES:
+        return TrackingStatus(status="NOT_TRACKED", **base)
+
+    times = status_times(shipment, events)
+    calls = [c for c in check_calls(events, ln["dest"]) if c.at <= as_of]
+    departed = times.get("PICKED_UP") or times.get("IN_TRANSIT")
+    arrived = times.get("AT_DELIVERY") if stage == "AT_DELIVERY" else None
+    driver_eta = calls[-1].reported_eta if calls else None   # only the latest call's ETA counts
+    pickup = _pos("pickup", times.get("AT_PICKUP") or departed or ln["pickup_open"] or as_of, ln["pickup_city"], ln["origin"])
+    trail = ([pickup] if stage != "DISPATCHED" else []) + [c for c in calls if not departed or c.at >= departed]
     assumptions: list[str] = []
-    stopped_min = int((now - stopped_since).total_seconds() // 60) if ping.state == "STOPPED" and stopped_since else 0
-    miles_left = 0.0
-    if ping.state in ("AT_DELIVERY", "DELIVERED"):
-        eta = arrived_at or ping.at
-    else:
-        if ping.state == "AT_PICKUP":
-            miles_left = ln["miles"]
-            if ln["pickup_open"] and now < ln["pickup_open"]:
-                start = ln["pickup_open"] + timedelta(hours=LOADING_LEFT_H * 1.5)
-                assumptions.append(f"loads in {LOADING_LEFT_H * 1.5:g} h once the pickup window opens")
-            else:
-                start = now + timedelta(hours=LOADING_LEFT_H)
-                assumptions.append(f"loading finishes in ~{LOADING_LEFT_H:g} h")
-            hos = HOS_DRIVE_H
-            if ping.hos_drive_hours_left is not None and not (ln["pickup_open"] and now < ln["pickup_open"]):
-                hos = max(ping.hos_drive_hours_left - LOADING_LEFT_H, 0.0)
-                assumptions.append(f"driver has {hos:.1f} h of driving left after loading (ELD, 14 h duty clock)")
+    exceptions: list[str] = []
+    position, eta, miles_left = None, None, None
+
+    if stage == "AT_DELIVERY":
+        arrived = arrived or geo.parse_utc(shipment.get("status_updated_at")) or as_of
+        position = _pos("delivery", arrived, ln["dest_city"], ln["dest"])
+        trail.append(position)
+        eta, miles_left = arrived, 0.0
+
+    elif stage in ("DISPATCHED", "AT_PICKUP"):
+        position, miles_left = pickup, ln["miles"]
+        at_shipper = times.get("AT_PICKUP")
+        if stage == "AT_PICKUP" and at_shipper and (not ln["pickup_open"] or as_of >= ln["pickup_open"]):
+            start = as_of + timedelta(hours=LOADING_LEFT_H)
+            on_duty = _hours(as_of - at_shipper)
+            hos = max(min(HOS_DRIVE_H, HOS_DUTY_H - on_duty - LOADING_LEFT_H), 0.0)
+            assumptions.append(f"loading finishes in ~{LOADING_LEFT_H:g} h; driver on duty since arriving at the "
+                               f"shipper {geo.fmt_local(at_shipper, ln['pickup_tz'])}, so ~{hos:.1f} h of driving "
+                               f"left today (14 h rule)")
+            if on_duty > 2:
+                exceptions.append(f"At the shipper for {_dur(on_duty * 60)} — still not loaded")
         else:
-            miles_left = geo.haversine_mi(pos, ln["dest"]) * ln["road_factor"] if ln["dest"] else 0.0
-            hos, start = ping.hos_drive_hours_left, now
-            if ping.state == "STOPPED":
-                if ping.event_code == "HOS" and ping.hos_available_at:
-                    start, hos = max(now, ping.hos_available_at), HOS_DRIVE_H
-                    assumptions.append("driver back on duty when the ELD says")
-                elif ping.event_code == "AI":
-                    start = max(now, (stopped_since or now) + timedelta(hours=REPAIR_H))
-                    assumptions.append(f"breakdown repaired ~{REPAIR_H:g} h after the stop (no repair ETA reported)")
-                elif ping.event_code != "BREAK":
-                    assumptions.append("truck moves again now")
+            opens = max(as_of, ln["pickup_open"] or as_of)
+            start, hos = opens + timedelta(hours=LOADING_H), HOS_DRIVE_H
+            assumptions.append(f"loads for {LOADING_H:g} h once the pickup window opens "
+                               f"({geo.fmt_local(opens, ln['pickup_tz'])}), driver starts with a full 11 h")
         drive, breaks = drive_time(miles_left, hos)
         eta = start + drive
-        assumptions.append(f"{ASSUMED_MPH:g} mph average over {miles_left:.0f} mi"
-                           + (f", {breaks} × 10 h HOS break" if breaks else ""))
+        assumptions.append(f"{ASSUMED_MPH:g} mph over {miles_left:.0f} mi" + (f", {breaks} × 10 h break" if breaks else ""))
 
-    late = round((eta - ln["window_end"]).total_seconds() / 60) if ln["window_end"] else None
-    late_mabd = round((eta - ln["mabd_end"]).total_seconds() / 60) if ln["mabd_end"] else None
-    unplanned_stop = ping.state == "STOPPED" and ping.event_code not in ("HOS", "BREAK") and stopped_min >= LONG_STOP_MIN
+    else:  # PICKED_UP / IN_TRANSIT
+        last = next((c for c in reversed(calls) if c.lat is not None and (not departed or c.at >= departed)), None)
+        if last:
+            position = last
+            miles_left = geo.haversine_mi((last.lat, last.lon), ln["dest"]) * ln["road_factor"] if ln["dest"] else ln["miles"]
+            start = last.at
+            if last.hours_left is not None:
+                hos = last.hours_left
+                assumptions.append(f"{hos:g} h of driving left, as reported on the {geo.fmt_local(last.at, tzn)} call")
+            else:
+                start_pt = (departed, ln["origin"]) if departed and ln["origin"] else None
+                pts = ([start_pt] if start_pt else []) + [(c.at, (c.lat, c.lon)) for c in calls
+                                                          if c.lat is not None and (not departed or c.at >= departed)]
+                driven = hours_driven_since_rest(pts, ln["road_factor"])
+                hos = max(HOS_DRIVE_H - driven, 0.0)
+                assumptions.append(f"driver's hours not reported: ~{driven:.1f} h driven since the last rest "
+                                   f"(inferred from the check-call trail{' and departure time' if start_pt else ''}), "
+                                   f"so ~{hos:.1f} h left")
+            if (last.reason_code or "").upper() in BREAKDOWN_CODES:
+                start = last.at + timedelta(hours=REPAIR_H)
+                assumptions.append(f"breakdown repaired ~{REPAIR_H:g} h after the call (no repair time given)")
+        else:
+            position = _pos("pickup", departed or as_of, ln["pickup_city"], ln["origin"])
+            miles_left, start, hos = ln["miles"], departed or as_of, HOS_DRIVE_H
+            assumptions.append("no check call since departure: projected from the shipper with a full 11 h")
+        drive, breaks = drive_time(miles_left, hos)
+        eta = start + drive
+        assumptions.append(f"{ASSUMED_MPH:g} mph over {miles_left:.0f} mi from {position.city}, {position.state}"
+                           + (f", {breaks} × 10 h break" if breaks else ""))
 
-    if ping.state == "DELIVERED":
-        status = "DELIVERED"
+        since = _hours(as_of - position.at)
+        if since >= STALE_REPORT_H:
+            exceptions.append(f"No location update for {since:.0f} h (last: {position.city}, {position.state}, "
+                              f"{geo.fmt_local(position.at, tzn)})")
+        if eta < as_of:
+            exceptions.append(f"No arrival recorded, but our ETA ({geo.fmt_local(eta, tzn)}) passed "
+                              f"{_dur(_hours(as_of - eta) * 60)} ago")
+        if last and last.reason_code:
+            code = last.reason_code.upper()
+            exceptions.append(f"Driver reported {REASON_TEXT.get(code, 'a delay')} ({code}) at "
+                              f"{last.city}, {last.state}")
+
+    # the driver's ETA vs ours
+    gap = None
+    if driver_eta and eta and stage != "AT_DELIVERY":
+        gap = round(_hours(eta - driver_eta) * 60)
+        if gap >= DRIVER_ETA_GAP_MIN:
+            exceptions.append(f"Driver's ETA ({geo.fmt_local(driver_eta, tzn)}) is {_dur(gap)} earlier than "
+                              f"possible at legal driving hours ({geo.fmt_local(eta, tzn)})")
+        if driver_eta < as_of and stage in ("PICKED_UP", "IN_TRANSIT"):
+            exceptions.append(f"Driver's ETA passed {_dur(_hours(as_of - driver_eta) * 60)} ago with no arrival recorded")
+
+    # lateness and status (a truck that hasn't arrived can't arrive before now)
+    effective = eta if stage == "AT_DELIVERY" else max(eta, as_of) if eta else None
+    late = round(_hours(effective - ln["window_end"]) * 60) if effective and ln["window_end"] else None
+    late_mabd = round(_hours(effective - ln["mabd_end"]) * 60) if effective and ln["mabd_end"] else None
+    if stage == "AT_DELIVERY":
+        status = "LATE" if late is not None and late > 0 else "ARRIVED"
+        if status == "LATE":
+            exceptions.append(f"Arrived {_dur(late)} after the delivery window closed")
     elif (late is not None and late > LATE_TOLERANCE_MIN) or (late_mabd is not None and late_mabd > 0):
         status = "LATE"
-    elif (late is not None and late > -AT_RISK_SLACK_MIN) or unplanned_stop:
+    elif (late is not None and late > -AT_RISK_SLACK_MIN) or exceptions:
         status = "AT_RISK"
     else:
         status = "ON_TIME"
 
     return TrackingStatus(
-        **base, state=ping.state, status=status, lat=ping.lat, lon=ping.lon, near=geo.near(pos),
-        speed_mph=ping.speed_mph, miles_remaining=round(miles_left, 1), stopped_minutes=stopped_min,
-        event_code=ping.event_code, hos_drive_hours_left=ping.hos_drive_hours_left, eta=eta,
-        minutes_late=late, minutes_late_mabd=late_mabd, assumptions=assumptions, simulated=ping.simulated,
-    )
+        **base, status=status, position=position, trail=trail,
+        hours_since_report=round(_hours(as_of - position.at), 1) if position else None,
+        miles_remaining=round(miles_left, 1) if miles_left is not None else None,
+        eta=eta, driver_eta=driver_eta, eta_gap_minutes=gap, departed_at=departed, arrived_at=arrived,
+        minutes_late=late, minutes_late_mabd=late_mabd, exceptions=exceptions, assumptions=assumptions)
 
 
 def describe_lateness(st: TrackingStatus) -> str:
     """'3.2 h past the window end, misses the MABD' / '45 min to spare'."""
     if st.minutes_late is None:
         return ""
-    def dur(m: int) -> str:
-        return f"{m / 60:.1f} h" if abs(m) >= 90 else f"{abs(m)} min"
-    text = f"{dur(st.minutes_late)} past the window end" if st.minutes_late > 0 else f"{dur(-st.minutes_late)} to spare"
+    text = (f"{_dur(st.minutes_late)} past the window end" if st.minutes_late > 0
+            else f"{_dur(-st.minutes_late)} to spare")
     if st.minutes_late_mabd is not None and st.minutes_late_mabd > 0:
         text += ", misses the MABD"
     return text
 
 
-# --------------------------------------------------------------------------- the feed
+# --------------------------------------------------------------------------- all loads + the event stream
 
-class TrackingFeed:
-    """A simulation plus everything the UI asks about it at a given time."""
+class Tracker:
+    """Statuses and the event stream for every open load, as of one time."""
 
-    def __init__(self, shipments: list[dict], facilities: dict[str, dict], start: datetime | None = None,
-                 hours: float = 96, scenario: list[sim.Incident] | None = None, seed: int = 7):
+    def __init__(self, shipments: list[dict], facilities: dict[str, dict],
+                 events_by_id: dict[str, list[dict]], as_of: datetime | None = None):
         self.shipments = {str(s["shipment_id"]): s for s in shipments}
         self.facilities = facilities
-        self.sim = sim.run(shipments, facilities, start=start, hours=hours, scenario=scenario, seed=seed)
-        self.start, self.end = self.sim.start, self.sim.end
-        self.incidents = sim.active_scenario(shipments, scenario)
-        self._times: dict[str, list[datetime]] = {}
-        self._stopped_since: dict[str, list[datetime | None]] = {}
-        self._arrived_at: dict[str, list[datetime | None]] = {}
-        for sid, pings in self.sim.pings.items():
-            self._times[sid] = [p.at for p in pings]
-            since, arrived, ss, aa = None, None, [], []
-            for i, p in enumerate(pings):
-                prev = pings[i - 1].state if i else None
-                since = (since if prev == "STOPPED" else p.at) if p.state == "STOPPED" else None
-                if p.state in ("AT_DELIVERY", "DELIVERED"):
-                    arrived = arrived if prev in ("AT_DELIVERY", "DELIVERED") else p.at
-                else:
-                    arrived = None
-                ss.append(since)
-                aa.append(arrived)
-            self._stopped_since[sid], self._arrived_at[sid] = ss, aa
-        self._alerts = self._build_alerts()
+        self.events_by_id = {str(k): v for k, v in events_by_id.items()}
+        self.as_of = as_of or latest_activity(shipments, self.events_by_id)
+        self.statuses: dict[str, TrackingStatus] = {}
+        for sid, s in self.shipments.items():
+            if s.get("status") in TRACKED_STAGES:
+                self.statuses[sid] = estimate(s, facilities, self.events_by_id.get(sid, []), self.as_of)
 
-    @property
-    def tracked_ids(self) -> list[str]:
-        return list(self.sim.pings)
-
-    def _index(self, sid: str, t: datetime) -> int | None:
-        i = bisect.bisect_right(self._times.get(sid, []), t) - 1
-        return i if i >= 0 else None
-
-    def ping(self, sid: str, t: datetime) -> Ping | None:
-        i = self._index(sid, t)
-        return None if i is None else self.sim.pings[sid][i]
-
-    def status(self, sid: str, t: datetime) -> TrackingStatus:
-        i = self._index(sid, t)
-        ping = None if i is None else self.sim.pings[sid][i]
-        return estimate(self.shipments[sid], self.facilities, ping, t,
-                        stopped_since=None if i is None else self._stopped_since[sid][i],
-                        arrived_at=None if i is None else self._arrived_at[sid][i])
-
-    def statuses(self, t: datetime) -> dict[str, TrackingStatus]:
-        return {sid: self.status(sid, t) for sid in self.tracked_ids}
-
-    def history(self, sid: str, t: datetime) -> list[Ping]:
-        i = self._index(sid, t)
-        return [] if i is None else self.sim.pings[sid][: i + 1]
-
-    def events(self, t: datetime, shipment_id: str | None = None, limit: int = 60) -> list[FeedEvent]:
-        """Telematics, driver reports and copilot alerts up to t, newest first."""
-        evs = [e for e in self.sim.events + self._alerts
-               if e.at <= t and (shipment_id is None or e.shipment_id == shipment_id)]
-        evs.sort(key=lambda e: (e.at, e.source == "copilot"), reverse=True)
-        return evs[:limit]
-
-    # ------------------------------------------------------------------ copilot alerts
-
-    def _build_alerts(self) -> list[FeedEvent]:
-        """Walk the timeline every 15 min and raise alerts on status changes, ETA slips and long stops."""
-        alerts: list[FeedEvent] = []
-        alerted_eta: dict[str, datetime] = {}
-        alerted_rank: dict[str, int] = {}
-        stop_alerted: set[tuple[str, datetime]] = set()
-        t = self.start
-        while t <= self.end:
-            for sid in self.tracked_ids:
-                i = self._index(sid, t)
-                if i is None:
+    def events(self, shipment_id: str | None = None, limit: int = 200) -> list[FeedEvent]:
+        """Check calls, status changes and appointments from the TMS, plus copilot exceptions, newest first."""
+        out: list[FeedEvent] = []
+        ids = [shipment_id] if shipment_id else list(self.statuses)
+        for sid in ids:
+            st = self.statuses.get(sid)
+            tzn = st.delivery_tz if st else None
+            for e in self.events_by_id.get(sid, []):
+                at = geo.parse_utc(e.get("event_at"))
+                if not at or at > self.as_of:
                     continue
-                st = self.status(sid, t)
-                tzn = st.delivery_tz
-                rank = RANK.get(st.status, 0)
-                if rank > alerted_rank.get(sid, 0):
-                    level = "alert" if st.status == "LATE" else "warning"
-                    word = "Running late" if st.status == "LATE" else "At risk"
-                    alerts.append(FeedEvent(at=t, shipment_id=sid, source="copilot", level=level,
-                                            text=f"{word}: ETA {geo.fmt_local(st.eta, tzn)}, {describe_lateness(st)}"))
-                    alerted_eta[sid], alerted_rank[sid] = st.eta, rank
-                elif alerted_rank.get(sid) and st.status == "ON_TIME" and (st.minutes_late or 0) <= -BACK_ON_TIME_SLACK_MIN:
-                    alerted_rank[sid] = 0
-                    alerts.append(FeedEvent(at=t, shipment_id=sid, source="copilot", level="info",
-                                            text=f"Back on schedule: ETA {geo.fmt_local(st.eta, tzn)}, {describe_lateness(st)}"))
-                elif st.status in ("LATE", "AT_RISK") and st.eta and sid in alerted_eta \
-                        and (st.eta - alerted_eta[sid]) >= timedelta(minutes=ETA_SLIP_ALERT_MIN):
-                    slip = (st.eta - alerted_eta[sid]).total_seconds() / 3600
-                    alerts.append(FeedEvent(at=t, shipment_id=sid, source="copilot", level="alert",
-                                            text=f"ETA slipped {slip:.1f} h to {geo.fmt_local(st.eta, tzn)}, {describe_lateness(st)}"))
-                    alerted_eta[sid] = st.eta
-                since = self._stopped_since[sid][i]
-                if st.state == "STOPPED" and st.event_code not in ("HOS", "BREAK") and since \
-                        and st.stopped_minutes >= 45 and (sid, since) not in stop_alerted:
-                    stop_alerted.add((sid, since))
-                    alerts.append(FeedEvent(at=t, shipment_id=sid, source="copilot", level="warning",
-                                            text=f"Stopped {st.stopped_minutes} min {st.near}"))
-            t += ALERT_GRID
-        return alerts
+                kind, note = e.get("event_type"), e.get("note") or ""
+                dry = " (dry-run, not saved)" if e.get("_dry_run") else ""
+                if kind == "CHECK_CALL":
+                    eta = geo.parse_utc(e.get("eta"))
+                    code = e.get("reason_code")
+                    text = (f"Check call: {e.get('city')}, {e.get('state')}"
+                            + (f" · driver ETA {geo.fmt_local(eta, tzn)}" if eta else "")
+                            + (f" · reason {code}" if code else "") + (f" — {note}" if note else "") + dry)
+                    out.append(FeedEvent(at=at, shipment_id=sid, source="check_call",
+                                         level="warning" if code else "info", text=text))
+                elif kind == "STATUS_CHANGE":
+                    out.append(FeedEvent(at=at, shipment_id=sid, source="status", text=note))
+                elif kind == "APPOINTMENT":
+                    out.append(FeedEvent(at=at, shipment_id=sid, source="appointment", text=note))
+            if st:
+                for x in st.exceptions:
+                    out.append(FeedEvent(at=self.as_of, shipment_id=sid, source="copilot",
+                                         level="alert" if st.status == "LATE" else "warning", text=x))
+        out.sort(key=lambda e: (e.at, e.source == "copilot"), reverse=True)
+        return out[:limit]

@@ -4,24 +4,25 @@ from datetime import date, datetime, timedelta
 
 import pytest
 
-from meridian import geo, risk_rules, sim, tracking
+from meridian import geo, risk_rules, tracking
 from meridian.geo import UTC
-from meridian.models import Ping, TrackingStatus
+from meridian.models import TrackingStatus
 from meridian.risk_rules import RiskContext
 
 SNAP = pathlib.Path(__file__).resolve().parent.parent / "snapshots"
 CHI, DAL = geo.CITIES[("Chicago", "IL")], geo.CITIES[("Dallas", "TX")]
 
 FACILITIES = {
-    "CHI": {"facility_id": "CHI", "city": "Chicago", "state": "IL", "timezone": "America/Chicago", "avg_unload_minutes": 60},
-    "DAL": {"facility_id": "DAL", "city": "Dallas", "state": "TX", "timezone": "America/Chicago", "avg_unload_minutes": 60,
+    "CHI": {"facility_id": "CHI", "city": "Chicago", "state": "IL", "timezone": "America/Chicago"},
+    "DAL": {"facility_id": "DAL", "city": "Dallas", "state": "TX", "timezone": "America/Chicago",
             "receiving_hours": {d: {"open": "06:00", "close": "14:00"} for d in ("mon", "tue", "wed", "thu", "fri")}},
 }
 
 
 def load(status="IN_TRANSIT", mabd=None, deliver="2026-11-16", **kw):
+    """Chicago → Dallas, 925 lane miles, pickup Sat 11/14 08:00 CST, delivery window 06:00–12:00 CST."""
     return {"shipment_id": "7300001", "status": status, "mode": "TL", "miles": 925, "sell_total": 2400,
-            "status_updated_at": "2026-11-13T12:50:00Z", "shipper_city": "Chicago", "consignee_city": "Dallas",
+            "status_updated_at": "2026-11-14T15:00:00Z", "shipper_city": "Chicago", "consignee_city": "Dallas",
             "stops": [
                 {"stop_type": "PICKUP", "facility_id": "CHI",
                  "scheduled_window": {"earliest_local": "2026-11-14T08:00:00", "latest_local": "2026-11-14T14:00:00",
@@ -32,9 +33,20 @@ def load(status="IN_TRANSIT", mabd=None, deliver="2026-11-16", **kw):
             ], **kw}
 
 
-def ping(state="MOVING", at=datetime(2026, 11, 15, 12, 0, tzinfo=UTC), pos=None, **kw):
-    lat, lon = pos or geo.interpolate(CHI, DAL, 0.5)
-    return Ping(shipment_id="7300001", at=at, lat=lat, lon=lon, state=state, speed_mph=55, **kw)
+def status_change(to: str, at: str, frm: str = "X") -> dict:
+    return {"event_type": "STATUS_CHANGE", "event_at": at, "note": f"Status {frm} → {to}"}
+
+
+def call(at: str, city: str, state: str, eta: str | None = None, note: str = "", reason: str | None = None) -> dict:
+    return {"event_type": "CHECK_CALL", "event_at": at, "city": city, "state": state, "eta": eta,
+            "note": note, "reason_code": reason}
+
+
+DEPARTED = status_change("PICKED_UP", "2026-11-14T15:00:00Z")           # Sat 09:00 CST
+
+
+def utc(s: str) -> datetime:
+    return datetime.fromisoformat(s.replace("Z", "+00:00"))
 
 
 # --------------------------------------------------------------------------- geo
@@ -48,17 +60,23 @@ def test_near_names_the_closest_city():
     assert geo.near((CHI[0] - 0.3, CHI[1])).startswith("near ")
 
 
+def test_place_falls_back_to_the_state_centre():
+    assert geo.place("Joplin", "MO") == (geo.CITIES[("Joplin", "MO")], False)
+    coords, approx = geo.place("Nowhereville", "KS")
+    assert approx and coords == geo.STATE_CENTERS["KS"]
+
+
 def test_next_open_skips_the_weekend():
     sat_noon = datetime(2026, 11, 14, 18, 0, tzinfo=UTC)        # Saturday 12:00 CST
-    assert geo.next_open(FACILITIES["DAL"], sat_noon) == datetime(2026, 11, 16, 12, 0, tzinfo=UTC)  # Mon 06:00 CST
-    assert geo.next_open({}, sat_noon) == sat_noon               # no hours on file = always open
+    assert geo.next_open(FACILITIES["DAL"], sat_noon) == datetime(2026, 11, 16, 12, 0, tzinfo=UTC)
+    assert geo.next_open({}, sat_noon) == sat_noon
 
 
 def test_local_to_utc_uses_the_facility_zone():
     assert geo.local_to_utc("2026-11-14T08:00:00", "America/Denver") == datetime(2026, 11, 14, 15, 0, tzinfo=UTC)
 
 
-# --------------------------------------------------------------------------- estimate
+# --------------------------------------------------------------------------- hours-of-service maths
 
 def test_drive_time_adds_hos_breaks():
     assert tracking.drive_time(300, 11) == (timedelta(hours=6), 0)
@@ -66,119 +84,154 @@ def test_drive_time_adds_hos_breaks():
     assert breaks == 1 and dur >= timedelta(hours=22)
 
 
-def test_moving_truck_with_time_to_spare_is_on_time():
-    st = tracking.estimate(load(), FACILITIES, ping(hos_drive_hours_left=11), now=datetime(2026, 11, 15, 12, 0, tzinfo=UTC))
-    assert st.status == "ON_TIME" and st.minutes_late < -120
-    assert st.miles_remaining == pytest.approx(462, abs=15)       # half of 925 lane miles
+def test_drive_time_grace_avoids_a_break_for_a_few_minutes_over():
+    assert tracking.drive_time(560, 11)[1] == 0                  # 11.2 h ≈ one shift
+    assert tracking.drive_time(600, 11)[1] == 1                  # 12 h needs a break
 
 
-def test_breakdown_assumes_repair_time_and_turns_late():
-    now = datetime(2026, 11, 16, 8, 0, tzinfo=UTC)                # 02:00 CST, window closes 12:00 CST
-    p = ping("STOPPED", at=now, pos=geo.interpolate(CHI, DAL, 0.8), event_code="AI", hos_drive_hours_left=8)
-    moving = tracking.estimate(load(), FACILITIES, ping(at=now, pos=geo.interpolate(CHI, DAL, 0.8), hos_drive_hours_left=8), now)
-    stopped = tracking.estimate(load(), FACILITIES, p, now, stopped_since=now - timedelta(minutes=30))
-    assert stopped.eta - moving.eta == timedelta(hours=tracking.REPAIR_H, minutes=-30)
-    assert any("breakdown" in a for a in stopped.assumptions)
+def test_hours_driven_resets_after_a_long_idle_gap():
+    t = datetime(2026, 11, 14, 12, tzinfo=UTC)
+    a, b, c = (41.0, -90.0), (40.0, -90.0), (39.0, -90.0)        # ~69 mi apart
+    steady = [(t, a), (t + timedelta(hours=1.5), b), (t + timedelta(hours=3), c)]
+    rested = [(t, a), (t + timedelta(hours=1.5), b), (t + timedelta(hours=13), c)]   # 10 h idle before c
+    assert tracking.hours_driven_since_rest(steady, 1.0) == pytest.approx(2.76, abs=0.1)
+    assert tracking.hours_driven_since_rest(rested, 1.0) == pytest.approx(1.38, abs=0.1)
 
 
-def test_late_needs_more_than_the_tolerance_and_mabd_miss_is_late():
-    now = datetime(2026, 11, 16, 15, 30, tzinfo=UTC)              # 09:30 CST; window closes 12:00 CST
-    near_dal = geo.interpolate(CHI, DAL, 0.9)                     # ~92 mi out ≈ 1.9 h: 11:20 CST, 40 min to spare
-    assert tracking.estimate(load(), FACILITIES, ping(at=now, pos=near_dal), now).status == "AT_RISK"
-    st = tracking.estimate(load(mabd="2026-11-15"), FACILITIES, ping(at=now, pos=near_dal), now)
+# --------------------------------------------------------------------------- estimate
+
+def test_close_to_the_receiver_with_hours_is_on_time():
+    evs = [DEPARTED, call("2026-11-15T20:00:00Z", "Waco", "TX", note="7 h left")]
+    st = tracking.estimate(load(), FACILITIES, evs, utc("2026-11-15T21:00:00Z"))
+    assert st.status == "ON_TIME" and st.position.city == "Waco"
+    assert any("7 h of driving left" in a for a in st.assumptions)
+
+
+def test_driver_eta_that_needs_more_hours_than_legal_is_flagged():
+    # Springfield, MO at Sun 06:00 CST, ~420 road miles left, driver says 2 h left but claims 15:00 CST arrival
+    evs = [DEPARTED, call("2026-11-15T12:00:00Z", "Springfield", "MO", eta="2026-11-15T21:00:00Z", note="2 h left")]
+    st = tracking.estimate(load(), FACILITIES, evs, utc("2026-11-15T12:30:00Z"))
+    assert st.driver_eta == utc("2026-11-15T21:00:00Z")
+    assert st.eta_gap_minutes > 8 * 60                             # needs a 10 h break the driver didn't plan
+    assert any("earlier than possible at legal driving hours" in x for x in st.exceptions)
+
+
+def test_reported_breakdown_adds_repair_time_and_an_exception():
+    evs = [DEPARTED, call("2026-11-15T12:00:00Z", "Joplin", "MO", note="9 h left")]
+    broke = [DEPARTED, call("2026-11-15T12:00:00Z", "Joplin", "MO", note="9 h left", reason="AI")]
+    a = tracking.estimate(load(), FACILITIES, evs, utc("2026-11-15T12:30:00Z"))
+    b = tracking.estimate(load(), FACILITIES, broke, utc("2026-11-15T12:30:00Z"))
+    assert b.eta - a.eta == timedelta(hours=tracking.REPAIR_H)
+    assert any("mechanical breakdown (AI)" in x for x in b.exceptions)
+
+
+def test_stale_report_and_eta_passed_are_exceptions():
+    evs = [DEPARTED, call("2026-11-15T20:00:00Z", "Waco", "TX", eta="2026-11-15T23:00:00Z")]
+    st = tracking.estimate(load(), FACILITIES, evs, utc("2026-11-16T09:00:00Z"))   # 13 h later, no arrival
+    texts = " | ".join(st.exceptions)
+    assert "No location update for 13 h" in texts and "No arrival recorded" in texts and "Driver's ETA passed" in texts
+    assert st.status == "AT_RISK"                                  # window (12:00 CST Mon) still open
+
+
+def test_projected_past_the_mabd_is_late():
+    evs = [DEPARTED, call("2026-11-15T12:00:00Z", "Springfield", "MO", note="1 h left")]
+    st = tracking.estimate(load(mabd="2026-11-15", deliver="2026-11-15"), FACILITIES, evs, utc("2026-11-15T12:30:00Z"))
     assert st.status == "LATE" and st.minutes_late_mabd > 0
     assert "misses the MABD" in tracking.describe_lateness(st)
 
 
-def test_no_ping_is_not_tracked():
-    st = tracking.estimate(load(), FACILITIES, None, datetime(2026, 11, 15, tzinfo=UTC))
-    assert st.status == "NOT_TRACKED"
+def test_arrival_after_the_window_is_late_and_on_time_is_arrived():
+    late = [status_change("AT_DELIVERY", "2026-11-16T19:00:00Z")]  # 13:00 CST, window closed 12:00
+    ok = [status_change("AT_DELIVERY", "2026-11-16T14:00:00Z")]    # 08:00 CST
+    a = tracking.estimate(load(status="AT_DELIVERY"), FACILITIES, late, utc("2026-11-16T20:00:00Z"))
+    b = tracking.estimate(load(status="AT_DELIVERY"), FACILITIES, ok, utc("2026-11-16T20:00:00Z"))
+    assert a.status == "LATE" and a.exceptions[-1].startswith("Arrived 60 min after")
+    assert b.status == "ARRIVED" and b.position.city == "Dallas"
 
 
-# --------------------------------------------------------------------------- simulator
-
-def test_sim_is_deterministic_and_seeded():
-    a = sim.run([load()], FACILITIES, hours=24)
-    b = sim.run([load()], FACILITIES, hours=24)
-    c = sim.run([load()], FACILITIES, hours=24, seed=99)
-    assert a.pings["7300001"] == b.pings["7300001"]
-    assert a.pings["7300001"] != c.pings["7300001"]
+def test_dispatched_load_projects_from_the_pickup_window():
+    st = tracking.estimate(load(status="DISPATCHED"), FACILITIES, [], utc("2026-11-13T18:00:00Z"))
+    # 08:00 CST + 1.5 h loading + 18.5 h driving (11 + 7.5) + 1 × 10 h break + one 30-min break (first shift > 8 h)
+    assert st.eta == utc("2026-11-14T14:00:00Z") + timedelta(hours=1.5 + 18.5 + 10 + 0.5)
+    assert st.status == "ON_TIME"
 
 
-def test_sim_skips_loads_without_a_truck():
-    r = sim.run([load(status="BOOKED")], FACILITIES, hours=4)
-    assert r.pings == {}
+def test_long_wait_at_the_shipper_uses_up_the_driver_day():
+    evs = [status_change("AT_PICKUP", "2026-11-14T14:00:00Z")]     # at the shipper since 08:00 CST
+    st = tracking.estimate(load(status="AT_PICKUP"), FACILITIES, evs, utc("2026-11-14T20:00:00Z"))  # 6 h later
+    assert any("At the shipper for 6.0 h" in x for x in st.exceptions)
+    assert any("~7.0 h of driving left today (14 h rule)" in a for a in st.assumptions)
 
 
-def test_breakdown_incident_stops_the_truck_with_code_ai():
-    r = sim.run([load()], FACILITIES, hours=10, scenario=[sim.Incident("7300001", "BREAKDOWN", after_hours=1, duration_hours=2)])
-    stopped = [p for p in r.pings["7300001"] if p.event_code == "AI"]
-    assert stopped and all(p.state == "STOPPED" and p.speed_mph == 0 for p in stopped)
-    assert len(stopped) == 2 * 12                                 # 2 h of 5-min pings
-    assert any("breakdown" in e.text for e in r.events)
+def test_same_time_calls_take_the_one_furthest_along():
+    evs = [DEPARTED, call("2026-11-15T12:00:00Z", "St. Louis", "MO"), call("2026-11-15T12:00:00Z", "Joplin", "MO")]
+    st = tracking.estimate(load(), FACILITIES, list(reversed(evs)), utc("2026-11-15T12:30:00Z"))
+    assert st.position.city == "Joplin"
 
 
-def test_driver_never_drives_without_hours_left():
-    r = sim.run([load()], FACILITIES, hours=48, scenario=[sim.Incident("7300001", "HOS_SHORT", duration_hours=0.5)])
-    pings = r.pings["7300001"]
-    hos = [i for i, p in enumerate(pings) if p.event_code == "HOS"]
-    assert hos[:120] == list(range(hos[0], hos[0] + 120))              # the first break is an unbroken 10 h
-    assert pings[hos[0] + 120].event_code != "HOS"
-    assert pings[hos[0] - 1].hos_drive_hours_left < 0.1               # it stopped because the hours ran out
+def test_unknown_city_is_placed_approximately():
+    evs = [DEPARTED, call("2026-11-15T12:00:00Z", "Smallville", "OK")]
+    st = tracking.estimate(load(), FACILITIES, evs, utc("2026-11-15T12:30:00Z"))
+    assert st.position.approximate and (st.position.lat, st.position.lon) == geo.STATE_CENTERS["OK"]
 
 
-def test_truck_that_misses_the_window_waits_for_receiving_hours():
-    # Window closes Sun 11/15 12:00 CST; a breakdown makes the truck miss it; the dock is closed until Monday.
-    r = sim.run([load(status="DISPATCHED", deliver="2026-11-15")], FACILITIES, hours=96,
-                scenario=[sim.Incident("7300001", "BREAKDOWN", after_hours=26, duration_hours=3)])
-    texts = [e.text for e in r.events]
-    assert any("Missed the delivery window" in t for t in texts)
-    unload = next(e for e in r.events if "unloading" in e.text)
-    assert unload.at == datetime(2026, 11, 16, 12, 0, tzinfo=UTC)  # Mon 06:00 CST
+def test_loads_without_a_truck_are_not_tracked():
+    assert tracking.estimate(load(status="BOOKED"), FACILITIES, [], utc("2026-11-14T00:00:00Z")).status == "NOT_TRACKED"
 
 
-# --------------------------------------------------------------------------- feed + rule on the committed snapshot
+# --------------------------------------------------------------------------- on the committed snapshot
 
 @pytest.fixture(scope="module")
-def feed():
-    ships = json.loads((SNAP / "open_shipments.json").read_text(encoding="utf-8"))
-    facs = {f["facility_id"]: f for f in json.loads((SNAP / "facilities.json").read_text(encoding="utf-8"))}
-    return tracking.TrackingFeed(ships, facs)
+def tracker():
+    read = lambda n: json.loads((SNAP / f"{n}.json").read_text(encoding="utf-8"))  # noqa: E731
+    facs = {f["facility_id"]: f for f in read("facilities")}
+    return tracking.Tracker(read("open_shipments"), facs, read("shipment_events"))
 
 
-def test_feed_tracks_every_truck_and_scripted_breakdown_turns_late(feed):
-    assert len(feed.tracked_ids) == 27 and not feed.sim.untracked
-    t = feed.start + timedelta(hours=34)                          # after the 7300159 breakdown
-    st = feed.status("7300159", t)
-    assert st.status == "LATE" and st.minutes_late > 120         # MABD is end of day: arrival still makes it
-    texts = [e.text for e in feed.events(t, "7300159")]
-    assert any(x.startswith("Running late") for x in texts) and any("breakdown" in x for x in texts)
+def test_snapshot_tracks_every_truck_as_of_the_latest_activity(tracker):
+    assert tracker.as_of == datetime(2026, 11, 13, 13, 18, 36, tzinfo=UTC)
+    assert len(tracker.statuses) == 27
+    assert all(s.position is not None for s in tracker.statuses.values())
 
 
-def test_everything_delivered_by_the_end(feed):
-    assert {s.status for s in feed.statuses(feed.end).values()} == {"DELIVERED"}
+def test_snapshot_flags_the_driver_eta_that_needs_a_break(tracker):
+    st = tracker.statuses["7300145"]                               # last call Hays, KS; driver says 06:55 MST
+    assert st.status == "LATE" and st.position.city == "Hays"
+    assert any("earlier than possible at legal driving hours" in x for x in st.exceptions)
 
 
-def test_late_eta_rule_from_feed_statuses(feed):
-    t = feed.start + timedelta(hours=34)
-    items = risk_rules.late_eta(RiskContext(today=date(2026, 11, 14), tracking=feed.statuses(t)))
-    by_id = {it.record_id: it for it in items}
-    assert by_id["7300159"].severity == "HIGH" and "past the delivery window" in by_id["7300159"].title
-    assert by_id["7300159"].evidence["data_source"] == "simulated GPS/ELD feed"
-    json.dumps([it.evidence for it in items])
+def test_snapshot_event_stream_mixes_tms_events_and_exceptions(tracker):
+    evs = tracker.events("7300117")
+    assert {e.source for e in evs} >= {"check_call", "status", "copilot"}
+    assert evs == sorted(evs, key=lambda e: (e.at, e.source == "copilot"), reverse=True)
 
 
-def test_late_eta_rule_ignores_on_time_and_delivered():
-    base = dict(shipment_id="1", at=datetime(2026, 11, 14, tzinfo=UTC), state="MOVING", eta=datetime(2026, 11, 14, tzinfo=UTC))
-    tr = {"1": TrackingStatus(status="ON_TIME", minutes_late=-300, **base),
-          "2": TrackingStatus(**{**base, "shipment_id": "2", "state": "DELIVERED"}, status="DELIVERED")}
-    assert risk_rules.late_eta(RiskContext(today=date(2026, 11, 14), tracking=tr)) == []
+def test_late_eta_rule_on_snapshot(tracker):
+    items = {it.record_id: it for it in risk_rules.late_eta(RiskContext(today=date(2026, 11, 13), tracking=tracker.statuses))}
+    assert items["7300117"].severity == "HIGH"                     # no arrival a day after its ETA, misses MABD
+    assert items["7300117"].evidence["data_source"] == "TMS check calls and status changes"
+    assert "7300166" not in items                                  # dispatched, plenty of slack
+    json.dumps([it.evidence for it in items.values()])
 
 
-def test_truck_that_arrived_after_the_window_is_high():
+def test_late_eta_rule_arrived_late_is_high_with_rebook():
     at = datetime(2026, 11, 14, 17, 0, tzinfo=UTC)
-    st = TrackingStatus(shipment_id="1", at=at, state="AT_DELIVERY", status="LATE", eta=at, minutes_late=55,
-                        window_end=at - timedelta(minutes=55), delivery_tz="America/Denver")
+    st = TrackingStatus(shipment_id="1", as_of=at, stage="AT_DELIVERY", status="LATE", eta=at, arrived_at=at,
+                        minutes_late=55, window_end=at - timedelta(minutes=55), delivery_tz="America/Denver")
     item = risk_rules.late_eta(RiskContext(today=date(2026, 11, 14), tracking={"1": st}))[0]
     assert item.severity == "HIGH" and item.title.startswith("Arrived 0.9 h after")
     assert "Rebook" in item.suggested_action
+
+
+def test_late_eta_rule_ignores_on_time_and_arrived():
+    at = datetime(2026, 11, 14, tzinfo=UTC)
+    tr = {"1": TrackingStatus(shipment_id="1", as_of=at, stage="IN_TRANSIT", status="ON_TIME", minutes_late=-300),
+          "2": TrackingStatus(shipment_id="2", as_of=at, stage="AT_DELIVERY", status="ARRIVED")}
+    assert risk_rules.late_eta(RiskContext(today=date(2026, 11, 14), tracking=tr)) == []
+
+
+def test_driver_eta_comes_from_the_latest_call_only():
+    evs = [DEPARTED, call("2026-11-15T06:00:00Z", "St. Louis", "MO", eta="2026-11-15T20:00:00Z"),
+           call("2026-11-15T12:00:00Z", "Joplin", "MO")]                 # newer call gave no ETA
+    st = tracking.estimate(load(), FACILITIES, evs, utc("2026-11-15T12:30:00Z"))
+    assert st.driver_eta is None and st.eta_gap_minutes is None

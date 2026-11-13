@@ -86,51 +86,52 @@ class RiskItem(BaseModel):
 
 # --------------------------------------------------------------------------- tracking
 
-TruckState = Literal["NOT_TRACKED", "AT_PICKUP", "MOVING", "STOPPED", "AT_DELIVERY", "DELIVERED"]
-TrackStatus = Literal["ON_TIME", "AT_RISK", "LATE", "DELIVERED", "NOT_TRACKED"]
+TrackStatus = Literal["ON_TIME", "AT_RISK", "LATE", "ARRIVED", "NOT_TRACKED"]
 
 
-class Ping(BaseModel):
-    """One position report, shaped like a telematics/ELD feed. Today these come from meridian.sim."""
-    shipment_id: str
+class PositionReport(BaseModel):
+    """Where a truck was at a moment: a check call, or a known stop (pickup/delivery facility)."""
     at: datetime                      # UTC
-    lat: float
-    lon: float
-    speed_mph: float = 0.0
-    state: TruckState
-    hos_drive_hours_left: float | None = None   # ELD: driving hours left before a 10 h break
-    hos_available_at: datetime | None = None    # ELD: when an off-duty driver can drive again (UTC)
-    event_code: str | None = None     # driver-reported reason while stopped: late reason code (AI, AO, ...) or HOS
-    simulated: bool = True
+    city: str | None = None
+    state: str | None = None
+    lat: float | None = None
+    lon: float | None = None
+    approximate: bool = False         # city not in the coordinate table: placed at the state's centre
+    source: Literal["check_call", "pickup", "delivery"] = "check_call"
+    reported_eta: datetime | None = None   # the ETA the driver/carrier gave on this call (UTC)
+    reason_code: str | None = None    # late reason code reported (AI mechanical, AO weather, ...)
+    hours_left: float | None = None   # driving hours left, if the call note says ("6 h left")
+    note: str = ""
 
 
 class TrackingStatus(BaseModel):
-    """Where a load is and whether it will make its deadline, as of `at`."""
+    """Where a load is and whether it will make its delivery deadline, as of `as_of`.
+    Built only from TMS data: status, milestones and check calls (meridian.tracking)."""
     shipment_id: str
-    at: datetime                      # UTC, the time this status describes
-    state: TruckState
+    as_of: datetime                   # UTC
+    stage: str                        # TMS status: DISPATCHED, AT_PICKUP, IN_TRANSIT, AT_DELIVERY, ...
     status: TrackStatus
-    lat: float | None = None
-    lon: float | None = None
-    near: str = ""                    # e.g. "near Joplin, MO"
-    speed_mph: float = 0.0
+    position: PositionReport | None = None   # latest known position
+    trail: list[PositionReport] = []  # every known position, oldest first
+    hours_since_report: float | None = None
     miles_remaining: float | None = None
-    stopped_minutes: int = 0
-    event_code: str | None = None
-    hos_drive_hours_left: float | None = None
-    eta: datetime | None = None       # projected arrival at the delivery stop (UTC), or actual once there
-    window_end: datetime | None = None  # delivery window end (UTC)
-    mabd_end: datetime | None = None  # end of the must-arrive-by day (UTC)
-    minutes_late: int | None = None   # vs window end; negative = minutes of slack
+    eta: datetime | None = None       # our estimate at legal driving hours (UTC); actual arrival once arrived
+    driver_eta: datetime | None = None   # the latest ETA the driver/carrier reported
+    eta_gap_minutes: int | None = None   # our ETA − driver ETA; positive = the driver's ETA looks optimistic
+    departed_at: datetime | None = None
+    arrived_at: datetime | None = None
+    window_end: datetime | None = None   # delivery window end (UTC)
+    mabd_end: datetime | None = None     # end of the must-arrive-by day (UTC)
+    minutes_late: int | None = None      # vs window end; negative = minutes of slack
     minutes_late_mabd: int | None = None
-    delivery_tz: str | None = None    # facility time zone, for display
-    assumptions: list[str] = []       # what the ETA assumed, shown next to it
-    simulated: bool = True
+    delivery_tz: str | None = None
+    exceptions: list[str] = []        # plain-English reasons it needs attention
+    assumptions: list[str] = []       # what our ETA assumed
 
 
 class FeedEvent(BaseModel):
     at: datetime                      # UTC
     shipment_id: str
-    source: Literal["telematics", "driver", "copilot"]
+    source: Literal["check_call", "status", "appointment", "copilot"]
     level: Literal["info", "warning", "alert"] = "info"
     text: str

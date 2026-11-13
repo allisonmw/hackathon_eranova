@@ -1,14 +1,14 @@
-"""Tab: Live tracking on a SIMULATED GPS/ELD feed. Owner: UI lead.
+"""Tab: Live tracking from TMS check calls and status changes. Owner: UI lead.
 
-A sim clock (play / pause / speed / scrub) drives everything: truck positions on the map, the event
-stream, the per-load timeline, and the tracking statuses the load watch's LATE_ETA rule uses.
+Everything is read from the TMS (live API or snapshot) as of one time: where each truck last
+reported, our ETA at legal driving hours next to the driver's ETA, and what needs attention.
+Dispatchers can log a check call here; in dry-run it is shown but not saved.
 """
 
 from __future__ import annotations
 
 import json
-import time
-from datetime import datetime, timedelta
+from datetime import date, datetime, time as dtime, timedelta
 
 import altair as alt
 import pandas as pd
@@ -21,285 +21,303 @@ from meridian.models import TrackingStatus
 from . import state
 
 CLOCK_TZ = "America/Chicago"
-SPEEDS = {"1 min/s": 1, "5 min/s": 5, "15 min/s": 15, "1 h/s": 60}
 STATUS_COLOR = {"ON_TIME": [46, 160, 67], "AT_RISK": [235, 140, 0], "LATE": [214, 39, 40],
-                "DELIVERED": [140, 140, 140], "NOT_TRACKED": [140, 140, 140]}
+                "ARRIVED": [120, 120, 120], "NOT_TRACKED": [140, 140, 140]}
 STATUS_LABEL = {"ON_TIME": ":green[On time]", "AT_RISK": ":orange[At risk]", "LATE": ":red[Late]",
-                "DELIVERED": ":gray[Delivered]", "NOT_TRACKED": ":gray[Not tracked]"}
-STATUS_ORDER = {"LATE": 0, "AT_RISK": 1, "ON_TIME": 2, "DELIVERED": 3, "NOT_TRACKED": 4}
-LEVEL_ICON = {"alert": "🔴", "warning": "🟠", "info": "⚪"}
-SOURCE_LABEL = {"telematics": "GPS", "driver": "Driver", "copilot": "Copilot"}
+                "ARRIVED": ":gray[Arrived]", "NOT_TRACKED": ":gray[Not tracked]"}
+STATUS_ORDER = {"LATE": 0, "AT_RISK": 1, "ON_TIME": 2, "ARRIVED": 3, "NOT_TRACKED": 4}
+SOURCE_ICON = {"check_call": "📞", "status": "🚚", "appointment": "📅", "copilot": "⚠️"}
+LEVEL_DOT = {"alert": "🔴", "warning": "🟠", "info": "⚪"}
+REASON_CODES = {"": "none", "AI": "AI · mechanical breakdown", "AO": "AO · weather", "B1": "B1 · consignee closed",
+                "T3": "T3 · tractor/trailer not available", "D1": "D1 · carrier dispatch error"}
 
 
-# --------------------------------------------------------------------------- data and clock
+# --------------------------------------------------------------------------- data
 
-def _load(source: str) -> tuple[list[dict], dict[str, dict]]:
+def _load(source: str) -> tuple[list[dict], dict[str, dict], dict[str, list[dict]]]:
     if source == "Fake data":   # fake mode has no loads to track: use the committed snapshot
         snap = state.ROOT / "snapshots"
-        ships = json.loads((snap / "open_shipments.json").read_text(encoding="utf-8"))
-        facs = json.loads((snap / "facilities.json").read_text(encoding="utf-8"))
-        return ships, {f["facility_id"]: f for f in facs}
+        read = lambda n: json.loads((snap / f"{n}.json").read_text(encoding="utf-8"))  # noqa: E731
+        return read("open_shipments"), {f["facility_id"]: f for f in read("facilities")}, read("shipment_events")
     ships, facs = client.list_shipments(), client.list_facilities()
     if not ships["ok"] or not facs["ok"]:
         raise RuntimeError(ships.get("detail") or facs.get("detail") or "could not read shipments/facilities")
-    return ships["data"], {f["facility_id"]: f for f in facs["data"]}
+    tracked = [s["shipment_id"] for s in ships["data"] if s.get("status") in tracking.TRACKED_STAGES]
+    events = client.events_for(tracked)
+    return ships["data"], {f["facility_id"]: f for f in facs["data"]}, events["data"]
 
 
-@st.cache_resource(show_spinner="Simulating trucks…")
-def _build(source: str, demo_mode: bool, refresh: int) -> tracking.TrackingFeed:
-    ships, facs = _load(source)
-    return tracking.TrackingFeed(ships, facs)
+@st.cache_data(show_spinner="Reading loads and check calls…", ttl=300)
+def _data(source: str, demo_mode: bool, refresh: int):
+    return _load(source)
 
 
-def get_feed() -> tracking.TrackingFeed | None:
+def get_tracker() -> tracking.Tracker | None:
     ss = st.session_state
-    ss.setdefault("sim_refresh", 0)
+    ss.setdefault("track_refresh", 0)
+    ss.setdefault("track_dry_calls", {})          # shipment_id -> [event dicts] logged in dry-run
+    ss.setdefault("track_as_of_mode", "Latest TMS activity")
     try:
-        return _build(ss.data_source, client.demo_mode(), ss.sim_refresh)
+        ships, facs, events = _data(ss.data_source, client.demo_mode(), ss.track_refresh)
     except Exception as e:  # keep the app alive if the API is down
         st.error(f"Tracking unavailable: {e}")
         return None
+    merged = {sid: list(evs) + ss.track_dry_calls.get(sid, []) for sid, evs in events.items()}
+    for sid, extra in ss.track_dry_calls.items():
+        merged.setdefault(sid, list(extra))
+    as_of = None if ss.track_as_of_mode == "Latest TMS activity" else datetime.now(geo.UTC)
+    return tracking.Tracker(ships, facs, merged, as_of=as_of)
 
 
-def _init(feed: tracking.TrackingFeed) -> None:
-    ss = st.session_state
-    if ss.get("sim_feed_start") != feed.start:
-        ss.sim_feed_start, ss.sim_offset_min, ss.sim_playing = feed.start, 0.0, False
-        ss.sim_last_real = time.time()
-    ss.setdefault("sim_speed", "15 min/s")
-    ss.setdefault("sim_alerts_only", False)
-
-
-def now(feed: tracking.TrackingFeed) -> datetime:
-    return feed.start + timedelta(minutes=st.session_state.get("sim_offset_min", 0.0))
-
-
-def current_statuses() -> tuple[dict[str, TrackingStatus], datetime, datetime] | None:
-    """For the load watch: (tracking statuses at the sim time, sim time, time of the loaded TMS data)."""
-    feed = get_feed()
-    if feed is None:
-        return None
-    _init(feed)
-    t = now(feed)
-    return feed.statuses(t), t, feed.start
-
-
-def _set_offset(minutes: float, feed: tracking.TrackingFeed) -> None:
-    total = (feed.end - feed.start).total_seconds() / 60
-    st.session_state.sim_offset_min = min(max(minutes, 0.0), total)
-
-
-def _advance(feed: tracking.TrackingFeed) -> None:
-    ss = st.session_state
-    real = time.time()
-    if ss.sim_playing:
-        _set_offset(ss.sim_offset_min + (real - ss.sim_last_real) * SPEEDS[ss.sim_speed], feed)
-        ss.sim_last_real = real
-        if now(feed) >= feed.end:
-            ss.sim_playing = False
-            st.rerun(scope="app")
-    ss.sim_last_real = real
+def current_statuses() -> tuple[dict[str, TrackingStatus], datetime] | None:
+    """For the load watch: tracking statuses and the time they describe."""
+    tr = get_tracker()
+    return (tr.statuses, tr.as_of) if tr else None
 
 
 # --------------------------------------------------------------------------- pieces
 
-def _controls(feed: tracking.TrackingFeed) -> None:
-    ss = st.session_state
-    total_h = (feed.end - feed.start).total_seconds() / 3600
-
-    def on_jump(h: float):
-        _set_offset(ss.sim_offset_min + h * 60, feed)
-
-    def on_reset():
-        ss.sim_offset_min, ss.sim_playing = 0.0, False
-
-    def on_scrub():
-        _set_offset(ss.sim_scrub * 60, feed)
-
-    c = st.columns([1.1, 1.3, 0.8, 0.8, 0.9, 4])
-    if c[0].button("⏸ Pause" if ss.sim_playing else "▶ Play", type="primary", use_container_width=True):
-        ss.sim_playing, ss.sim_last_real = not ss.sim_playing, time.time()
-        st.rerun(scope="app")   # the fragment's auto-refresh is set by the full app run
-    c[1].selectbox("Speed", list(SPEEDS), key="sim_speed", label_visibility="collapsed")
-    c[2].button("+1 h", on_click=on_jump, args=(1,), use_container_width=True)
-    c[3].button("+6 h", on_click=on_jump, args=(6,), use_container_width=True)
-    c[4].button("↺ Reset", on_click=on_reset, use_container_width=True)
-    t = now(feed)
-    c[5].markdown(f"**Sim clock:** {geo.fmt_local(t, CLOCK_TZ)} &nbsp;·&nbsp; "
-                  f"+{(t - feed.start).total_seconds() / 3600:.1f} h after the data snapshot")
-    ss.sim_scrub = round(ss.sim_offset_min / 60, 2)
-    st.slider("Scrub sim time (hours after snapshot)", 0.0, total_h, key="sim_scrub", step=0.25,
-              on_change=on_scrub, label_visibility="collapsed")
+def _header(tr: tracking.Tracker) -> None:
+    c1, c2, c3 = st.columns([2.2, 1.6, 1])
+    c1.markdown(f"**As of {geo.fmt_local(tr.as_of, CLOCK_TZ)}**")
+    c1.caption("Positions come from check calls and status changes in the TMS. "
+               "ETAs are ours, at legal driving hours, shown next to what the driver reported.")
+    modes = ["Latest TMS activity"] + (["Now"] if st.session_state.data_source == "Live API" else [])
+    c2.radio("As of", modes, key="track_as_of_mode", horizontal=True,
+             help="Latest TMS activity: the moment the data describes. Now: the current clock (live API only).")
+    if c3.button("↻ Refresh", help="Re-read loads and check calls from the TMS."):
+        st.session_state.track_refresh += 1
+        st.rerun()
 
 
 def _metrics(statuses: dict[str, TrackingStatus]) -> None:
-    counts = {k: sum(1 for s in statuses.values() if s.status == k) for k in ("ON_TIME", "AT_RISK", "LATE", "DELIVERED")}
+    n = lambda k: sum(1 for s in statuses.values() if s.status == k)  # noqa: E731
     c = st.columns(5)
     c[0].metric("Trucks tracked", len(statuses))
-    c[1].metric("On time", counts["ON_TIME"])
-    c[2].metric("At risk", counts["AT_RISK"])
-    c[3].metric("Late", counts["LATE"])
-    c[4].metric("Delivered", counts["DELIVERED"])
+    c[1].metric("On time", n("ON_TIME"))
+    c[2].metric("At risk", n("AT_RISK"))
+    c[3].metric("Late", n("LATE"))
+    c[4].metric("Arrived", n("ARRIVED"))
 
 
-def _map(feed: tracking.TrackingFeed, statuses: dict[str, TrackingStatus], selected: str | None) -> None:
-    trucks, routes, trails = [], [], []
-    for sid, st_ in statuses.items():
-        if st_.lat is None:
+def _map(tr: tracking.Tracker, selected: str | None) -> None:
+    trucks, trails, ahead = [], [], []
+    for sid, s in tr.statuses.items():
+        pos = s.position
+        if not pos or pos.lat is None:
             continue
-        s = feed.shipments[sid]
-        origin, dest = feed.sim.routes[sid]
+        ship = tr.shipments[sid]
+        dest = tracking.lane(ship, tr.facilities)["dest"]
+        color = STATUS_COLOR[s.status]
         trucks.append({
-            "id": sid, "lon": st_.lon, "lat": st_.lat, "color": STATUS_COLOR[st_.status],
-            "radius": 30 if sid == selected else 12,
-            "status": st_.status.replace("_", " ").title(), "near": st_.near,
-            "eta": geo.fmt_local(st_.eta, st_.delivery_tz), "lane": f"{s.get('shipper_city')} → {s.get('consignee_city')}",
-            "late": tracking.describe_lateness(st_),
+            "id": sid, "lon": pos.lon, "lat": pos.lat, "color": color, "radius": 30 if sid == selected else 12,
+            "status": s.status.replace("_", " ").title(), "stage": s.stage.replace("_", " ").lower(),
+            "where": f"{pos.city}, {pos.state}" + (" (approx.)" if pos.approximate else ""),
+            "when": f"{geo.fmt_local(pos.at, s.delivery_tz)} ({s.hours_since_report:.0f} h ago)",
+            "eta": geo.fmt_local(s.eta, s.delivery_tz), "late": tracking.describe_lateness(s),
+            "lane": f"{ship.get('shipper_city')} → {ship.get('consignee_city')}",
         })
-        if st_.status != "DELIVERED":
-            routes.append({"from": [st_.lon, st_.lat], "to": [dest[1], dest[0]],
-                           "color": [*STATUS_COLOR[st_.status], 200 if sid == selected else 90],
-                           "width": 3 if sid == selected else 1.5})
-            trails.append({"from": [origin[1], origin[0]], "to": [st_.lon, st_.lat], "color": [90, 90, 90, 110]})
+        pts = [p for p in s.trail if p.lat is not None]
+        for a, b in zip(pts, pts[1:]):
+            trails.append({"from": [a.lon, a.lat], "to": [b.lon, b.lat],
+                           "color": [*color, 230] if sid == selected else [110, 110, 110, 150]})
+        if dest and s.status != "ARRIVED" and s.stage != "AT_DELIVERY":
+            ahead.append({"from": [pos.lon, pos.lat], "to": [dest[1], dest[0]],
+                          "color": [*color, 200 if sid == selected else 70], "width": 2.5 if sid == selected else 1})
     layers = [
-        pdk.Layer("LineLayer", trails, get_source_position="from", get_target_position="to", get_color="color", get_width=1.5),
-        pdk.Layer("LineLayer", routes, get_source_position="to", get_target_position="from", get_color="color", get_width="width"),
-        pdk.Layer("ScatterplotLayer", trucks, id="trucks", get_position=["lon", "lat"], get_fill_color="color",
-                  get_radius="radius", radius_scale=2500, radius_min_pixels=5, radius_max_pixels=11,
-                  stroked=True, get_line_color=[255, 255, 255], line_width_min_pixels=1.5, pickable=True),
+        pdk.Layer("LineLayer", ahead, get_source_position="from", get_target_position="to", get_color="color", get_width="width"),
+        pdk.Layer("LineLayer", trails, get_source_position="from", get_target_position="to", get_color="color", get_width=2),
+        pdk.Layer("ScatterplotLayer", trucks, get_position=["lon", "lat"], get_fill_color="color", get_radius="radius",
+                  radius_scale=2500, radius_min_pixels=5, radius_max_pixels=11, stroked=True,
+                  get_line_color=[255, 255, 255], line_width_min_pixels=1.5, pickable=True),
     ]
-    tooltip = {"html": "<b>{id}</b> · {status}<br/>{lane}<br/>{near}<br/>ETA {eta}<br/>{late}",
-               "style": {"fontSize": "12px"}}
+    tooltip = {"html": "<b>{id}</b> · {status} · {stage}<br/>{lane}<br/>Last report: {where}<br/>{when}"
+                       "<br/>Our ETA {eta}<br/>{late}", "style": {"fontSize": "12px"}}
     deck = pdk.Deck(layers=layers, initial_view_state=pdk.ViewState(latitude=38.6, longitude=-97.5, zoom=3.3),
                     map_provider="carto", map_style="light", tooltip=tooltip)
-    st.pydeck_chart(deck, use_container_width=True, height=430)
-    st.caption("Lines: grey = driven so far, coloured = still to go (straight line between cities). "
-               "Hover a truck for its ETA.")
+    st.pydeck_chart(deck, width="stretch", height=430)
+    st.caption("Dot = last reported position. Solid line = check-call trail, thin line = still to go "
+               "(straight line, not a road route). Hover for details.")
 
 
-def _feed_panel(feed: tracking.TrackingFeed, t: datetime) -> None:
-    ss = st.session_state
-    st.toggle("Alerts only", key="sim_alerts_only")
-    events = feed.events(t, limit=200)
-    if ss.sim_alerts_only:
-        events = [e for e in events if e.level != "info"]
+def _feed(tr: tracking.Tracker) -> None:
+    st.toggle("Exceptions only", key="track_exceptions_only")
+    events = tr.events(limit=300)
+    if st.session_state.track_exceptions_only:
+        events = [e for e in events if e.source == "copilot"]
     with st.container(height=405):
         if not events:
-            st.caption("No events yet.")
-        for e in events[:80]:
-            st.markdown(f"{LEVEL_ICON[e.level]} `{geo.fmt_local(e.at, CLOCK_TZ, with_day=False)}` **{e.shipment_id}** "
-                        f"· _{SOURCE_LABEL[e.source]}_ · {e.text}")
+            st.caption("Nothing to show.")
+        for e in events[:120]:
+            st.markdown(f"{LEVEL_DOT[e.level]} {SOURCE_ICON[e.source]} `{geo.fmt_local(e.at, CLOCK_TZ)}` "
+                        f"**{e.shipment_id}** · {e.text}")
 
 
-def _timeline(feed: tracking.TrackingFeed, statuses: dict[str, TrackingStatus], t: datetime, sid: str) -> None:
-    s, st_ = feed.shipments[sid], statuses[sid]
-    tz_name = st_.delivery_tz
-    p_stop, d_stop = s["stops"][0], s["stops"][-1]
+def _timeline(tr: tracking.Tracker, sid: str) -> None:
+    s, ship = tr.statuses[sid], tr.shipments[sid]
+    tz_name = s.delivery_tz
+    p_stop, d_stop = ship["stops"][0], ship["stops"][-1]
     pw, dw = p_stop.get("scheduled_window") or {}, d_stop.get("scheduled_window") or {}
 
-    def loc(dt: datetime | None) -> str | None:   # naive delivery-local time, so the chart shows local clock times
+    def loc(dt: datetime | None) -> str | None:   # receiver-local wall time, so the axis reads in local hours
         return dt.astimezone(geo.tz(tz_name)).replace(tzinfo=None).isoformat() if dt else None
 
     bars = [
         {"row": "Pickup window", "start": loc(geo.local_to_utc(pw.get("earliest_local"), pw.get("timezone"))),
-         "end": loc(geo.local_to_utc(pw.get("latest_local"), pw.get("timezone"))), "kind": "Planned"},
-        {"row": "Delivery window", "start": loc(geo.local_to_utc(dw.get("earliest_local"), dw.get("timezone"))),
-         "end": loc(st_.window_end), "kind": "Planned"},
+         "end": loc(geo.local_to_utc(pw.get("latest_local"), pw.get("timezone"))), "kind": "Window"},
+        {"row": "Delivery window", "start": loc(geo.local_to_utc(dw.get("earliest_local"), tz_name)),
+         "end": loc(s.window_end), "kind": "Window"},
     ]
     if d_stop.get("mabd_date"):
         bars.append({"row": "Must arrive by", "start": loc(geo.local_to_utc(f"{d_stop['mabd_date']}T00:00:00", tz_name)),
-                     "end": loc(st_.mabd_end), "kind": "MABD"})
-    evs = feed.events(feed.end, sid, limit=500)
-    departed = next((e.at for e in reversed(evs) if "Departed shipper" in e.text and e.at <= t), None)
-    arrived = next((e.at for e in reversed(evs) if "Arrived at receiver" in e.text and e.at <= t), None)
-    points = [{"row": "Truck", "at": loc(t), "label": "Now"}]
-    if departed:
-        points.append({"row": "Truck", "at": loc(departed), "label": "Departed"})
-    if arrived:
-        points.append({"row": "Truck", "at": loc(arrived), "label": "Arrived"})
-    elif st_.eta:
-        points.append({"row": "Truck", "at": loc(st_.eta), "label": "Projected arrival"})
+                     "end": loc(s.mabd_end), "kind": "MABD"})
+    pts = []
+    if s.departed_at:
+        pts.append({"row": "Truck", "at": loc(s.departed_at), "label": "Departed", "detail": "loaded, left the shipper"})
+    for c in s.trail:
+        if c.source == "check_call":
+            pts.append({"row": "Truck", "at": loc(c.at), "label": "Check call", "detail": f"{c.city}, {c.state}"})
+    if s.arrived_at:
+        pts.append({"row": "Truck", "at": loc(s.arrived_at), "label": "Arrived", "detail": "at the receiver"})
+    else:
+        if s.eta:
+            pts.append({"row": "Truck", "at": loc(s.eta), "label": "Our ETA (legal hours)", "detail": "; ".join(s.assumptions)})
+        if s.driver_eta:
+            pts.append({"row": "Truck", "at": loc(s.driver_eta), "label": "Driver's ETA", "detail": "as reported on the last call"})
 
     rows = [r for r in ("Pickup window", "Truck", "Delivery window", "Must arrive by")
             if r == "Truck" or any(b["row"] == r for b in bars)]
     y = alt.Y("row:N", scale=alt.Scale(domain=rows), sort=None, title=None, axis=alt.Axis(labelLimit=200))
+    labels = ["Departed", "Check call", "Arrived", "Our ETA (legal hours)", "Driver's ETA"]
     bar = alt.Chart(pd.DataFrame(bars)).mark_bar(height=16, opacity=0.75).encode(
         x=alt.X("start:T", title=f"Local time at the receiver ({tz_name})"), x2="end:T", y=y,
-        color=alt.Color("kind:N", scale=alt.Scale(domain=["Planned", "MABD"], range=["#4C78A8", "#9D755D"]), legend=None),
-        tooltip=["row", "start:T", "end:T"])
-    pts_df = pd.DataFrame(points)
-    pt = alt.Chart(pts_df).mark_point(filled=True, size=140).encode(
-        x="at:T", y=y, shape=alt.Shape("label:N", legend=alt.Legend(title=None, orient="bottom")),
-        color=alt.Color("label:N", scale=alt.Scale(domain=["Now", "Departed", "Arrived", "Projected arrival"],
-                                                   range=["#9E9E9E", "#4C78A8", "#2E9F43", "#D62728"]), legend=None),
-        tooltip=["label", "at:T"])
-    now_rule = alt.Chart(pd.DataFrame([{"at": loc(t)}])).mark_rule(strokeDash=[4, 3], color="#9E9E9E").encode(x="at:T")
-    chart = (bar + now_rule + pt).resolve_scale(color="independent", shape="independent")
-    st.altair_chart(chart.properties(height=60 + 40 * len(rows)), use_container_width=True)
+        color=alt.Color("kind:N", scale=alt.Scale(domain=["Window", "MABD"], range=["#4C78A8", "#9D755D"]), legend=None),
+        tooltip=["row", alt.Tooltip("start:T", format="%a %m/%d %H:%M"), alt.Tooltip("end:T", format="%a %m/%d %H:%M")])
+    pt = alt.Chart(pd.DataFrame(pts)).mark_point(filled=True, size=150).encode(
+        x="at:T", y=y,
+        shape=alt.Shape("label:N", scale=alt.Scale(domain=labels, range=["circle", "diamond", "square", "triangle-up", "triangle-down"]),
+                        legend=alt.Legend(title=None, orient="bottom")),
+        color=alt.Color("label:N", scale=alt.Scale(domain=labels, range=["#4C78A8", "#9E9E9E", "#2E9F43", "#D62728", "#F2A93B"]),
+                        legend=alt.Legend(title=None, orient="bottom")),
+        tooltip=["label", alt.Tooltip("at:T", format="%a %m/%d %H:%M"), "detail"]) if pts else None
+    rule = alt.Chart(pd.DataFrame([{"at": loc(tr.as_of)}])).mark_rule(strokeDash=[4, 3], color="#9E9E9E").encode(
+        x="at:T", tooltip=[alt.Tooltip("at:T", title="as of", format="%a %m/%d %H:%M")])
+    chart = bar + rule + pt if pt is not None else bar + rule
+    st.altair_chart(chart.resolve_scale(color="independent", shape="independent").properties(height=60 + 42 * len(rows)),
+                    width="stretch")
+    st.caption("Dashed line = as-of time. ▲ red = our ETA at legal driving hours, ▼ yellow = the driver's reported ETA.")
 
     left, right = st.columns([3, 2])
     with left:
-        st.markdown(f"**{STATUS_LABEL[st_.status]}** · {tracking.describe_lateness(st_) or '—'}")
-        st.table(pd.DataFrame({"": [
-            "Truck", "Position", "Speed", "Miles to go", "Driving hours left (ELD)",
-            "Projected arrival" if st_.state not in ("AT_DELIVERY", "DELIVERED") else "Arrived",
-            "Window ends", "Must arrive by", "Carrier"],
-            "value": [st_.state.replace("_", " ").lower() + (f" ({st_.event_code})" if st_.event_code else "")
-                      + (f", {st_.stopped_minutes} min" if st_.stopped_minutes else ""),
-                      st_.near, f"{st_.speed_mph:.0f} mph", "—" if st_.miles_remaining is None else f"{st_.miles_remaining:.0f}",
-                      "—" if st_.hos_drive_hours_left is None else f"{st_.hos_drive_hours_left:.1f} h",
-                      geo.fmt_local(st_.eta, tz_name), geo.fmt_local(st_.window_end, tz_name),
-                      geo.fmt_local(st_.mabd_end, tz_name) if st_.mabd_end else "—", s.get("carrier_id") or "—"]}
-        ).set_index(""))
-        if st_.assumptions:
-            st.caption("ETA assumes: " + "; ".join(st_.assumptions) + ".")
+        st.markdown(f"**{STATUS_LABEL[s.status]}** · {tracking.describe_lateness(s) or '—'}")
+        pos = s.position
+        gap = s.eta_gap_minutes
+        rows_tbl = {
+            "Stage": s.stage.replace("_", " ").lower(),
+            "Last position": (f"{pos.city}, {pos.state}" + (" (approx.)" if pos.approximate else "")
+                              + f" · {geo.fmt_local(pos.at, tz_name)} · {s.hours_since_report:.0f} h ago") if pos else "—",
+            "Miles to go": "—" if s.miles_remaining is None else f"{s.miles_remaining:.0f}",
+            "Arrived" if s.arrived_at else "Our ETA (legal hours)": geo.fmt_local(s.arrived_at or s.eta, tz_name),
+            "Driver's ETA": geo.fmt_local(s.driver_eta, tz_name) if s.driver_eta else "—",
+            "Driver vs ours": "—" if gap is None else (f"driver {abs(gap) / 60:.1f} h earlier" if gap > 0 else
+                                                      f"driver {abs(gap) / 60:.1f} h later"),
+            "Window ends": geo.fmt_local(s.window_end, tz_name),
+            "Must arrive by": geo.fmt_local(s.mabd_end, tz_name) if s.mabd_end else "—",
+            "Carrier": ship.get("carrier_id") or "—",
+        }
+        st.table(pd.DataFrame({"": list(rows_tbl), "value": list(rows_tbl.values())}).set_index(""))
+        for x in s.exceptions:
+            (st.error if s.status == "LATE" else st.warning)(x, icon="⚠️")
+        if s.assumptions:
+            st.caption("Our ETA assumes: " + "; ".join(s.assumptions) + ".")
     with right:
-        st.markdown("**This load's events**")
-        with st.container(height=300):
-            for e in feed.events(t, sid, limit=30):
-                st.markdown(f"{LEVEL_ICON[e.level]} `{geo.fmt_local(e.at, tz_name)}` · _{SOURCE_LABEL[e.source]}_ · {e.text}")
+        st.markdown("**This load's activity**")
+        with st.container(height=330):
+            for e in tr.events(sid, limit=40):
+                st.markdown(f"{LEVEL_DOT[e.level]} {SOURCE_ICON[e.source]} `{geo.fmt_local(e.at, tz_name)}` · {e.text}")
+    _check_call_form(tr, sid)
+
+
+def _check_call_form(tr: tracking.Tracker, sid: str) -> None:
+    s = tr.statuses[sid]
+    tz_name = s.delivery_tz
+    ss = st.session_state
+    with st.expander(f"📞 Log a check call for {sid}"):
+        with st.form(f"cc-{sid}", clear_on_submit=True):
+            c1, c2, c3 = st.columns([2, 1, 2])
+            city = c1.text_input("City")
+            st_code = c2.text_input("State", max_chars=2)
+            reason = c3.selectbox("Reason code", list(REASON_CODES), format_func=REASON_CODES.get)
+            local_now = tr.as_of.astimezone(geo.tz(tz_name))
+            c4, c5, c6 = st.columns(3)
+            eta_day = c4.date_input("Driver's ETA (date)", value=None, help=f"Receiver local time ({tz_name})")
+            eta_time = c5.time_input("Driver's ETA (time)", value=None, step=900)
+            hours = c6.number_input("Driving hours left (if the driver says)", min_value=0.0, max_value=11.0,
+                                    value=None, step=0.5)
+            note = st.text_input("Note", placeholder="e.g. Running behind after a tire change")
+            c7, c8 = st.columns(2)
+            call_day = c7.date_input("Call date", value=local_now.date())
+            call_time = c8.time_input("Call time", value=local_now.time().replace(second=0, microsecond=0), step=300)
+            submitted = st.form_submit_button("Log check call", type="primary")
+        if submitted:
+            if not city or not st_code:
+                st.error("City and state are required.")
+                return
+            at = datetime.combine(call_day, call_time, tzinfo=geo.tz(tz_name)).astimezone(geo.UTC)
+            eta = (datetime.combine(eta_day, eta_time, tzinfo=geo.tz(tz_name)).astimezone(geo.UTC)
+                   if eta_day and eta_time else None)
+            text = (note or "Check call") + (f" ({hours:g} h left)" if hours is not None else "")
+            iso = lambda d: d.isoformat().replace("+00:00", "Z")  # noqa: E731
+            fields = {"city": city.strip().title(), "state": st_code.strip().upper(), "event_at": iso(at)}
+            if eta:
+                fields["eta"] = iso(eta)
+            if reason:
+                fields["reason_code"] = reason
+            res = client.record_check_call(sid, text, **fields)
+            if not res["ok"]:
+                st.error(f"Check call not recorded: {res.get('detail') or res.get('error')}")
+                return
+            if res.get("dry_run"):
+                ss.track_dry_calls.setdefault(sid, []).append({"event_type": "CHECK_CALL", "note": text, "_dry_run": True, **fields})
+                st.toast(f"Check call for {sid} shown in dry-run (not saved to the TMS)")
+            else:
+                ss.track_refresh += 1
+                st.toast(f"Check call saved on {sid}")
+            st.rerun()
+    if ss.track_dry_calls.get(sid):
+        if st.button(f"Clear {len(ss.track_dry_calls[sid])} dry-run call(s) on {sid}"):
+            ss.track_dry_calls.pop(sid)
+            st.rerun()
 
 
 # --------------------------------------------------------------------------- tab
 
-def _live(feed: tracking.TrackingFeed) -> None:
-    _advance(feed)
-    _controls(feed)
-    t = now(feed)
-    statuses = feed.statuses(t)
-    _metrics(statuses)
+def render() -> None:
+    tr = get_tracker()
+    if tr is None:
+        return
+    if state.use_fake():
+        st.caption("Data source is *Fake data*, so tracking reads the committed snapshot.")
+    _header(tr)
+    _metrics(tr.statuses)
 
-    ordered = sorted(statuses, key=lambda k: (STATUS_ORDER[statuses[k].status], -(statuses[k].minutes_late or -10**6)))
     ss = st.session_state
-    if ss.get("sim_selected") not in statuses:
-        ss.sim_selected = ordered[0] if ordered else None
+    ss.setdefault("track_exceptions_only", False)
+    ordered = sorted(tr.statuses, key=lambda k: (STATUS_ORDER[tr.statuses[k].status],
+                                                 -(tr.statuses[k].minutes_late or -10**6)))
+    if ss.get("track_selected") not in tr.statuses:
+        ss.track_selected = ordered[0] if ordered else None
 
     left, right = st.columns([3, 2])
     with left:
-        _map(feed, statuses, ss.sim_selected)
+        _map(tr, ss.track_selected)
     with right:
-        _feed_panel(feed, t)
+        _feed(tr)
 
     st.subheader("Load timeline")
-    st.selectbox("Load", ordered, key="sim_selected",
-                 format_func=lambda k: f"{k} · {statuses[k].status.replace('_', ' ').title()} · "
-                                       f"{feed.shipments[k].get('shipper_city')} → {feed.shipments[k].get('consignee_city')}"
-                                       f" · {tracking.describe_lateness(statuses[k]) or 'delivered'}")
-    if ss.sim_selected:
-        _timeline(feed, statuses, t, ss.sim_selected)
-
-
-def render() -> None:
-    st.markdown(":orange-background[**SIMULATED**] &nbsp; Truck positions, driver reports and hours of service "
-                "are generated from the open loads (the TMS has no GPS). ETAs and alerts are computed from the "
-                "pings only, as they would be on a real telematics feed.")
-    feed = get_feed()
-    if feed is None:
-        return
-    _init(feed)
-    if state.use_fake():
-        st.caption("Data source is *Fake data*, so tracking runs on the committed snapshot.")
-    if st.button("Rebuild simulation from current data", help="Re-reads the loads (live API or snapshot) and re-runs the sim."):
-        st.session_state.sim_refresh += 1
-        st.rerun()
-    st.fragment(_live, run_every=1.0 if st.session_state.sim_playing else None)(feed)
+    st.selectbox("Load", ordered, key="track_selected",
+                 format_func=lambda k: f"{k} · {tr.statuses[k].status.replace('_', ' ').title()} · "
+                                       f"{tr.shipments[k].get('shipper_city')} → {tr.shipments[k].get('consignee_city')}"
+                                       f" · {tracking.describe_lateness(tr.statuses[k]) or tr.statuses[k].stage.lower()}")
+    if ss.track_selected:
+        _timeline(tr, ss.track_selected)

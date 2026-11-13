@@ -408,30 +408,32 @@ def low_margin(ctx: RiskContext) -> list[RiskItem]:
 
 
 def late_eta(ctx: RiskContext) -> list[RiskItem]:
-    """Tracking says the truck will miss its delivery deadline.
-    LATE and either misses the MABD or is >2 h past the window -> HIGH; other LATE or AT_RISK -> MEDIUM."""
+    """Tracking (check calls + legal driving hours) says the load is late or at risk.
+    HIGH: arrived after the window closed; projected to miss the MABD or the window by >2 h;
+    or no arrival recorded after the window closed. MEDIUM: other late or at-risk loads."""
     by_id = {str(s["shipment_id"]): s for s in ctx.shipments}
     items = []
     for sid, st in ctx.tracking.items():
-        if st.status not in ("LATE", "AT_RISK") or st.eta is None:
+        if st.status not in ("LATE", "AT_RISK"):
             continue
-        misses_mabd = (st.minutes_late_mabd or 0) > 0
-        arrived_late = st.status == "LATE" and st.state == "AT_DELIVERY"
-        severity: Severity = "HIGH" if st.status == "LATE" and (
-            arrived_late or misses_mabd or (st.minutes_late or 0) > 120) else "MEDIUM"
         s = by_id.get(sid, {"shipment_id": sid})
         late = st.minutes_late or 0
+        misses_mabd = (st.minutes_late_mabd or 0) > 0
+        arrived_late = st.status == "LATE" and st.stage == "AT_DELIVERY"
+        no_show = any(x.startswith(("No arrival recorded", "Driver's ETA passed")) for x in st.exceptions)
+        severity: Severity = "HIGH" if st.status == "LATE" and (
+            arrived_late or misses_mabd or late > 120 or no_show) else "MEDIUM"
         if arrived_late:
             title = f"Arrived {late / 60:.1f} h after the delivery window closed"
+            action = "Rebook the delivery appointment with the receiver and tell the customer"
         elif st.status == "LATE":
-            title = f"ETA {late / 60:.1f} h past the delivery window" + (", misses MABD" if misses_mabd else "")
-        elif st.state == "STOPPED" and st.stopped_minutes >= 60 and late <= -120:
-            title = f"Truck stopped {st.stopped_minutes} min"
-        elif late > 0:
-            title = f"ETA {late} min past the window end"
+            title = f"Projected {late / 60:.1f} h past the delivery window" + (", misses MABD" if misses_mabd else "")
+            action = "Call the driver: confirm location, hours left and ETA; then warn the receiver and customer"
         else:
-            title = f"Only {-late} min of slack before the window closes"
+            title = st.exceptions[0] if st.exceptions else f"Only {-late} min of slack before the window closes"
+            action = "Call the driver to confirm location and ETA"
         tz_name = st.delivery_tz
+        pos = st.position
         d = days_until(st.window_end.date().isoformat() if st.window_end else None, ctx.today)
         items.append(_shipment_item(
             s,
@@ -439,17 +441,18 @@ def late_eta(ctx: RiskContext) -> list[RiskItem]:
             severity=severity,
             score=score(severity, d, s.get("sell_total") or 0),
             title=title,
-            evidence={"tracking_status": st.status, "truck_state": st.state, "position": st.near,
-                      "as_of": fmt_local(st.at, tz_name), "projected_arrival": fmt_local(st.eta, tz_name),
+            evidence={"stage": st.stage, "tracking_status": st.status,
+                      "last_position": f"{pos.city}, {pos.state}" if pos else None,
+                      "last_position_at": fmt_local(pos.at, tz_name) if pos else None,
+                      "hours_since_update": st.hours_since_report, "miles_remaining": st.miles_remaining,
+                      "our_eta_legal_hours": fmt_local(st.eta, tz_name),
+                      "driver_reported_eta": fmt_local(st.driver_eta, tz_name) if st.driver_eta else None,
                       "window_end": fmt_local(st.window_end, tz_name), "mabd_end": fmt_local(st.mabd_end, tz_name),
                       "minutes_late": st.minutes_late, "minutes_late_mabd": st.minutes_late_mabd,
-                      "miles_remaining": st.miles_remaining, "stopped_minutes": st.stopped_minutes,
-                      "driver_reported_code": st.event_code, "driving_hours_left": st.hos_drive_hours_left,
-                      "eta_assumptions": st.assumptions, "carrier_id": s.get("carrier_id"),
-                      "data_source": "simulated GPS/ELD feed" if st.simulated else "telematics", "lane": _lane(s)},
-            suggested_action="Rebook the delivery appointment with the receiver and tell the customer" if arrived_late
-                             else "Confirm the ETA and cause with the carrier, then warn the receiver and customer"
-                             if st.status == "LATE" else "Check in with the driver and confirm the ETA",
+                      "exceptions": st.exceptions, "eta_assumptions": st.assumptions,
+                      "carrier_id": s.get("carrier_id"), "data_source": "TMS check calls and status changes",
+                      "lane": _lane(s)},
+            suggested_action=action,
         ))
     return items
 
