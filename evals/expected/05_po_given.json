@@ -1,0 +1,15 @@
+{
+  "today": "2026-11-13",
+  "request": {
+    "customer_name": "Northstar",
+    "mode": "TL",
+    "equipment_type": "R",
+    "origin": {"city": "Joliet", "state": "IL"},
+    "destination": {"city": "Memphis", "state": "TN"},
+    "pickup_date": "2026-11-17",
+    "freight_lines": [{"pieces": 24, "weight_lb": 40000}],
+    "references": {"PO": "45907"}
+  },
+  "missing_fields": [],
+  "ready_to_create": true
+}

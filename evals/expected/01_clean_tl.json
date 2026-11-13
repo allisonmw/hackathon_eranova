@@ -1,0 +1,15 @@
+{
+  "today": "2026-11-13",
+  "request": {
+    "customer_name": "Northstar",
+    "mode": "TL",
+    "equipment_type": "V",
+    "origin": {"city": "Chicago", "state": "IL"},
+    "destination": {"city": "Dallas", "state": "TX"},
+    "pickup_date": "2026-11-23",
+    "freight_lines": [{"pieces": 22, "weight_lb": 38000}],
+    "references": {"PO": "45812"}
+  },
+  "missing_fields": [],
+  "ready_to_create": true
+}

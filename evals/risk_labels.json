@@ -1,0 +1,6 @@
+{
+  "_format": "Hand-label ~15 loads from snapshots/ BEFORE looking at rule output. labeled_record_ids = every load you checked (including clean ones); expected = each real risk on them.",
+  "today": null,
+  "labeled_record_ids": [],
+  "expected": []
+}

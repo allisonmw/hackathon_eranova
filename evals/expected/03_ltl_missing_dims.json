@@ -1,0 +1,14 @@
+{
+  "today": "2026-11-13",
+  "request": {
+    "mode": "LTL",
+    "origin": {"city": "Denver", "state": "CO"},
+    "destination": {"city": "Phoenix", "state": "AZ"},
+    "pickup_date": "2026-11-19",
+    "freight_lines": [{"pieces": 3, "weight_lb": 1450}],
+    "references": {"SO": "88231"},
+    "accessorials": ["LGD"]
+  },
+  "missing_fields": ["dimensions or freight class"],
+  "ready_to_create": false
+}

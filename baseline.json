@@ -1,0 +1,7 @@
+{
+  "_placeholder": true,
+  "_note": "Example numbers from the plan. Measure in the real web app, replace these, and delete _placeholder.",
+  "quote_from_email": {"minutes": 7.5, "screens": 9, "clicks": 41},
+  "morning_triage": {"minutes": 22, "screens": 14, "clicks": 63},
+  "per_risk_item_minutes": 3
+}
