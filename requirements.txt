@@ -1,0 +1,12 @@
+streamlit>=1.40
+pydantic>=2
+httpx
+python-dotenv
+mcp[cli]<2  # langchain-mcp-adapters doesn't support MCP SDK 2.x yet
+langchain>=1.0
+langgraph
+langchain-mcp-adapters
+langchain-anthropic
+pytest
+# Optional tracing for agent.py (Phoenix server runs in its own venv, see meridian-agent/README):
+#   arize-phoenix-otel  openinference-instrumentation-langchain
