@@ -1,0 +1,100 @@
+{
+  "source_branch": "fake_data",
+  "source_commit": "b76d73dd85b0546be95d226e2444a0017fc73533",
+  "source_file": "Delay_Cost_Model.xlsx / Events",
+  "label": "Synthetic workbook references only; not verified TMS events or actual charges",
+  "workbook_event_count": 123,
+  "matched_tracked_shipments": 6,
+  "events": [
+    {
+      "event_id": "DLY-00108",
+      "shipment_id": "7300117",
+      "complication_type": "WEATHER",
+      "complication_label": "Weather / road closure",
+      "delay_hours": "25.9",
+      "detail": "Winter storm / road closure; 26 h shutdown",
+      "source": "SYNTHETIC",
+      "event_at_utc": "2026-11-11T01:20:12Z"
+    },
+    {
+      "event_id": "DLY-00113",
+      "shipment_id": "7300125",
+      "complication_type": "DETENTION_PICKUP",
+      "complication_label": "Detention at shipper (slow loading)",
+      "delay_hours": "2",
+      "detail": "Driver on dock 3.9 h at Sunbelt Agri Supply - Fresno Yard",
+      "source": "SYNTHETIC",
+      "event_at_utc": "2026-11-11T19:52:11Z"
+    },
+    {
+      "event_id": "DLY-00118",
+      "shipment_id": "7300137",
+      "complication_type": "CARRIER_FALLOFF",
+      "complication_label": "Carrier fell off / truck not available",
+      "delay_hours": "3.9",
+      "detail": "Original truck unavailable; recovered on spot market at +32% \u2014 pickup 3.9 h late",
+      "source": "SYNTHETIC",
+      "event_at_utc": "2026-11-12T09:56:08Z"
+    },
+    {
+      "event_id": "DLY-00122",
+      "shipment_id": "7300155",
+      "complication_type": "CARRIER_FALLOFF",
+      "complication_label": "Carrier fell off / truck not available",
+      "delay_hours": "5.6",
+      "detail": "Original truck unavailable; recovered on spot market at +28% \u2014 pickup 5.6 h late",
+      "source": "SYNTHETIC",
+      "event_at_utc": "2026-11-12T11:00:38Z"
+    },
+    {
+      "event_id": "DLY-00120",
+      "shipment_id": "7300144",
+      "complication_type": "MECHANICAL",
+      "complication_label": "Tractor/trailer mechanical breakdown",
+      "delay_hours": "4.5",
+      "detail": "Breakdown en route; roadside repair, 4.5 h lost",
+      "source": "SYNTHETIC",
+      "event_at_utc": "2026-11-12T16:30:50Z"
+    },
+    {
+      "event_id": "DLY-00121",
+      "shipment_id": "7300145",
+      "complication_type": "DETENTION_PICKUP",
+      "complication_label": "Detention at shipper (slow loading)",
+      "delay_hours": "2",
+      "detail": "Driver on dock 3.7 h at Midway Distributors - KC Warehouse",
+      "source": "SYNTHETIC",
+      "event_at_utc": "2026-11-12T17:42:23Z"
+    },
+    {
+      "event_id": "DLY-00109",
+      "shipment_id": "7300117",
+      "complication_type": "MISSED_APPOINTMENT",
+      "complication_label": "Missed delivery appointment",
+      "delay_hours": "19.2",
+      "detail": "Arrived 19.2 h after appointment; facility reworked to next open slot",
+      "source": "SYNTHETIC",
+      "event_at_utc": "2026-11-13T10:12:50Z"
+    },
+    {
+      "event_id": "DLY-00119",
+      "shipment_id": "7300137",
+      "complication_type": "DETENTION_PICKUP",
+      "complication_label": "Detention at shipper (slow loading)",
+      "delay_hours": "1",
+      "detail": "Driver on dock 3.1 h at Red Rock Electronics - Buckeye Rd Plant",
+      "source": "SYNTHETIC",
+      "event_at_utc": "2026-11-13T18:05:47Z"
+    },
+    {
+      "event_id": "DLY-00114",
+      "shipment_id": "7300125",
+      "complication_type": "DETENTION_DELIVERY",
+      "complication_label": "Detention at consignee (dock congestion)",
+      "delay_hours": "2",
+      "detail": "Dock congestion at Evergreen Distribution - Salt Lake City (9 doors, avg unload 90 min)",
+      "source": "SYNTHETIC",
+      "event_at_utc": "2026-11-13T19:00:00Z"
+    }
+  ]
+}

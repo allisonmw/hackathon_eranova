@@ -3,9 +3,14 @@
 Run:  streamlit run app.py
 """
 
+import os
+
 import streamlit as st
 
 from ui import load_watch, manual_vs_copilot, sidebar, state, tracking
+
+# Keep this prototype and existing check calls in dry-run.
+os.environ["DRY_RUN"] = "1"
 
 st.set_page_config(page_title="Broker Desk Copilot", page_icon="🚚", layout="wide")
 state.init()

@@ -18,7 +18,7 @@ import streamlit as st
 from meridian import client, geo, tracking
 from meridian.models import TrackingStatus
 
-from . import state
+from . import delay_costs, state
 
 CLOCK_TZ = "America/Chicago"
 STATUS_COLOR = {"ON_TIME": [46, 160, 67], "AT_RISK": [235, 140, 0], "LATE": [214, 39, 40],
@@ -321,3 +321,4 @@ def render() -> None:
                                        f" · {tracking.describe_lateness(tr.statuses[k]) or tr.statuses[k].stage.lower()}")
     if ss.track_selected:
         _timeline(tr, ss.track_selected)
+        delay_costs.render(tr, ss.track_selected)
