@@ -1,11 +1,10 @@
 """Selected-shipment Delay Cost Exposure panel. All outputs are scenario previews."""
-import json
 from dataclasses import replace
-from pathlib import Path
 
 import streamlit as st
 
 from meridian import geo
+from . import automatic_delay_costs
 from .delay_cost_model import (Charge, RATES, capital_cost, detention, estimate, lateness_context,
                                ledger_matches, penalty, product)
 
@@ -37,18 +36,8 @@ def _late(value):
 
 def render(tr, sid):
     ship, status = tr.shipments[sid], tr.statuses[sid]
-    # Each shipment AND data source gets independent widget state; no duplicate selector.
-    scope = f'delaycost:{st.session_state.data_source}:{sid}:'
-    def key(name):
-        return scope + name
-    def amount(label, name, default=None, step=25.0):
-        return st.number_input(label, min_value=0.0, value=float(default) if default is not None else None,
-                               step=step, key=key(name))
-    def rate(label, name, default):
-        return amount(label, name, default, 1.0)
-
     st.subheader('Delay Cost Exposure')
-    st.caption('Conditional cost-exposure prototype · No probabilities, bookings or TMS writes. '
+    st.caption('Read-only disruption cost exposure · No bookings or TMS writes. '
                'Late linehaul arrival alone does not incur detention, layover, storage or a chargeback.')
     st.markdown(f'**Shipment {sid}** · {status.stage} · tracking status **{status.status}** · '
                 f'customer `{ship.get("customer_id") or "unknown"}` · carrier `{ship.get("carrier_id") or "unknown"}`')
@@ -59,6 +48,25 @@ def render(tr, sid):
     st.caption(f'Tracking MABD: {geo.fmt_local(status.mabd_end, status.delivery_tz)} · '
                f'MABD lateness: {_late(status.minutes_late_mabd)} · '
                f'as of {geo.fmt_local(status.as_of, status.delivery_tz)}. These are existing tracking outputs, not recalculated ETAs.')
+    automatic_delay_costs.render(ship, sid, st.session_state.data_source)
+    with st.expander('What-if Analysis', expanded=False):
+        st.caption('Independent manual scenario. Its results do not replace, edit or add to the automatic workbook totals above. '
+                   'Open this section only to explore alternative assumptions; zero selected charges means zero in this manual scenario only.')
+        _render_what_if(tr, sid)
+
+
+def _render_what_if(tr, sid):
+    ship, status = tr.shipments[sid], tr.statuses[sid]
+    # Each shipment AND data source gets independent widget state; no duplicate selector.
+    scope = f'delaycost:{st.session_state.data_source}:{sid}:'
+    def key(name):
+        return scope + name
+    def amount(label, name, default=None, step=25.0):
+        return st.number_input(label, min_value=0.0, value=float(default) if default is not None else None,
+                               step=step, key=key(name))
+    def rate(label, name, default):
+        return amount(label, name, default, 1.0)
+
     summary = st.container()
     st.markdown('**What-if inputs**')
     extra_delay = st.slider('Additional hypothetical delay (hours)', 0.0, 24.0, 0.0, 0.5, key=key('delay'))
@@ -73,7 +81,8 @@ def render(tr, sid):
                               format_func=CATEGORIES.get, key=key('categories'))
     charges = []
     for category in selected:
-        with st.expander(CATEGORIES[category], expanded=True):
+        with st.container(border=True):
+            st.markdown('**' + CATEGORIES[category] + '**')
             if category == 'detention':
                 st.caption('Trigger: excess loading/unloading dwell. Enter total dwell; free time is subtracted once. Do not use linehaul delay here.')
                 a, b, c = st.columns(3)
@@ -158,7 +167,8 @@ def render(tr, sid):
         st.info('No consequences selected: additional modeled cost is $0.00, even if this shipment is late. This is not a claim of no real-world exposure.')
     st.caption(f'Baseline shipment GP: {cash(result.original_gp)} · GP after net additional exposure: {cash(result.adjusted_gp)}. '
                'Includes off-ledger economic costs such as labor/capital; not a posted TMS margin. Unknown baseline financials stay unknown.')
-    with st.expander('Assumptions, arithmetic and data provenance'):
+    with st.container(border=True):
+        st.markdown('**What-if assumptions and arithmetic**')
         st.write('Gross = sum of additional costs after ledger reconciliation. Net = gross − potential additional recoveries. '
                  'Scenario GP = baseline GP − net. All cost arithmetic uses Decimal and rounds dollars to cents.')
         st.write('Illustrative rates come from fake_data / generate_complications.py, assumption dictionary A '
@@ -171,14 +181,6 @@ def render(tr, sid):
                  'For a separate event, confirm it is genuinely incremental. Do not enter a carrier charge already modeled as another category.')
         for line in result.lines:
             st.write(f'{line.charge.label}: {line.charge.reason}')
-        examples = json.loads(Path(__file__).with_name('delay_cost_examples.json').read_text())
-        matched = [event for event in examples['events'] if event['shipment_id'] == sid]
-        if st.session_state.data_source != 'Live API' and matched:
-            st.markdown('**Synthetic workbook examples matching this shipment ID — reference only**')
-            st.caption('These historical simulation rows do not establish a current TMS event or charge. They never populate or activate cost controls, even if the workbook calls a row CONFIRMED or TMS_EXISTING.')
-            st.dataframe(matched, hide_index=True, width='stretch')
-        else:
-            st.caption('No synthetic workbook example is applied to this scenario.')
     if selected:
         st.markdown('**Possible mitigation actions**')
         for category in selected:
@@ -194,6 +196,7 @@ def _reconcile(ship, charge, key):
     st.warning(f'{charge.code}: {len(rows)} matching non-cancelled TMS line(s) already exist. Confirm the event scope to prevent double-counting.')
     overlap = st.selectbox(f'{charge.label}: how do these lines relate?',
                            ['Unconfirmed', 'Same event total', 'Separate incremental event'], key=key(charge.key + '_scope'))
-    with st.expander('Matching ledger evidence · ' + charge.label):
+    with st.container(border=True):
+        st.caption('Matching ledger evidence · ' + charge.label)
         st.dataframe(rows, hide_index=True, width='stretch')
     return replace(charge, overlap=overlap)

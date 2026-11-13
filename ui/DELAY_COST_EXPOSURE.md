@@ -1,75 +1,76 @@
-# Delay Cost Exposure — prototype handoff
+# Delay Cost Exposure — automatic synthetic results
 
-This is a focused panel within **Live tracking**, not a standalone Freight Rewind app or a quotation tool. Work is on `feat/tracking-cost-estimates`, created directly from `origin/feat/tracking-feed` at `fa0b072c39cb8fe00ac65d2e1ccb0f5bf7fcd0e1`. Nothing from the old Freight Rewind branch was merged.
+The selected shipment in **Live tracking** automatically displays the teammate's modeled complications, costs, recoveries, reconciled gross profit and mitigation suggestions. The existing manual calculator remains in a collapsed **What-if Analysis** section. Its inputs/results are independent and are never added to the automatic totals.
 
-## Inspection and reuse
+## Source and coverage
 
-- `ui/tracking.py` already loads snapshots without credentials, selects a shipment via `track_selected`, and renders the live map, ETA/status metrics, event feed, timeline, and check-call form. All are preserved.
-- The panel receives the existing `Tracker` and selected shipment ID. It reads `TrackingStatus.eta`, `minutes_late`, `minutes_late_mabd`, window/MABD deadlines, time zone, shipment financial totals, carrier/customer IDs, and the delivery facility policy note. It does not change tracking estimates or shared models.
-- `fake_data` at `b76d73dd85b0546be95d226e2444a0017fc73533` contains `generate_complications.py`, `build_workbook.py`, `Delay_Cost_Model.xlsx`, and the read-only pull/recalculation scripts. Its documented `data/complications/*.csv` outputs and raw JSON inputs are **not committed**. It is not an importable tracking module; importing its generator would execute file-dependent simulation logic.
-- The committed workbook is an available generated output: 123 events plus cost lines and formula-driven rollups. Its events match **9 events across 6 of the 27 currently tracked shipment IDs**. `ui/delay_cost_examples.json` preserves only those matched event reference fields and provenance. These historical synthetic rows are never used as current charges or to activate a cost. Workbook labels such as CONFIRMED/TMS_EXISTING are not treated as new verified TMS evidence.
-- Workbook arithmetic uses quantity × rate and sign, and subtracts amounts marked `in_tms` before adjusting baseline GP. The prototype reuses that reconciliation principle with explicit event-scope confirmation, not a blind join on charge code.
+- Workbook: `ui/data/Delay_Cost_Model.xlsx`, an unmodified copy of `fake_data` branch `Delay_Cost_Model.xlsx` at commit `b76d73dd85b0546be95d226e2444a0017fc73533`.
+- SHA256: `ffe014e555faaf851f8891903a90cc269d069035531888cc1542789f77a9c997`. Loading verifies this digest, so refreshing the workbook requires an explicit provenance update.
+- The source has **123 Events**, **302 Cost_Lines**, **160 shipment rollups** (plus a total row) and **123 Recommendations**. With the committed tracking snapshot, **9 events / 21 lines across 6 of 27 tracked shipments** match by ID.
+- Documented generated CSV/raw JSON outputs are not committed on `fake_data`. This integration therefore consumes the workbook itself, not an assumed CSV or an import of the executable generator. No Excel/openpyxl runtime dependency is added.
+- Event rows, quantities, rates, signs, ledger attribution, descriptions and recommendations are read from the workbook. No new complication probabilities, quotes, fees, policies, rates or events are invented. The old event-only JSON reference fixture was replaced by the complete source workbook.
 
-## Model assumptions
+`ui/synthetic_costs.py` reads XLSX XML values/cached results with the standard library. It implements only the workbook's documented line arithmetic and aggregation, without evaluating arbitrary Excel formulas, running macros, regenerating complications or duplicating the teammate's simulation logic. Cached currency figures are rounded to cents to remove Excel serialization artifacts such as `630.6400000000001`.
 
-The following values were checked against both the generator's `A` dictionary and workbook `Assumptions` sheet:
+## Identity and reconciliation
 
-| Input | Illustrative default | Provenance / limitation |
-|---|---|---|
-| Detention | $75/hour, after 2 free hours | Model cites TMS DET defaults; applies to excess facility dwell, not late linehaul arrival |
-| Layover | $250/night | Model cites LAY; requires an additional overnight wait |
-| Rescheduling | $50 | Model cites APPT; requires explicit rescheduling |
-| Storage | $25/day | Model cites STOR; only explicitly assumed storage days |
-| Operations labor | $42/hour | Synthetic loaded labor-cost assumption |
-| OTIF / MABD | 3% of applicable order value | Example facility-policy assumption, not a universal penalty |
-| Delayed billing | 9% annual capital cost | Synthetic financing assumption; days × blocked invoice × annual percent / 36500 |
+Join: shipment ID → event IDs → unique cost-line IDs. Each line must agree with its event's shipment ID and root ID. Parent/root relationships are validated, including cycle checks. Identical repeated line IDs are counted once; conflicting duplicates or cross-shipment/event references are rejected. Root IDs group cascades; they do not add a second subtotal. Separate same-code incidents remain separate because charge codes do not establish event identity.
 
-All rates are editable, all categories start inactive, and no probabilities or automatic chain of downstream costs are introduced. Additional delay is a what-if shift of the existing tracking ETA/lateness; it never activates dwell, layover or penalties. For an arrived shipment this is a counterfactual arrival scenario, not a new live ETA.
+The calculations reproduce `build_workbook.py`:
 
-Penalty calculation requires an explicitly confirmed/assumed applicable policy, a qualifying MABD violation or explicit hypothetical violation, and a known/entered order value. Missing values remain unknown; freight sell price and guessed cargo dollars/lb are never substituted for order value.
+1. Line amount = `ROUND(quantity × rate, 2)`.
+2. Signed line cost = `amount × sign`, where +1 is expense and −1 is recovery.
+3. Gross cost = sum of +1 line amounts; recoveries = sum of −1 line amounts; net = gross − recoveries.
+4. Already-in-TMS net = sum of signed lines whose source `in_tms` flag is true.
+5. Additional net = net − already-in-TMS net.
+6. Modeled GP after disruptions = source `gp_amount_tms` − additional net.
 
-## Accounting and uncertainty
+Cached Cost_Lines amounts/signed values and Shipment_Rollup totals are checked against these calculations. `RECOVERY_PREMIUM` is an expense, despite its name. Customer recoveries, carrier chargebacks and claim recoveries follow their source signs. Previously recorded recoveries are excluded from the GP adjustment along with previously recorded expenses.
 
-`ui/delay_cost_model.py` contains deterministic Decimal arithmetic, rounding dollar results to cents. Gross additional cost sums reconciled expense lines. Net exposure = gross additional cost − additional potential customer pass-through. Scenario GP = baseline GP − net exposure. Baseline GP uses the TMS `gp_amount` or known `sell_total - buy_total`; missing values do not become zero. GP after off-ledger labor/capital is economic impact, not a posted TMS accounting margin.
+The `in_tms` flag refers to **the workbook's TMS baseline**, not proof that a current invoice is real, paid, collectible or present in a newer ledger. If the selected tracking GP differs from the workbook GP (or is missing), the UI warns and keeps the source-model baseline; it never applies historical ledger attribution to a new live baseline. Same-root consequences such as weather layover and missed-appointment layover are preserved as supplied in the source model. Overlap/contract validity still require human review; no additional costs are inferred from late arrival alone.
 
-For a matching non-cancelled vendor/customer ledger code (including ESTIMATED lines), the user must select:
+## Demonstrated workbook examples
 
-- **Unconfirmed:** positive additional exposure remains unknown.
-- **Same event total:** input is the full event amount; additional = max(0, modeled total − already recorded). Existing costs/recoveries are not charged/recovered twice. No refund is inferred for a smaller modeled amount.
-- **Separate incremental event:** user explicitly states the full input is additional to existing ledger lines.
+| Shipment | Source events | Gross | Recoveries | Net | Baseline GP | Modeled GP after |
+|---|---|---:|---:|---:|---:|---:|
+| 7300117 | DLY-00108 WEATHER → DLY-00109 MISSED_APPOINTMENT | $630.64 | $0.00 | $630.64 | $469.00 | −$161.64 |
+| 7300125 | DLY-00113 DETENTION_PICKUP + DLY-00114 DETENTION_DELIVERY | $342.00 | $150.00 | $192.00 | $296.00 | $104.00 |
 
-A code match alone cannot prove event identity. Multiple nonzero same-code entries on the same modeled ledger are blocked pending combination into one entry. Detention plus layover requires confirmation that the waiting periods do not overlap. Other off-ledger event matching and responsibility still need human review. Gross/net totals are unknown if any selected additional amount or ledger reconciliation is unknown; no incomplete subtotal is labeled as a full exposure figure.
+For **7300117**: $250 weather layover + $23.94 labor (0.57 × $42) + $250 next-slot layover + $50 appointment fee + $56.70 labor (1.35 × $42) = **$630.64**. No flagged existing ledger amounts or recoveries; $469 − $630.64 = **−$161.64**.
 
-Potential customer pass-through is optional and never assumed collectible. Existing same-event customer charges are excluded from new recoveries. Carrier reimbursement/claims and vendor-ledger credits require a future dedicated recovery adapter; this slice does not infer them. Recovery exceeding costs produces a warning, not booked profit.
+For **7300125**: each detention incident has 2 **billable** hours × $75 plus 0.5 labor hours × $42, or $171 per incident. Gross $171 + $171 = **$342**; the source supplies a $150 customer recovery for the delivery incident. Net = **$192**; $296 − $192 = **$104**. The two-hour free time is not deducted again: source Cost_Lines quantities are already billable hours.
 
-## Owned changes
+An existing-ledger example elsewhere in the workbook, **7300012**, has gross $267, recoveries $235, net $32 and already-in-TMS signed net **−$10** ($225 recorded costs less $235 recorded recoveries). Additional net is $32 − (−$10) = **$42**, and GP is $234.65 − $42 = **$192.65**. Deducting the entire $32 from a GP already containing those ledger entries would be wrong.
 
-- `app.py`: force DRY_RUN on for the prototype, including existing check-call actions.
-- `ui/tracking.py`: import the new panel and call it below the selected shipment's existing timeline/check-call section.
-- `ui/delay_costs.py`: selected-shipment UI, conditional controls, breakdown, evidence, mitigation suggestions.
-- `ui/delay_cost_model.py`: pure UI-owned prototype cost arithmetic and ledger reconciliation.
-- `ui/delay_cost_examples.json`: read-only, labeled workbook references.
-- `ui/test_delay_costs.py`: model and Streamlit regression tests.
+**7300166** is tracked but has no matching simulated event. The primary view says **“No modeled complication available”** and displays no modeled cost total or invented zero exposure.
 
-No changes to `meridian/`, shared contracts, API clients, existing tests, snapshots, dependency files, or generator/workbook code. No branch merges, commits or pushes are performed for this feature before review.
+## Source modes and uncertainty
 
-## Run and test
+Automatic workbook results appear only in **Fake data** and **Snapshots (demo mode)**, explicitly labeled **SIMULATED ESTIMATES**. They are disabled in **Live API** mode. No match means unavailable, not zero; missing line amounts, baseline financials or ledger attribution remain unknown. Mitigations are imported planning suggestions from Recommendations, never approved TMS actions or promises of savings. Simulation statuses such as CONFIRMED are labeled as workbook statuses, not verified operational charges.
 
-From the repository root on Linux/cloud:
+The unchanged manual cost engine stays available separately under What-if Analysis for all modes. It uses Decimal arithmetic, conditional triggers, unknown amounts and explicit ledger/event-scope reconciliation. Its default rates remain illustrative (DET $75/hr after two free hours; LAY $250/night; APPT $50; STOR $25/day; labor $42/hr; OTIF example 3%; capital 9% annually). It never changes automatic source totals, tracking ETA, shipment records or the map.
+
+## Scope and execution
+
+All changes remain on `feat/tracking-cost-estimates`. No merge into a teammate branch is performed. The tracking integration call and existing map, ETA algorithm, event feed, timeline and check-call form are preserved. No `meridian/`, API-client, shared-model, dependency or tracking-snapshot changes are needed. The app continues to force DRY_RUN on.
+
+From the repository root:
 
 ```bash
-MODEL=fake DRY_RUN=1 .venv/bin/python -m streamlit run app.py --server.address 0.0.0.0 --server.port 8504 --server.headless true
-.venv/bin/python -m pytest -q tests ui/test_delay_costs.py
+MODEL=fake DRY_RUN=1 .venv/bin/python -m streamlit run app.py --server.port 8501
+.venv/bin/python -m pytest -q tests ui/test_delay_costs.py ui/test_synthetic_costs.py
 ```
 
-Open the cloud browser at http://localhost:8504, keep **Fake data** selected and open **Live tracking**. No API credentials are required. The map layer/tile provider may require internet access; the committed shipment snapshots and cost engine do not. In a fresh checkout, create a virtual environment and install `requirements.txt` first.
+Windows PowerShell after installing dependencies:
 
-Demo: select **Excess loading / unloading dwell**, enter 5 total hours, retain 2 free hours and $75/hour. With no same-event costs already recorded, additional cost is $225. If a matching DET line exists, reconcile it before treating the full $225 as additional. Changing only hypothetical linehaul delay adds no charge. Selecting another load updates the panel and its inputs without a second shipment selector.
+```powershell
+$env:MODEL = "fake"
+$env:DRY_RUN = "1"
+.\.venv\Scripts\python.exe -m streamlit run app.py
+```
 
-## Remaining coordinated integration
+Open Live tracking with Fake data selected. Select 7300117 or 7300125; costs appear without selecting any categories. Choose 7300166 to see the no-model state. All source-data processing is read-only; no live credentials are required for this demo. Map tiles may use the existing external map provider.
 
-Backend owners should confirm contractual rates/free time, event/stop IDs on ledger lines, posted-vs-estimated scope and timestamps, actual dwell, applicable OTIF policy and order value, responsibility, and authorized/collectible recoveries. Customer/carrier display-name enrichment is not fetched. No recovery-write, cost-write, policy inference, external CSV upload, or additional dependency is introduced. The workbook references are static; updating the synthetic model requires refreshing the documented fixture, not importing the generator into the application.
+## Validation
 
-## Validation performed
-
-All **76 tests passed**, including the existing backend/tracking suite and UI-owned model/integration tests. Tests cover zero modeled charges, detention free time, late-arrival-only scenarios, policy/value requirements, unknown amounts, same-event cost/recovery reconciliation, duplicate-code blocking, shipment selection changes, all optional controls, credential-free fake mode, and preservation of the map/timeline/check-call components. A Chromium browser check verified selection of the dwell scenario, $225 for five hours at the default terms, slider-driven context updates without extra automatic costs, the original tabs, and zero JavaScript errors or application exception panels. Real API calls and live contractual policies were not exercised.
+**89 tests passed** across the existing suite, manual estimator regressions and automatic-model tests. All modeled shipments are checked against the source workbook's cached rollups to the cent. Tests cover parent/child cascades, separate same-code incidents, repeated/conflicting line IDs, cross-shipment identity errors, recorded costs and recoveries, unknown quantities/ledger attribution, current-baseline mismatches, Live API isolation, automatic shipment switching and independence from manual inputs. Chromium demonstrations verified 7300117 and 7300125 without selecting manual categories, and the no-model state for 7300166, with no JavaScript errors or application exception panels. Tracking/backend files and the DRY_RUN setting are unchanged.
